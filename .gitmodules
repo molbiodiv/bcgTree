@@ -1,0 +1,3 @@
+[submodule "SeqFilter"]
+	path = SeqFilter
+	url = https://github.com/BioInf-Wuerzburg/SeqFilter.git
