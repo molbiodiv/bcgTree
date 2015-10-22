@@ -4,4 +4,11 @@ LICENSE
 README.md
 data/essential.hmm
 Makefile.PL
-t/bcgTree.t
+t/01_script_compiles.t
+t/02_script_runs_without_parameters.t
+t/03_script_runs_with_help_requested.t
+t/04_error_if_fasta_not_found.t
+t/05_error_if_invalid_outdir.t
+t/06_rename_fasta_headers.t
+t/data/simple.fa
+t/data/simple.renamed_headers.fa
