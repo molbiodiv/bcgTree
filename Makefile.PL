@@ -4,7 +4,7 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile(
     NAME              => 'bcgTree',
-    PREREQ_PM         => {'Log::Log4perl'  => '>=1.40'}, # e.g., Module::Name => 1.1
+    PREREQ_PM         => {'Log::Log4perl'  => '1.40'}, # e.g., Module::Name => 1.1
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (AUTHOR         => 'Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>') : ()),
 );
