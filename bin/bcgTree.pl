@@ -4,6 +4,9 @@ use warnings;
 use Getopt::Long;
 use Pod::Usage;
 use Log::Log4perl qw(:no_extra_logdie_message);
+use FindBin;
+use lib "$FindBin::RealBin/../lib";
+use bcgTree;
 
 my %options;
 
@@ -69,13 +72,8 @@ Log::Log4perl->init(
 );
 
 my $L = Log::Log4perl::get_logger();
-check_existence_of_fasta_files();
-
-sub check_existence_of_fasta_files{
-	foreach(keys %{$opt_proteome}){
-	    $L->logdie("File not found: ".$opt_proteome->{$_}) unless(-f $opt_proteome->{$_});
-	}
-}
+my $bcgTree = bcgTree->new($opt_proteome);
+$bcgTree->check_existence_of_fasta_files();
 
 =head1 AUTHORS
 
