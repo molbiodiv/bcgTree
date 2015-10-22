@@ -4,6 +4,8 @@ use warnings;
 use Test::More;
 use FindBin;
 
+# Test for use of cpgTree module and existence of script
+BEGIN { use_ok('bcgTree') };
 my $script = $FindBin::RealBin."/../bin/bcgTree.pl";
 ok(-f $script, "bcgTree.pl exists");
 
