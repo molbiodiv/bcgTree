@@ -73,9 +73,10 @@ Log::Log4perl->init(
 );
 
 my $L = Log::Log4perl::get_logger();
-my $bcgTree = bcgTree->new($opt_proteome);
+my $bcgTree = bcgTree->new({'proteome' => $opt_proteome, 'outdir' => $opt_outdir});
 $bcgTree->check_existence_of_fasta_files();
-$bcgTree->create_outdir_if_not_exists($opt_outdir);
+$bcgTree->create_outdir_if_not_exists();
+$bcgTree->rename_fasta_headers();
 
 =head1 AUTHORS
 

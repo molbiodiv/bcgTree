@@ -23,8 +23,8 @@ my $L = Log::Log4perl::get_logger();
 
 sub new {
       my $class = shift;
-      my $proteome = shift;
-      return bless {'proteome'=>$proteome}, $class;
+      my $object = shift;
+      return bless $object, $class;
 }
 
 sub check_existence_of_fasta_files{
@@ -37,7 +37,7 @@ sub check_existence_of_fasta_files{
 
 sub create_outdir_if_not_exists{
 	my $self = shift;
-	my $outdir = shift;
+	my $outdir = $self->{outdir};
 	make_path($outdir, {error => \my $err});
 	if (@$err)
 	{
