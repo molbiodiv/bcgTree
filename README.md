@@ -1,4 +1,4 @@
-# core-genome-tree-builder
+# bcgTree
 
 107 essential genes as described in:
 Dupont CL, Rusch DB, Yooseph S, et al. Genomic insights to SAR86, an abundant and uncultivated marine bacterial lineage. The ISME Journal. 2012;6(6):1186-1199. doi:10.1038/ismej.2011.189.
