@@ -7,7 +7,6 @@ use Log::Log4perl qw(:no_extra_logdie_message);
 use FindBin;
 use lib "$FindBin::RealBin/../lib";
 use bcgTree;
-use File::Path qw(make_path);
 
 my %options;
 
@@ -76,6 +75,7 @@ Log::Log4perl->init(
 my $L = Log::Log4perl::get_logger();
 my $bcgTree = bcgTree->new($opt_proteome);
 $bcgTree->check_existence_of_fasta_files();
+$bcgTree->create_outdir_if_not_exists($opt_outdir);
 
 =head1 AUTHORS
 
