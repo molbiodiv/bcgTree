@@ -7,7 +7,8 @@ WriteMakefile(
     VERSION_FROM      => 'lib/bcgTree.pm', # finds $VERSION
     PREREQ_PM         => {'Log::Log4perl'  => '1.40',
     	'Test::Script'  => '1.10',
-    	'Test::File::Contents' => '0.21', 
+    	'Test::File::Contents' => '0.21',
+    	'File::Path' => '2.12', 
     }, # e.g., Module::Name => 1.1
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (AUTHOR         => 'Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>') : ()),
