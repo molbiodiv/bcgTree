@@ -9,7 +9,7 @@ my %options;
 
 =head1 NAME
 
-core-genome-tree-builder.pl
+bcgTree.pl
 
 =head1 DESCRIPTION
 
@@ -17,7 +17,7 @@ Wrapper to produce phylogenetic trees from the core genome (107 essential genes)
 
 =head1 USAGE
 
-  $ core-genome-tree-builder.pl --genome bac1=bacterium1.pep.fa --genome bac2=bacterium2.faa [options]
+  $ bcgTree.pl --genome bac1=bacterium1.pep.fa --genome bac2=bacterium2.faa [options]
 
 =head1 OPTIONS
 
