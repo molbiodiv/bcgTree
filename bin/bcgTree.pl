@@ -59,6 +59,7 @@ $options{'help|?'} = \( my $opt_help );
 
 GetOptions(%options) or pod2usage(1);
 pod2usage(1) if ($opt_help);
+pod2usage(1) unless ($opt_proteome);
 
 # init a root logger in exec mode
 Log::Log4perl->init(
