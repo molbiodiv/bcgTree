@@ -5,6 +5,8 @@ use strict;
 use warnings;
 use Log::Log4perl qw(:no_extra_logdie_message);
 
+our $VERSION = '0.1';
+
 # init a root logger in exec mode
 Log::Log4perl->init(
 	\q(
