@@ -5,6 +5,7 @@ use strict;
 use warnings;
 use Log::Log4perl qw(:no_extra_logdie_message);
 use File::Path qw(make_path);
+use Bio::SeqIO;
 
 our $VERSION = '0.1';
 
@@ -50,6 +51,20 @@ sub create_outdir_if_not_exists{
 				$L->logdie("Creating folder failed for folder '$file': $message");
 			}
 	    }
+	}
+}
+
+sub rename_fasta_headers{
+	my $self = shift;
+	my %proteome = %{$self->{proteome}};
+	my $separator = "_";
+	foreach my $p (keys %proteome){
+		my $seqIn = Bio::SeqIO->new(-file => "$proteome{$p}", -format => "fasta");
+		my $seqOut = Bio::SeqIO->new(-file => ">".$self->{outdir}."/".$p.".fa", -format => "fasta");
+		while(my $seq = $seqIn->next_seq){
+			$seq->id($p.$separator.$seq->id());
+			$seqOut->write_seq($seq);
+		}
 	}
 }
 
