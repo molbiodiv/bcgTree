@@ -5,7 +5,9 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME              => 'bcgTree',
     VERSION_FROM      => 'lib/bcgTree.pm', # finds $VERSION
-    PREREQ_PM         => {'Log::Log4perl'  => '1.40'}, # e.g., Module::Name => 1.1
+    PREREQ_PM         => {'Log::Log4perl'  => '1.40',
+    	'Test::Script'  => '1.10',
+    }, # e.g., Module::Name => 1.1
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (AUTHOR         => 'Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>') : ()),
 );
