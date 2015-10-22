@@ -13,8 +13,8 @@ before_install:
     - sudo apt-get install -y libbio-perl-perl
 install:
     - export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1 HARNESS_OPTIONS=c HARNESS_TIMER=1
-    - cpanm --quiet --notest Devel::Cover::Report::Coveralls
-    - cpanm --quiet --installdeps .
+    - cpanm --notest Devel::Cover::Report::Coveralls
+    - cpanm --installdeps .
 script: 
     - perl Makefile.PL
     - make
