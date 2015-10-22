@@ -34,13 +34,13 @@ Multiple pairs of organism and proteomes as fasta file paths
 
 $options{'proteome|p=s%'} = \( my $opt_proteome );
 
-=item [--prefix <STRING>]
+=item [--outdir <STRING>]
 
-prefix for the generated output files (default: cgtb)
+output directory for the generated output files (default: bcgTree)
 
 =cut
 
-$options{'prefix=s'} = \( my $opt_prefix="bcgTree" );
+$options{'outdir=s'} = \( my $opt_outdir="bcgTree" );
 
 =item [--help] 
 
