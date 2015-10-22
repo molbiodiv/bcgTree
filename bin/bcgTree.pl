@@ -7,6 +7,7 @@ use Log::Log4perl qw(:no_extra_logdie_message);
 use FindBin;
 use lib "$FindBin::RealBin/../lib";
 use bcgTree;
+use File::Path qw(make_path);
 
 my %options;
 
