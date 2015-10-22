@@ -2,6 +2,10 @@ language: perl
 perl:
   - "5.10"
   - "5.20"
+sudo: required
+before_install:
+    - sudo apt-get update -qq
+    - sudo apt-get install -y libbio-perl-perl
 install:
     - cpanm --quiet --notest Devel::Cover::Report::Coveralls
     - cpanm --quiet --installdeps .
