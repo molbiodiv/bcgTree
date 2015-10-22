@@ -40,7 +40,7 @@ prefix for the generated output files (default: cgtb)
 
 =cut
 
-$options{'prefix=s'} = \( my $opt_prefix="cgtb" );
+$options{'prefix=s'} = \( my $opt_prefix="bcgTree" );
 
 =item [--help] 
 
