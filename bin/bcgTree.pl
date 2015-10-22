@@ -69,7 +69,13 @@ Log::Log4perl->init(
 );
 
 my $L = Log::Log4perl::get_logger();
+check_existence_of_fasta_files();
 
+sub check_existence_of_fasta_files{
+	foreach(keys %{$opt_proteome}){
+	    $L->logdie("File not found: ".$opt_proteome->{$_}) unless(-f $opt_proteome->{$_});
+	}
+}
 
 =head1 AUTHORS
 
