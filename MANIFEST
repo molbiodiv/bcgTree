@@ -1,0 +1,7 @@
+MANIFEST
+bin/bcgTree.pl
+LICENSE
+README.md
+data/essential.hmm
+Makefile.PL
+t/bcgTree.t
