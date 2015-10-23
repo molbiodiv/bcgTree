@@ -48,7 +48,7 @@ show help
 
 =cut
 
-$options{'help|?'} = \( my $opt_help );
+$options{'help|h|?'} = \( my $opt_help );
 
 =item [--hmmsearch-bin=<FILE>]
 
