@@ -104,6 +104,7 @@ sub collect_best_hmm_hits{
 		foreach my $id (@{$gene_id_map{$g}}){
 			print OUT "$id\n";
 		}
+		$L->info("Wrote ".(@{$gene_id_map{$g}}+0)." ids for gene $g");
 		close OUT or $L->logdie("Error closing $out/$g.ids. $!");
 	}
 	$L->info("Finished collection of best hmmsearch hits.");
