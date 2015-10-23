@@ -5,6 +5,7 @@ use strict;
 use warnings;
 use Log::Log4perl qw(:no_extra_logdie_message);
 use File::Path qw(make_path);
+use File::Spec;
 use FindBin;
 use Bio::SeqIO;
 
@@ -212,7 +213,7 @@ sub run_raxml{
 	my $self = shift;
 	my $out = $self->{'outdir'};
 	$L->info("Running raxml on $out/full_alignment.concat.fa");
-	my $cmd = $self->{'raxml-bin'}." -f a -m PROTGAMMABLOSUM62 -p 12345 -s $out/full_alignment.concat.fa -n final -T 2 -x 12345 -N 10";
+	my $cmd = $self->{'raxml-bin'}." -f a -m PROTGAMMABLOSUM62 -p 12345 -s $out/full_alignment.concat.fa -w ".File::Spec->rel2abs( $out )." -n final -T 2 -x 12345 -N 10";
 	$L->info($cmd);
 	my $result = qx($cmd);
 	$L->debug($result);
