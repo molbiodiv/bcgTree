@@ -80,6 +80,33 @@ sub run_hmmsearch{
 		my $result = qx($cmd);
 		$L->debug($result);
 	}
+	$L->info("Finished hmmsearch.");
+}
+
+sub collect_best_hmm_hits{
+	my $self = shift;
+	my %proteome = %{$self->{proteome}};
+	my $out = $self->{'outdir'};
+	$L->info("Collecting best hits from hmmsearch for each gene.");
+	my %gene_id_map;
+	foreach my $p (keys %proteome){
+		open(IN, "<$out/$p.hmmsearch.tsv") or $L->logdie("Error opening $out/$p.hmmsearch.tsv. $!");
+		while(<IN>){
+			next if(/^#/);
+			s/ * / /g;
+			my($id,$gene) = (split(/\s/))[0,3];
+			push(@{$gene_id_map{$gene}}, $id);
+		}
+		close IN or $L->logdie("Error closing $out/$p.hmmsearch.tsv. $!");
+	}
+	foreach my $g (keys %gene_id_map){
+		open(OUT, ">$out/$g.ids") or $L->logdie("Error opening $out/$g.ids. $!");
+		foreach my $id (@{$gene_id_map{$g}}){
+			print OUT "$id\n";
+		}
+		close OUT or $L->logdie("Error closing $out/$g.ids. $!");
+	}
+	$L->info("Finished collection of best hmmsearch hits.");
 }
 
 1;
