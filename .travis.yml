@@ -13,6 +13,7 @@ before_install:
     - sudo apt-get install -y libbio-perl-perl
     - sudo apt-get install -y hmmer
     - sudo apt-get install -y muscle
+    - sudo apt-get install -y raxml
     - curl http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z | tar xz
 install:
     - export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1 HARNESS_OPTIONS=c HARNESS_TIMER=1
