@@ -170,7 +170,42 @@ Additionally write full_alignment.concat.fa containing a concatenation of all ge
 =cut
 
 sub complete_and_concat_alignments{
-
+	my $self = shift;
+	my @genes = @{$self->{genes}};
+	my %proteome = %{$self->{proteome}};
+	my $out = $self->{'outdir'};
+	my %fullseq = ();
+	$L->info("Completing and concatenating alignments.");
+	foreach my $gene (sort @genes){
+		unless(-f "$out/$gene.aln-gb"){
+			$L->warn("No Gblocks file for gene $gene - most likely only found in one proteome. Skipping...");
+			next;
+		}
+		my %seq = ();
+		my $length = 0;
+		my $seqIn = Bio::SeqIO->new(-file => "$out/$gene.aln-gb", -format => "fasta");
+		while(my $seq = $seqIn->next_seq){
+			$seq{$seq->id} = $seq->seq;
+			$length = $seq->length;
+		}
+		open(OUT, ">$out/$gene.aln-gb.comp") or $L->logdie("Error opening $out/$gene.aln-gb.comp. $!");
+		foreach my $p (sort keys %proteome){
+			my $s = "-" x $length;
+			$s = $seq{$p} if(exists $seq{$p});
+			print OUT ">$p\n";
+			print OUT "$s\n";
+			$fullseq{$p} = "" unless(exists $fullseq{$p});
+			$fullseq{$p} .= $s;
+		}
+		close OUT or $L->logdie("Error closing $out/$gene.aln-gb.comp. $!");
+	}
+	open(OUT, ">$out/full_alignment.concat.fa") or $L->logdie("Error opening $out/full_alignment.concat.fa. $!");
+	foreach my $p (sort keys %proteome){
+		print OUT ">$p\n";
+		print OUT "$fullseq{$p}\n";
+	}
+	close OUT or $L->logdie("Error closing $out/full_alignment.concat.fa. $!");
+	$L->info("Completing and concatenating alignments finished.");
 }
 
 1;
