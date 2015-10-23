@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More tests => 3;
 use Test::Script;
 use Test::File::Contents;
 use File::Path qw(remove_tree);
