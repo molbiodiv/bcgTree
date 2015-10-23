@@ -122,10 +122,10 @@ $bcgTree->check_existence_of_fasta_files();
 $bcgTree->create_outdir_if_not_exists();
 $bcgTree->rename_fasta_headers();
 $bcgTree->run_hmmsearch();
+$bcgTree->collect_best_hmm_hits();
 
 __END__
 
-$bcgTree->collect_best_hmm_hits();
 $bcgTree->get_sequences_of_best_hmm_hits();
 $bcgTree->re_adjust_fasta_headers();
 $bcgTree->run_muscle();
