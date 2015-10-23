@@ -110,7 +110,14 @@ Log::Log4perl->init(
 );
 
 my $L = Log::Log4perl::get_logger();
-my $bcgTree = bcgTree->new({'proteome' => $opt_proteome, 'outdir' => $opt_outdir});
+my $bcgTree = bcgTree->new({
+	'proteome' => $opt_proteome,
+	'outdir' => $opt_outdir,
+	'hmmsearch-bin' => $opt_hmmsearch_bin,
+	'muscle-bin' => $opt_muscle_bin,
+	'gblocks-bin' => $opt_gblocks_bin,
+	'raxml-bin' => $opt_raxml_bin,
+});
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->create_outdir_if_not_exists();
 $bcgTree->rename_fasta_headers();
