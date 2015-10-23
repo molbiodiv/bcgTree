@@ -161,6 +161,18 @@ sub run_muscle_and_gblocks{
 	$L->info("Finished muscle and Gblocks.");
 }
 
+=head2 complete_and_concat_alignments
+
+Read in all the gblock files for all the genes (alpha-numeric order). Add missing proteomes as gap-only sequences.
+Write completed sequence files with proteomes in alpha-numeric order.
+Additionally write full_alignment.concat.fa containing a concatenation of all gene blocks (in alpha-numeric order).
+
+=cut
+
+sub complete_and_concat_alignments{
+
+}
+
 1;
 
 =head1 AUTHORS
