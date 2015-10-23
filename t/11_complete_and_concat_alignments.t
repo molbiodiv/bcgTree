@@ -11,12 +11,13 @@ my $tmpdir = "11_tmp";
 my %options = (exit => 0);
 
 my $script_args = ['bin/bcgTree.pl',
-                   '--proteome', 'Acinetobacter=t/data/NC_005966.faa',
-                   '--proteome', 'Escherichia=t/data/NC_008253.faa',
-                   '--proteome', 'Filifactor=t/data/NC_016630.faa',
+                   '--proteome', 'Acinetobacter=t/data/Acinetobacter_PF002xx.fa',
+                   '--proteome', 'Escherichia=t/data/Escherichia_PF002xx.fa',
+                   '--proteome', 'Filifactor=t/data/Filifactor_PF002xx.fa',
                    '--outdir', $tmpdir
                   ];
 
 script_runs($script_args, \%options, "Test if script runs muscle correctly");
-files_eq("$tmpdir/TIGR01030.aln-gb.comp", "t/expected/TIGR01030.aln-gb.comp", "Output file contains the expected alignment sequence from proteome 1");
+files_eq("$tmpdir/TIGR01030.aln-gb.comp", "t/expected/TIGR01030.aln-gb.comp", "Output file contains the expected alignmed sequences with gaps added for the missing sequence");
+files_eq("$tmpdir/full_alignment.concat.fa", "t/expected/full_alignment.concat.fa", "Output file contains the concatenated sequence blocks");
 remove_tree($tmpdir);
