@@ -135,6 +135,30 @@ sub get_sequences_of_best_hmm_hits{
 	$L->info("Finished collection of sequences of best hits from hmmsearch.");
 }
 
+sub run_muscle_and_gblocks{
+	my $self = shift;
+	my @genes = @{$self->{genes}};
+	my $out = $self->{'outdir'};
+	$L->info("Running muscle and Gblocks on gene sets.");
+	foreach my $gene (@genes){
+		# muscle
+		my $cmd = $self->{'muscle-bin'}." -in $out/$gene.fa -out $out/$gene.aln";
+		$L->info($cmd);
+		my $result = qx($cmd);
+		$L->debug($result);
+		# Gblocks
+		$cmd = $self->{'gblocks-bin'}." $out/$gene.aln -t p -b1 50 -b2 85 -b4 4";
+		$L->info($cmd);
+		$result = qx($cmd);
+		$L->debug($result);
+		# Removel of unnecessary spaces
+		$cmd = "perl -i -pe 's/ //g unless(/^>/)' $out/$gene.aln-gb";
+		$L->info($cmd);
+		$result = qx($cmd);
+	}
+	$L->info("Finished muscle and Gblocks.");
+}
+
 1;
 
 =head1 AUTHORS
