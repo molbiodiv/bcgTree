@@ -50,6 +50,38 @@ show help
 
 $options{'help|?'} = \( my $opt_help );
 
+=item [--hmmsearch-bin=<FILE>]
+
+Path to hmmsearch binary file. Default tries if hmmsearch is in PATH;
+
+=cut
+
+$options{'hmmsearch-bin=s'} = \( my $opt_hmmsearch_bin = `which hmmsearch 2>/dev/null` );
+
+=item [--muscle-bin=<FILE>]
+
+Path to muscle binary file. Default tries if muscle is in PATH;
+
+=cut
+
+$options{'muscle-bin=s'} = \( my $opt_muscle_bin = `which muscle 2>/dev/null` );
+
+=item [--gblocks-bin=<FILE>]
+
+Path to the Gblocks binary file. Default tries if Gblocks is in PATH;
+
+=cut
+
+$options{'gblocks-bin=s'} = \( my $opt_gblocks_bin = `which Gblocks 2>/dev/null` );
+
+=item [--raxml-bin=<FILE>]
+
+Path to the raxml binary file. Default tries if raxmlHPC is in PATH;
+
+=cut
+
+$options{'raxml-bin=s'} = \( my $opt_raxml_bin = `which raxmlHPC 2>/dev/null` );
+
 =back
 
 
@@ -59,7 +91,11 @@ $options{'help|?'} = \( my $opt_help );
 
 GetOptions(%options) or pod2usage(1);
 pod2usage(1) if ($opt_help);
-pod2usage(1) unless ($opt_proteome);
+pod2usage( -msg => "No proteome specified. Use --proteome name=file.fa", -verbose => 0 )  unless ( $opt_proteome );
+pod2usage( -msg => 'hmmsearch not in $PATH and binary not specified use --hmmsearch-bin', -verbose => 0 ) unless ($opt_hmmsearch_bin);
+pod2usage( -msg => 'muscle not in $PATH and binary not specified use --muscle-bin', -verbose => 0 ) unless ($opt_muscle_bin);
+pod2usage( -msg => 'Gblocks not in $PATH and binary not specified use --gblocks-bin', -verbose => 0 ) unless ($opt_gblocks_bin);
+pod2usage( -msg => 'raxmlHPC not in $PATH and binary not specified use --raxml-bin', -verbose => 0 ) unless ($opt_raxml_bin);
 
 # init a root logger in exec mode
 Log::Log4perl->init(
