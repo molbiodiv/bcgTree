@@ -22,3 +22,26 @@ Bacterium /Escherichia coli/ with a single protein fasta file.
 Download from NCBI genomes database:
 ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/Filifactor_alocis_ATCC_35896_uid46625/NC_016630.faa
 Bacterium /Filifactor alocis/ with a single protein fasta file.
+** [[file:Filifactor_PF002xx.fa][Filifactor_PF002xx.fa]]
+Only contains
+ - gi|374308549|ref|YP_005054980.1|
+ - gi|374308539|ref|YP_005054970.1|
+ - gi|374308551|ref|YP_005054982.1|
+ - gi|374308907|ref|YP_005055338.1|
+from NC_016630.faa
+the sequences that hit the HMMs PF00276.15, PF00281.14, PF00297.17 and TIGR01030
+** [[file:Escherichia_PF002xx.fa][Escherichia_PF002xx.fa]]
+Only contains
+ - gi|110643557|ref|YP_671287.1|
+ - gi|110643547|ref|YP_671277.1|
+ - gi|110643559|ref|YP_671289.1|
+from NC_008253.faa
+the sequences that hit the HMMs PF00276.15, PF00281.14 and PF00297.17 (has no TIGR01030)
+** [[file:Acinetobacter_PF002xx.fa][Acinetobacter_PF002xx.fa]]
+Only contains
+ - gi|50086213|ref|YP_047723.1|
+ - gi|50086203|ref|YP_047713.1|
+ - gi|50086215|ref|YP_047725.1|
+ - gi|50086622|ref|YP_048132.1|
+from NC_005966.faa
+the sequences that hit the HMMs PF00276.15, PF00281.14, PF00297.17 and TIGR01030
