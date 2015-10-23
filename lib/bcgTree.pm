@@ -5,6 +5,7 @@ use strict;
 use warnings;
 use Log::Log4perl qw(:no_extra_logdie_message);
 use File::Path qw(make_path);
+use FindBin;
 use Bio::SeqIO;
 
 our $VERSION = '0.1';
@@ -65,6 +66,19 @@ sub rename_fasta_headers{
 			$seq->id($p.$separator.$seq->id());
 			$seqOut->write_seq($seq);
 		}
+	}
+}
+
+sub run_hmmsearch{
+	my $self = shift;
+	my %proteome = %{$self->{proteome}};
+	my $out = $self->{'outdir'};
+	$L->info("Running hmmsearch on proteomes.");
+	foreach my $p (keys %proteome){
+		my $cmd = $self->{'hmmsearch-bin'}." --cut_tc --notextw --tblout $out/$p.hmmsearch.tsv $FindBin::RealBin/../data/essential.hmm $out/$p.fa";
+		$L->info($cmd);
+		my $result = qx($cmd);
+		$L->debug($result);
 	}
 }
 
