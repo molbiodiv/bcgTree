@@ -124,9 +124,10 @@ sub get_sequences_of_best_hmm_hits{
 	my $self = shift;
 	my @genes = @{$self->{genes}};
 	my $out = $self->{'outdir'};
+	my $separator = $self->{'separator'};
 	$L->info("Collecting sequences of best hits from hmmsearch for each gene.");
 	foreach my $gene (@genes){
-		my $cmd = "$FindBin::RealBin/../SeqFilter/bin/SeqFilter --line-width 0 $out/all.concat.fa --ids $out/$gene.ids --out $out/$gene.fa";
+		my $cmd = "$FindBin::RealBin/../SeqFilter/bin/SeqFilter --ids-rename='s/$separator/ /' --line-width 0 $out/all.concat.fa --ids $out/$gene.ids --out $out/$gene.fa";
 		$L->info($cmd);
 		my $result = qx($cmd);
 		$L->debug($result);
