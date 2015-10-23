@@ -127,10 +127,10 @@ $bcgTree->collect_best_hmm_hits();
 $bcgTree->get_sequences_of_best_hmm_hits();
 $bcgTree->run_muscle_and_gblocks();
 $bcgTree->complete_and_concat_alignments();
+$bcgTree->run_raxml();
 
 __END__
 
-$bcgTree->run_raxml();
 $bcgTree->remove_temporary_files();
 
 =head1 AUTHORS
