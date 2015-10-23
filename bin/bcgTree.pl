@@ -133,6 +133,7 @@ $bcgTree->run_gblocks();
 $bcgTree->add_missing_sequences_as_gaps();
 $bcgTree->concat_alignments();
 $bcgTree->run_raxml();
+$bcgTree->remove_temporary_files();
 
 =head1 AUTHORS
 
