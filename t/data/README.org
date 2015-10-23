@@ -1,0 +1,24 @@
+* Origin of test data
+** [[file:simple.fa][simple.fa]]
+Self created - minimal fasta file with ids, descriptions and sequence.
+Used to test rename headers. Corresponding file: [[file:../expected/simple.renamed_headers.fa][simple.renamed_headers.fa]]
+** [[file:NC_022549.faa][NC_022549.faa]]
+Download from NCBI genomes database:
+ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/Acholeplasma_brassicae_uid222823/NC_022549.faa
+Bacterium /Acholeplasma brassica/ with a single protein fasta file.
+** [[file:NC_005966.faa][NC_005966.faa]]
+Download from NCBI genomes database:
+ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/Acinetobacter_ADP1_uid61597/NC_005966.faa
+Bacterium /Acinetobacter/ with a single protein fasta file.
+** [[file:NC_014639.faa][NC_014639.faa]]
+Download from NCBI genomes database:
+ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/Bacillus_atrophaeus_1942_uid59887/NC_014639.faa
+Bacterium /Bacillus atrophaeus/ with a single protein fasta file.
+** [[file:NC_008253.faa][NC_008253.faa]]
+Download from NCBI genomes database:
+ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/Escherichia_coli_536_uid58531/NC_008253.faa
+Bacterium /Escherichia coli/ with a single protein fasta file.
+** [[file:NC_016630.faa][NC_016630.faa]]
+Download from NCBI genomes database:
+ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/Filifactor_alocis_ATCC_35896_uid46625/NC_016630.faa
+Bacterium /Filifactor alocis/ with a single protein fasta file.
