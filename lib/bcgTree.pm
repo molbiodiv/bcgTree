@@ -120,6 +120,20 @@ sub collect_best_hmm_hits{
 	$L->info("Finished collection of best hmmsearch hits.");
 }
 
+sub get_sequences_of_best_hmm_hits{
+	my $self = shift;
+	my @genes = @{$self->{genes}};
+	my $out = $self->{'outdir'};
+	$L->info("Collecting sequences of best hits from hmmsearch for each gene.");
+	foreach my $gene (@genes){
+		my $cmd = "$FindBin::RealBin/../SeqFilter/bin/SeqFilter --line-width 0 $out/all.concat.fa --ids $out/$gene.ids --out $out/$gene.fa";
+		$L->info($cmd);
+		my $result = qx($cmd);
+		$L->debug($result);
+	}
+	$L->info("Finished collection of sequences of best hits from hmmsearch.");
+}
+
 1;
 
 =head1 AUTHORS
