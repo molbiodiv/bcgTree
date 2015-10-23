@@ -8,11 +8,13 @@ perl:
 sudo: require
 env:
   - PERL5LIB=/usr/share/perl5/
+  - PATH=$PATH:$PWD/Gblocks_0.91b
 before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -y libbio-perl-perl
     - sudo apt-get install -y hmmer
     - sudo apt-get install -y muscle
+    - curl http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z | tar xz
 install:
     - export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1 HARNESS_OPTIONS=c HARNESS_TIMER=1
     - cpanm --notest Devel::Cover::Report::Coveralls
