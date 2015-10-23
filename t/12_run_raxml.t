@@ -20,5 +20,5 @@ my $script_args = ['bin/bcgTree.pl',
                   ];
 
 script_runs($script_args, \%options, "Test if script executes raxml");
-ok(-f "$tmpdir/RAxML_bestTree.final.tre", "Final raxml tree file exists");
+ok(-f "$tmpdir/RAxML_bestTree.final", "Final raxml tree file exists");
 remove_tree($tmpdir);

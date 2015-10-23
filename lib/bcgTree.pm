@@ -208,6 +208,18 @@ sub complete_and_concat_alignments{
 	$L->info("Completing and concatenating alignments finished.");
 }
 
+sub run_raxml{
+	my $self = shift;
+	my $out = $self->{'outdir'};
+	$L->info("Running raxml on $out/full_alignment.concat.fa");
+	my $cmd = $self->{'raxml-bin'}." -f a -m PROTGAMMABLOSUM62 -p 12345 -s $out/full_alignment.concat.fa -n final -T 2 -x 12345 -N 10";
+	$L->info($cmd);
+	my $result = qx($cmd);
+	$L->debug($result);
+	$L->info("Finished raxml.");
+	$L->info("Finished bcgTree.");
+}
+
 1;
 
 =head1 AUTHORS
