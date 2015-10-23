@@ -125,11 +125,10 @@ $bcgTree->rename_fasta_headers();
 $bcgTree->run_hmmsearch();
 $bcgTree->collect_best_hmm_hits();
 $bcgTree->get_sequences_of_best_hmm_hits();
+$bcgTree->run_muscle_and_gblocks();
 
 __END__
 
-$bcgTree->run_muscle();
-$bcgTree->run_gblocks();
 $bcgTree->add_missing_sequences_as_gaps();
 $bcgTree->concat_alignments();
 $bcgTree->run_raxml();
