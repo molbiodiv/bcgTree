@@ -15,6 +15,6 @@ my $script_args = ['bin/bcgTree.pl',
                    '--outdir', $tmpdir
                   ];
 
-script_runs($script_args, \%options, "Test if script runs with existent fasta file as parameter");
+script_runs($script_args, \%options, "Test if script executes hmmsearch");
 file_contents_like("$tmpdir/Acinetobacter.hmmsearch.tsv", qr/Acinetobacter_gi\|50085067\|ref\|YP_046577.1\|\s+-\s+PGK\s+PF00162\.14/, "Output file contains the expected output (hmmsearch)");
 remove_tree($tmpdir);
