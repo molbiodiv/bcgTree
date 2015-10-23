@@ -14,5 +14,5 @@ my $script_args = ['bin/bcgTree.pl',
                   ];
 
 script_runs($script_args, \%options, "Test if script runs with existent fasta file as parameter");
-files_eq('05_tmp/bacterium1.fa', 't/data/simple.renamed_headers.fa', "Output file contains the expected output (renamed headers)");
+files_eq('05_tmp/bacterium1.fa', 't/expected/simple.renamed_headers.fa', "Output file contains the expected output (renamed headers)");
 remove_tree('05_tmp');
