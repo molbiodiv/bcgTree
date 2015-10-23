@@ -55,16 +55,25 @@ sub create_outdir_if_not_exists{
 	}
 }
 
+=head2 rename_fasta_headers
+
+This function creates a temporary fasta file for each proteome with name added to the beginning of each id.
+Additionally a all.concat.fa file is created that contains a concatenation of all proteome fasta files (with renamed headers).
+
+=cut
+
 sub rename_fasta_headers{
 	my $self = shift;
 	my %proteome = %{$self->{proteome}};
 	my $separator = "_";
+	my $seqOutAll = Bio::SeqIO->new(-file => ">".$self->{outdir}."/all.concat.fa", -format => "fasta");
 	foreach my $p (keys %proteome){
 		my $seqIn = Bio::SeqIO->new(-file => "$proteome{$p}", -format => "fasta");
 		my $seqOut = Bio::SeqIO->new(-file => ">".$self->{outdir}."/".$p.".fa", -format => "fasta");
 		while(my $seq = $seqIn->next_seq){
 			$seq->id($p.$separator.$seq->id());
 			$seqOut->write_seq($seq);
+			$seqOutAll->write_seq($seq);
 		}
 	}
 }
