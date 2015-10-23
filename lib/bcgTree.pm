@@ -108,6 +108,7 @@ sub collect_best_hmm_hits{
 		}
 		close IN or $L->logdie("Error closing $out/$p.hmmsearch.tsv. $!");
 	}
+	$self->{genes} = [keys %gene_id_map];
 	foreach my $g (keys %gene_id_map){
 		open(OUT, ">$out/$g.ids") or $L->logdie("Error opening $out/$g.ids. $!");
 		foreach my $id (@{$gene_id_map{$g}}){
