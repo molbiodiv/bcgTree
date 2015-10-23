@@ -128,7 +128,6 @@ $bcgTree->get_sequences_of_best_hmm_hits();
 
 __END__
 
-$bcgTree->re_adjust_fasta_headers();
 $bcgTree->run_muscle();
 $bcgTree->run_gblocks();
 $bcgTree->add_missing_sequences_as_gaps();
