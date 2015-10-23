@@ -130,7 +130,7 @@ sub get_sequences_of_best_hmm_hits{
 		my $cmd = "$FindBin::RealBin/../SeqFilter/bin/SeqFilter --ids-rename='s/$separator/ /' --desc-replace --line-width 0 $out/all.concat.fa --ids $out/$gene.ids --out $out/$gene.fa 2>&1";
 		$L->info($cmd);
 		my $result = qx($cmd);
-		$L->logdie($result);
+		$L->debug($result);
 	}
 	$L->info("Finished collection of sequences of best hits from hmmsearch.");
 }
