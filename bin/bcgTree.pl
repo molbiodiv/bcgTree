@@ -126,11 +126,10 @@ $bcgTree->run_hmmsearch();
 $bcgTree->collect_best_hmm_hits();
 $bcgTree->get_sequences_of_best_hmm_hits();
 $bcgTree->run_muscle_and_gblocks();
+$bcgTree->complete_and_concat_alignments();
 
 __END__
 
-$bcgTree->add_missing_sequences_as_gaps();
-$bcgTree->concat_alignments();
 $bcgTree->run_raxml();
 $bcgTree->remove_temporary_files();
 
