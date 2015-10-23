@@ -17,6 +17,6 @@ my $script_args = ['bin/bcgTree.pl',
                   ];
 
 script_runs($script_args, \%options, "Test if script collects best hmmsearch hits");
-file_contents_like("$tmpdir/TIGR02386.ids", qr/Acinetobacter_gi\|50083580\|ref\|YP_045090.1\|/, "Output file contains the expected best hit from proteome 1");
-file_contents_like("$tmpdir/TIGR02386.ids", qr/Escherichia_gi\|110644323\|ref\|YP_672053.1\|/, "Output file contains the expected best hit from proteome 2");
+file_contents_like("$tmpdir/TIGR02386.ids", qr/Acinetobacter_-_gi\|50083580\|ref\|YP_045090.1\|/, "Output file contains the expected best hit from proteome 1");
+file_contents_like("$tmpdir/TIGR02386.ids", qr/Escherichia_-_gi\|110644323\|ref\|YP_672053.1\|/, "Output file contains the expected best hit from proteome 2");
 remove_tree($tmpdir);

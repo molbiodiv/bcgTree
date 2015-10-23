@@ -16,5 +16,5 @@ my $script_args = ['bin/bcgTree.pl',
                   ];
 
 script_runs($script_args, \%options, "Test if script executes hmmsearch");
-file_contents_like("$tmpdir/Acinetobacter.hmmsearch.tsv", qr/Acinetobacter_gi\|50085067\|ref\|YP_046577.1\|\s+-\s+PGK\s+PF00162\.14/, "Output file contains the expected output (hmmsearch)");
+file_contents_like("$tmpdir/Acinetobacter.hmmsearch.tsv", qr/Acinetobacter_-_gi\|50085067\|ref\|YP_046577.1\|\s+-\s+PGK\s+PF00162\.14/, "Output file contains the expected output (hmmsearch)");
 remove_tree($tmpdir);

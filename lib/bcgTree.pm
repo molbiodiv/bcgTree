@@ -65,7 +65,7 @@ Additionally a all.concat.fa file is created that contains a concatenation of al
 sub rename_fasta_headers{
 	my $self = shift;
 	my %proteome = %{$self->{proteome}};
-	my $separator = "_";
+	my $separator = $self->{'separator'};
 	my $seqOutAll = Bio::SeqIO->new(-file => ">".$self->{outdir}."/all.concat.fa", -format => "fasta");
 	foreach my $p (keys %proteome){
 		my $seqIn = Bio::SeqIO->new(-file => "$proteome{$p}", -format => "fasta");
