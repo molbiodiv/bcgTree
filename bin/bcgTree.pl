@@ -114,6 +114,18 @@ $bcgTree->check_existence_of_fasta_files();
 $bcgTree->create_outdir_if_not_exists();
 $bcgTree->rename_fasta_headers();
 
+__END__
+
+$bcgTree->run_hmmsearch();
+$bcgTree->collect_best_hmm_hits();
+$bcgTree->get_sequences_of_best_hmm_hits();
+$bcgTree->re_adjust_fasta_headers();
+$bcgTree->run_muscle();
+$bcgTree->run_gblocks();
+$bcgTree->add_missing_sequences_as_gaps();
+$bcgTree->concat_alignments();
+$bcgTree->run_raxml();
+
 =head1 AUTHORS
 
 =over
