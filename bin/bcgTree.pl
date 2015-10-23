@@ -20,7 +20,7 @@ Wrapper to produce phylogenetic trees from the core genome (107 essential genes)
 
 =head1 USAGE
 
-  $ bcgTree.pl --genome bac1=bacterium1.pep.fa --genome bac2=bacterium2.faa [options]
+  $ bcgTree.pl --proteome bac1=bacterium1.pep.fa --proteome bac2=bacterium2.faa [options]
 
 =head1 OPTIONS
 
