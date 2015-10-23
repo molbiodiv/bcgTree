@@ -12,6 +12,7 @@ before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -y libbio-perl-perl
     - sudo apt-get install -y hmmer
+    - sudo apt-get install -y muscle
 install:
     - export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1 HARNESS_OPTIONS=c HARNESS_TIMER=1
     - cpanm --notest Devel::Cover::Report::Coveralls
