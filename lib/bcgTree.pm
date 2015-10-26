@@ -94,12 +94,20 @@ sub run_hmmsearch{
 	$L->info("Finished hmmsearch.");
 }
 
+=head2 collect_best_hmm_hits
+
+Parse all the hmmsearch output files and collect the ids of the best hit per gene and proteome
+Additionally an absence presence table is written to absence_presence.csv for later inspection
+
+=cut
+
 sub collect_best_hmm_hits{
 	my $self = shift;
 	my %proteome = %{$self->{proteome}};
 	my $out = $self->{'outdir'};
 	$L->info("Collecting best hits from hmmsearch for each gene.");
 	my %gene_id_map;
+	my %absence_presence;
 	foreach my $p (keys %proteome){
 		open(IN, "<$out/$p.hmmsearch.tsv") or $L->logdie("Error opening $out/$p.hmmsearch.tsv. $!");
 		while(<IN>){
@@ -107,6 +115,8 @@ sub collect_best_hmm_hits{
 			s/ * / /g;
 			my($id,$gene,$score) = (split(/\s/))[0,3,5];
 			$gene_id_map{$gene}->{$p} = {id => $id, score => $score} unless(exists $gene_id_map{$gene}->{$p} and $gene_id_map{$gene}->{$p}->{score}>$score);
+			$absence_presence{$gene}->{$p} = 0 unless(exists $absence_presence{$gene}->{$p});
+			$absence_presence{$gene}->{$p}++;
 		}
 		close IN or $L->logdie("Error closing $out/$p.hmmsearch.tsv. $!");
 	}
@@ -121,6 +131,19 @@ sub collect_best_hmm_hits{
 		$L->info("Wrote $count ids for gene $g");
 		close OUT or $L->logdie("Error closing $out/$g.ids. $!");
 	}
+	# Write absence presence list
+	open(OUT, ">$out/absence_presence.csv") or $L->logdie("Error opening $out/absence_presence.csv. $!");
+	print OUT ",".join(",", sort keys %proteome)."\n";
+	foreach my $gene (sort keys %absence_presence){
+		print OUT "$gene";
+		foreach my $p (sort keys %proteome){
+			my $s = "0";
+			$s = $absence_presence{$gene}->{$p} if(exists $absence_presence{$gene}->{$p});
+			print OUT ",$s";
+		}
+		print OUT "\n";
+	}
+	close OUT or $L->logdie("Error colsing $out/absence_presence.csv. $!");
 	$L->info("Finished collection of best hmmsearch hits.");
 }
 
@@ -179,15 +202,12 @@ sub complete_and_concat_alignments{
 	my %fullseq = ();
 	my $totalpos = 0;
 	$L->info("Completing and concatenating alignments.");
-	open(ABSPRES, ">$out/absence_presence.csv") or $L->logdie("Error opening $out/absence_presence.csv. $!");
-	print ABSPRES ",".join(",", sort keys %proteome)."\n";
 	open(PART, ">$out/full_alignment.concat.partition") or $L->logdie("Error opening $out/full_alignment.concat.partition. $!");
 	foreach my $gene (sort @genes){
 		unless(-f "$out/$gene.aln-gb"){
 			$L->warn("No Gblocks file for gene $gene - most likely only found in one proteome. Skipping...");
 			next;
 		}
-		print ABSPRES "$gene";
 		my %seq = ();
 		my $length = 0;
 		my $seqIn = Bio::SeqIO->new(-file => "$out/$gene.aln-gb", -format => "fasta");
@@ -201,19 +221,14 @@ sub complete_and_concat_alignments{
 		open(OUT, ">$out/$gene.aln-gb.comp") or $L->logdie("Error opening $out/$gene.aln-gb.comp. $!");
 		foreach my $p (sort keys %proteome){
 			my $s = "-" x $length;
-			my $ap = 0;
 			$s = $seq{$p} if(exists $seq{$p});
-			$ap = 1 if(exists $seq{$p});
 			print OUT ">$p\n";
 			print OUT "$s\n";
-			print ABSPRES ",$ap";
 			$fullseq{$p} = "" unless(exists $fullseq{$p});
 			$fullseq{$p} .= $s;
 		}
-		print ABSPRES "\n";
 		close OUT or $L->logdie("Error closing $out/$gene.aln-gb.comp. $!");
 	}
-	close ABSPRES or $L->logdie("Error closing $out/absence_presence.csv. $!");
 	close PART or $L->logdie("Error closing $out/full_alignment.concat.partition. $!");
 	open(OUT, ">$out/full_alignment.concat.fa") or $L->logdie("Error opening $out/full_alignment.concat.fa. $!");
 	foreach my $p (sort keys %proteome){
