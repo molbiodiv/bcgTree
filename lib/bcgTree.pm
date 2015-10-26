@@ -177,7 +177,9 @@ sub complete_and_concat_alignments{
 	my %proteome = %{$self->{proteome}};
 	my $out = $self->{'outdir'};
 	my %fullseq = ();
+	my $totalpos = 0;
 	$L->info("Completing and concatenating alignments.");
+	open(PART, ">$out/full_alignment.concat.partition") or $L->logdie("Error opening $out/full_alignment.concat.partition. $!");
 	foreach my $gene (sort @genes){
 		unless(-f "$out/$gene.aln-gb"){
 			$L->warn("No Gblocks file for gene $gene - most likely only found in one proteome. Skipping...");
@@ -190,6 +192,9 @@ sub complete_and_concat_alignments{
 			$seq{$seq->id} = $seq->seq;
 			$length = $seq->length;
 		}
+		print PART "WAG, $gene = ".($totalpos+1)."-";
+		$totalpos += $length;
+		print PART $totalpos."\n";
 		open(OUT, ">$out/$gene.aln-gb.comp") or $L->logdie("Error opening $out/$gene.aln-gb.comp. $!");
 		foreach my $p (sort keys %proteome){
 			my $s = "-" x $length;
@@ -201,6 +206,7 @@ sub complete_and_concat_alignments{
 		}
 		close OUT or $L->logdie("Error closing $out/$gene.aln-gb.comp. $!");
 	}
+	close PART or $L->logdie("Error closing $out/full_alignment.concat.partition. $!");
 	open(OUT, ">$out/full_alignment.concat.fa") or $L->logdie("Error opening $out/full_alignment.concat.fa. $!");
 	foreach my $p (sort keys %proteome){
 		print OUT ">$p\n";
