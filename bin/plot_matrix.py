@@ -22,5 +22,5 @@ ax.tick_params(axis='both', which='both', labelsize=4, direction='out',
                        labelleft='on', labelright='off', labelbottom='off',
                        labeltop='on', left='on', right='off', bottom='off',
                        top='on')
-plt.savefig(sys.argv[2], bbox_inches='tight')
+plt.savefig(sys.argv[2], bbox_inches='tight', dpi = 1000)
 
