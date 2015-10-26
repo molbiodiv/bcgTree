@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More tests => 3;
 use Test::Script;
 use Test::File::Contents;
 use File::Path qw(remove_tree);
@@ -21,4 +21,5 @@ my $script_args = ['bin/bcgTree.pl',
 
 script_runs($script_args, \%options, "Test if script executes raxml");
 ok(-f "$tmpdir/RAxML_bestTree.final", "Final raxml tree file exists");
+script_stderr_like(qr/blablabla/, "Debug");
 remove_tree($tmpdir);
