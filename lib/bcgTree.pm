@@ -179,12 +179,15 @@ sub complete_and_concat_alignments{
 	my %fullseq = ();
 	my $totalpos = 0;
 	$L->info("Completing and concatenating alignments.");
+	open(ABSPRES, ">$out/absence_presence.csv") or $L->logdie("Error opening $out/absence_presence.csv. $!");
+	print ABSPRES ",".join(",", sort keys %proteome)."\n";
 	open(PART, ">$out/full_alignment.concat.partition") or $L->logdie("Error opening $out/full_alignment.concat.partition. $!");
 	foreach my $gene (sort @genes){
 		unless(-f "$out/$gene.aln-gb"){
 			$L->warn("No Gblocks file for gene $gene - most likely only found in one proteome. Skipping...");
 			next;
 		}
+		print ABSPRES "$gene";
 		my %seq = ();
 		my $length = 0;
 		my $seqIn = Bio::SeqIO->new(-file => "$out/$gene.aln-gb", -format => "fasta");
@@ -198,14 +201,19 @@ sub complete_and_concat_alignments{
 		open(OUT, ">$out/$gene.aln-gb.comp") or $L->logdie("Error opening $out/$gene.aln-gb.comp. $!");
 		foreach my $p (sort keys %proteome){
 			my $s = "-" x $length;
+			my $ap = 0;
 			$s = $seq{$p} if(exists $seq{$p});
+			$ap = 1 if(exists $seq{$p});
 			print OUT ">$p\n";
 			print OUT "$s\n";
+			print ABSPRES ",$ap";
 			$fullseq{$p} = "" unless(exists $fullseq{$p});
 			$fullseq{$p} .= $s;
 		}
+		print ABSPRES "\n";
 		close OUT or $L->logdie("Error closing $out/$gene.aln-gb.comp. $!");
 	}
+	close ABSPRES or $L->logdie("Error closing $out/absence_presence.csv. $!");
 	close PART or $L->logdie("Error closing $out/full_alignment.concat.partition. $!");
 	open(OUT, ">$out/full_alignment.concat.fa") or $L->logdie("Error opening $out/full_alignment.concat.fa. $!");
 	foreach my $p (sort keys %proteome){
