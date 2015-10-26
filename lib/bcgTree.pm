@@ -8,6 +8,7 @@ use File::Path qw(make_path);
 use File::Spec;
 use FindBin;
 use Bio::SeqIO;
+use Bio::AlignIO;
 
 our $VERSION = '0.1';
 
@@ -201,15 +202,19 @@ sub complete_and_concat_alignments{
 		close OUT or $L->logdie("Error closing $out/$gene.aln-gb.comp. $!");
 	}
 	open(OUT, ">$out/full_alignment.concat.fa") or $L->logdie("Error opening $out/full_alignment.concat.fa. $!");
-	open(PHY, ">$out/full_alignment.concat.phy") or $L->logdie("Error opening $out/full_alignment.concat.phy. $!");
 	foreach my $p (sort keys %proteome){
 		print OUT ">$p\n";
 		print OUT "$fullseq{$p}\n";
-		print PHY "$p\t";
-		print PHY "$fullseq{$p}\n";
 	}
 	close OUT or $L->logdie("Error closing $out/full_alignment.concat.fa. $!");
-	close PHY or $L->logdie("Error closing $out/full_alignment.concat.phy. $!");
+	my $in  = Bio::AlignIO->new(-file => "$out/full_alignment.concat.fa" ,
+                         -format => 'fasta');
+	my $phy = Bio::AlignIO->new(-file => ">$out/full_alignment.concat.phy",
+                         -format => 'phylip');
+
+	while ( my $aln = $in->next_aln ) {
+		$phy->write_aln($aln);
+	}
 	$L->info("Completing and concatenating alignments finished.");
 }
 
