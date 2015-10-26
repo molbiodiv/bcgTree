@@ -201,11 +201,15 @@ sub complete_and_concat_alignments{
 		close OUT or $L->logdie("Error closing $out/$gene.aln-gb.comp. $!");
 	}
 	open(OUT, ">$out/full_alignment.concat.fa") or $L->logdie("Error opening $out/full_alignment.concat.fa. $!");
+	open(PHY, ">$out/full_alignment.concat.phy") or $L->logdie("Error opening $out/full_alignment.concat.phy. $!");
 	foreach my $p (sort keys %proteome){
 		print OUT ">$p\n";
 		print OUT "$fullseq{$p}\n";
+		print PHY "$p\t";
+		print PHY "$fullseq{$p}\n";
 	}
 	close OUT or $L->logdie("Error closing $out/full_alignment.concat.fa. $!");
+	close PHY or $L->logdie("Error closing $out/full_alignment.concat.phy. $!");
 	$L->info("Completing and concatenating alignments finished.");
 }
 
@@ -213,7 +217,7 @@ sub run_raxml{
 	my $self = shift;
 	my $out = $self->{'outdir'};
 	$L->info("Running raxml on $out/full_alignment.concat.fa");
-	my $cmd = $self->{'raxml-bin'}." -f a -m PROTGAMMABLOSUM62 -p 12345 -s $out/full_alignment.concat.fa -w ".File::Spec->rel2abs( $out )." -n final -T 2 -x 12345 -N 10";
+	my $cmd = $self->{'raxml-bin'}." -f a -m PROTGAMMABLOSUM62 -p 12345 -s $out/full_alignment.concat.phy -w ".File::Spec->rel2abs( $out )." -n final -T 2 -x 12345 -N 10";
 	$L->info($cmd);
 	my $result = qx($cmd);
 	$L->debug($result);
