@@ -10,6 +10,8 @@ plt.clf()
 fig=plt.figure()
 ax = fig.add_subplot(111)
 mat=pandas.read_csv(sys.argv[1],header=0,index_col=0)
+# min=0 and max=1 is set to just distinguish absent and present
+# remove those parameters to see colors scaled by value
 ax.matshow(mat,cmap=cm.gray, interpolation='nearest', vmin=0, vmax=1)
 ax.xaxis.set_major_locator(MultipleLocator(1))
 ax.set_xticklabels([""]+mat.columns.tolist(), rotation=90)
