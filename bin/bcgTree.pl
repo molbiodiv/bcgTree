@@ -7,6 +7,7 @@ use Log::Log4perl qw(:no_extra_logdie_message);
 use FindBin;
 use lib "$FindBin::RealBin/../lib";
 use bcgTree;
+use Getopt::ArgvFile;
 
 my %options;
 
@@ -20,11 +21,20 @@ Wrapper to produce phylogenetic trees from the core genome (107 essential genes)
 
 =head1 USAGE
 
-  $ bcgTree.pl --proteome bac1=bacterium1.pep.fa --proteome bac2=bacterium2.faa [options]
+  $ bcgTree.pl [@cofigfile] --proteome bac1=bacterium1.pep.fa --proteome bac2=bacterium2.faa [options]
 
 =head1 OPTIONS
 
 =over 25
+
+=item [@configfile]
+
+Optional path to a configfile with @ as prefix.
+Config files consist of command line parameters and arguments just as passed on the command line.
+Space and comment lines are allowed (and ignored).
+Spreading over multiple lines is supported.
+
+=cut
 
 =item --proteome <ORGANISM>=<FASTA> [--proteome <ORGANISM>=<FASTA> ..]
 

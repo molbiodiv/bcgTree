@@ -10,6 +10,7 @@ WriteMakefile(
 		'Test::File::Contents' => '0.21',
 		'File::Path' => '2.12',
 		'File::Spec' => '3.47',
+		'Getopt::ArgvFile' => '1.11',
     }, # e.g., Module::Name => 1.1
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (AUTHOR         => 'Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>') : ()),
