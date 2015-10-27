@@ -122,7 +122,6 @@ sub collect_best_hmm_hits{
 		}
 		close IN or $L->logdie("Error closing $out/$p.hmmsearch.tsv. $!");
 	}
-	$self->{genes} = [keys %gene_id_map];
 	foreach my $g (keys %gene_id_map){
 		open(OUT, ">$out/$g.ids") or $L->logdie("Error opening $out/$g.ids. $!");
 		my $count = 0;
@@ -131,8 +130,14 @@ sub collect_best_hmm_hits{
 			$count++;
 		}
 		$L->info("Wrote $count ids for gene $g");
+		if($count < 2){
+			$L->warn("Gene $g only present in $count proteome - removing from further analyses");
+			delete $gene_id_map{$g};
+		}
 		close OUT or $L->logdie("Error closing $out/$g.ids. $!");
 	}
+	# Add the remaining list of genes to the object 
+	$self->{genes} = [keys %gene_id_map];
 	# Write absence presence list
 	open(OUT, ">$out/absence_presence.csv") or $L->logdie("Error opening $out/absence_presence.csv. $!");
 	print OUT ",".join(",", sort keys %proteome)."\n";
