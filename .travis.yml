@@ -22,5 +22,5 @@ script:
     - make
     - PERL5OPT=-MDevel::Cover=-coverage,statement,branch,condition,path,subroutine prove -lrv
     - cover
-after_success:
-    - cover -report coveralls
+#after_success:
+#    - cover -report coveralls
