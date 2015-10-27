@@ -15,7 +15,7 @@ my $script_args = ['bin/bcgTree.pl',
                    '--proteome', 'Bacillus=t/data/NC_014639.faa',
                    '--proteome', 'Escherichia=t/data/NC_008253.faa',
                    '--proteome', 'Filifactor=t/data/NC_016630.faa',
-                   '--proteome', 'Acholeplasma=t/data/NC_022549.faa',
+#                   '--proteome', 'Acholeplasma=t/data/NC_022549.faa',
                    '--outdir', $tmpdir
                   ];
 
