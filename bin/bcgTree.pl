@@ -130,7 +130,6 @@ my $bcgTree = bcgTree->new({
 	'separator' => '_-_'
 });
 $bcgTree->check_existence_of_fasta_files();
-$bcgTree->create_outdir_if_not_exists();
 $bcgTree->rename_fasta_headers();
 $bcgTree->run_hmmsearch();
 $bcgTree->collect_best_hmm_hits();

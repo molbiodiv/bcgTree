@@ -15,9 +15,11 @@ our $VERSION = '0.1';
 my $L = Log::Log4perl::get_logger();
 
 sub new {
-      my $class = shift;
-      my $object = shift;
-      # init a root logger in exec mode
+	my $class = shift;
+	my $object = shift;
+	bless $object, $class;
+	$object->create_outdir_if_not_exists();
+	# init a root logger in exec mode
 	Log::Log4perl->init(
 	\q(
                 log4perl.rootLogger                     = DEBUG, Screen, FileApp
@@ -31,7 +33,7 @@ sub new {
                 log4perl.appender.Screen.layout.ConversionPattern = [%d{MM-dd HH:mm:ss}] [%C] %m%n
         )
 	);
-      return bless $object, $class;
+	return $object;
 }
 
 sub check_existence_of_fasta_files{
@@ -50,11 +52,12 @@ sub create_outdir_if_not_exists{
 	{
 	    for my $diag (@$err) {
 			my ($file, $message) = %$diag;
+			# Just die instead of logdie here as the logger is not initialized when first called. 
 			if ($file eq '') {
-				$L->logdie("Creating folder failed with general error: $message");
+				die("Creating folder failed with general error: $message");
 			}
 			else {
-				$L->logdie("Creating folder failed for folder '$file': $message");
+				die("Creating folder failed for folder '$file': $message");
 			}
 	    }
 	}
