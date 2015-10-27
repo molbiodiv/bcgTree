@@ -52,7 +52,9 @@ sub create_outdir_if_not_exists{
 	{
 	    for my $diag (@$err) {
 			my ($file, $message) = %$diag;
-			# Just die instead of logdie here as the logger is not initialized when first called. 
+			# Just die instead of logdie here as the logger is not initialized when first called.
+			# Set exit code to 1 explicitly - otherwise not predictable (or testable)
+			$! = 1;
 			if ($file eq '') {
 				die("Creating folder failed with general error: $message");
 			}
