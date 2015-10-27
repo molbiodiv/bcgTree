@@ -68,6 +68,7 @@ sub rename_fasta_headers{
 	my $self = shift;
 	my %proteome = %{$self->{proteome}};
 	my $separator = $self->{'separator'};
+	$L->info("Copying fasta files - adjusting headers...");
 	my $seqOutAll = Bio::SeqIO->new(-file => ">".$self->{outdir}."/all.concat.fa", -format => "fasta");
 	foreach my $p (keys %proteome){
 		my $seqIn = Bio::SeqIO->new(-file => "$proteome{$p}", -format => "fasta");
@@ -78,6 +79,7 @@ sub rename_fasta_headers{
 			$seqOutAll->write_seq($seq);
 		}
 	}
+	$L->info("All fasta files copied, headers adjusted.");
 }
 
 sub run_hmmsearch{
