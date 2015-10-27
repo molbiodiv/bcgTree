@@ -12,22 +12,25 @@ use Bio::AlignIO;
 
 our $VERSION = '0.1';
 
-# init a root logger in exec mode
-Log::Log4perl->init(
-	\q(
-                log4perl.rootLogger                     = DEBUG, Screen
-                log4perl.appender.Screen                = Log::Log4perl::Appender::Screen
-                log4perl.appender.Screen.stderr         = 1
-                log4perl.appender.Screen.layout         = PatternLayout
-                log4perl.appender.Screen.layout.ConversionPattern = [%d{MM-dd HH:mm:ss}] [%C] %m%n
-        )
-);
-
 my $L = Log::Log4perl::get_logger();
 
 sub new {
       my $class = shift;
       my $object = shift;
+      # init a root logger in exec mode
+	Log::Log4perl->init(
+	\q(
+                log4perl.rootLogger                     = DEBUG, Screen, FileApp
+				log4perl.appender.FileApp				= Log::Log4perl::Appender::File
+				log4perl.appender.FileApp.filename		= sub{ logfile() }
+				log4perl.appender.FileApp.layout		= PatternLayout
+				log4perl.appender.FileApp.layout.ConversionPattern = [%d{MM-dd HH:mm:ss}] [%C] %m%n
+                log4perl.appender.Screen                = Log::Log4perl::Appender::Screen
+                log4perl.appender.Screen.stderr         = 1
+                log4perl.appender.Screen.layout         = PatternLayout
+                log4perl.appender.Screen.layout.ConversionPattern = [%d{MM-dd HH:mm:ss}] [%C] %m%n
+        )
+	);
       return bless $object, $class;
 }
 

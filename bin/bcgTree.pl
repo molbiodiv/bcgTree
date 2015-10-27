@@ -139,6 +139,10 @@ $bcgTree->run_muscle_and_gblocks();
 $bcgTree->complete_and_concat_alignments();
 $bcgTree->run_raxml();
 
+sub logfile{
+	return "$opt_outdir/bcgTree.log";
+}
+
 __END__
 
 $bcgTree->remove_temporary_files();
