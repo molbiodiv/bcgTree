@@ -6,9 +6,10 @@ use Test::Script;
 use Test::File::Contents;
 use File::Path qw(remove_tree);
 
-my $tmpdir = "11_tmp";
+my $tmpdir = "10_tmp";
 
-my %options = (exit => 0);
+# dies because no gene is found in two proteomes
+my %options = (exit => 1);
 
 my $script_args = ['bin/bcgTree.pl',
                    '--proteome', 'Acinetobacter=t/data/Acinetobacter_PF002xx.fa',

@@ -6,9 +6,10 @@ use Test::Script;
 use Test::File::Contents;
 use File::Path qw(remove_tree);
 
-my $tmpdir = "10_tmp";
+my $tmpdir = "09_tmp";
 
-my %options = (exit => 0);
+# dies because too few species for raxml
+my %options = (exit => 1);
 
 my $script_args = ['bin/bcgTree.pl',
                    '--proteome', 'Acinetobacter=t/data/NC_005966.faa',

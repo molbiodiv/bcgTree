@@ -6,7 +6,7 @@ use Test::Script;
 use Test::File::Contents;
 use File::Path qw(remove_tree);
 
-my $tmpdir = "12_tmp";
+my $tmpdir = "11_tmp";
 
 my %options = (exit => 0);
 
