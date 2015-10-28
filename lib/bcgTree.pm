@@ -185,7 +185,9 @@ sub run_muscle_and_gblocks{
 		$self->run_command($cmd, "muscle on $gene");
 		# Gblocks
 		$cmd = $self->{'gblocks-bin'}." $out/$gene.aln -t p -b1 50 -b2 85 -b4 4";
-		$self->run_command($cmd, "Gblocks on $gene");
+		# Ignore exit code for Gblocks as this is always 1, rather test for error string manually.
+		my $r = $self->run_command($cmd, "Gblocks on $gene", 1);
+		$L->logdie("ERROR: Gblocks on $gene failed") if($r=~/Execution terminated/);
 		# Removel of unnecessary spaces
 		$cmd = "perl -i -pe 's/ //g unless(/^>/)' $out/$gene.aln-gb";
 		$self->run_command($cmd, "removal of spaces in Gblocks output for $gene");
@@ -267,11 +269,14 @@ sub run_command{
 	my $self = shift;
 	my $cmd = shift;
 	my $msg = shift;
+	my $ignore_error = shift;
 	$L->info("Starting: $msg");
 	$L->info($cmd);
 	my $result = qx($cmd);
 	$L->debug($result);
+	$L->logdie("ERROR: $msg failed") if $? >> 8 and !$ignore_error;
 	$L->info("Finished: $msg");
+	return $result;
 }
 
 1;
