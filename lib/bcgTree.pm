@@ -144,6 +144,7 @@ sub collect_best_hmm_hits{
 	}
 	# Add the remaining list of genes to the object 
 	$self->{genes} = [keys %gene_id_map];
+	$L->logdie("Not a single gene is present in more than one proteome - Exiting") if((keys %gene_id_map) < 1);
 	# Write absence presence list
 	open(OUT, ">$out/absence_presence.csv") or $L->logdie("Error opening $out/absence_presence.csv. $!");
 	print OUT ",".join(",", sort keys %proteome)."\n";
