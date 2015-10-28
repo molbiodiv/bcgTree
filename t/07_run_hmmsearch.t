@@ -8,7 +8,8 @@ use File::Path qw(remove_tree);
 
 my $tmpdir = "07_tmp";
 
-my %options = (exit => 0);
+# dies because no gene is found in two proteomes
+my %options = (exit => 1);
 
 my $script_args = ['bin/bcgTree.pl',
                    '--proteome', 'Acinetobacter=t/data/NC_005966.faa',
