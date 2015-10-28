@@ -97,9 +97,7 @@ sub run_hmmsearch{
 	$L->info("Running hmmsearch on proteomes.");
 	foreach my $p (keys %proteome){
 		my $cmd = $self->{'hmmsearch-bin'}." --cut_tc --notextw --tblout $out/$p.hmmsearch.tsv $FindBin::RealBin/../data/essential.hmm $out/$p.fa";
-		$L->info($cmd);
-		my $result = qx($cmd);
-		$L->debug($result);
+		$self->run_command($cmd, "hmmsearch in $p");
 	}
 	$L->info("Finished hmmsearch.");
 }
@@ -170,9 +168,7 @@ sub get_sequences_of_best_hmm_hits{
 	$L->info("Collecting sequences of best hits from hmmsearch for each gene.");
 	foreach my $gene (@genes){
 		my $cmd = "$FindBin::RealBin/../SeqFilter/bin/SeqFilter --ids-rename='s/$separator/ /' --desc-replace --line-width 0 $out/all.concat.fa --ids $out/$gene.ids --out $out/$gene.fa 2>&1";
-		$L->info($cmd);
-		my $result = qx($cmd);
-		$L->debug($result);
+		$self->run_command($cmd, "collect best hits for $gene");
 	}
 	$L->info("Finished collection of sequences of best hits from hmmsearch.");
 }
@@ -185,18 +181,13 @@ sub run_muscle_and_gblocks{
 	foreach my $gene (@genes){
 		# muscle
 		my $cmd = $self->{'muscle-bin'}." -in $out/$gene.fa -out $out/$gene.aln";
-		$L->info($cmd);
-		my $result = qx($cmd);
-		$L->debug($result);
+		$self->run_command($cmd, "muscle on $gene");
 		# Gblocks
 		$cmd = $self->{'gblocks-bin'}." $out/$gene.aln -t p -b1 50 -b2 85 -b4 4";
-		$L->info($cmd);
-		$result = qx($cmd);
-		$L->debug($result);
+		$self->run_command($cmd, "Gblocks on $gene");
 		# Removel of unnecessary spaces
 		$cmd = "perl -i -pe 's/ //g unless(/^>/)' $out/$gene.aln-gb";
-		$L->info($cmd);
-		$result = qx($cmd);
+		$self->run_command($cmd, "removal of spaces in Gblocks output for $gene");
 	}
 	$L->info("Finished muscle and Gblocks.");
 }
@@ -265,13 +256,21 @@ sub complete_and_concat_alignments{
 sub run_raxml{
 	my $self = shift;
 	my $out = $self->{'outdir'};
-	$L->info("Running raxml on $out/full_alignment.concat.fa");
+	my $msg = "raxml on $out/full_alignment.concat.fa";
 	my $cmd = $self->{'raxml-bin'}." -f a -m GTRGAMMA -p 12345 -q $out/full_alignment.concat.partition -s $out/full_alignment.concat.phy -w ".File::Spec->rel2abs( $out )." -n final -T 2 -x 12345 -N 10";
+	$self->run_command($cmd, $msg);
+	$L->info("Finished bcgTree.");
+}
+
+sub run_command{
+	my $self = shift;
+	my $cmd = shift;
+	my $msg = shift;
+	$L->info("Starting: $msg");
 	$L->info($cmd);
 	my $result = qx($cmd);
 	$L->debug($result);
-	$L->info("Finished raxml.");
-	$L->info("Finished bcgTree.");
+	$L->info("Finished: $msg");
 }
 
 1;
