@@ -195,8 +195,12 @@ sub run_muscle_and_gblocks{
 		my $r = $self->run_command($cmd, "Gblocks on $gene", 1);
 		$L->logdie("ERROR: Gblocks on $gene failed") if($r=~/Execution terminated/);
 		# Removel of unnecessary spaces
-		$cmd = "perl -i -pe 's/ //g unless(/^>/)' $out/$gene.aln-gb";
-		$self->run_command($cmd, "removal of spaces in Gblocks output for $gene");
+		my $seqIn = Bio::SeqIO->new(-file => "$out/$gene.aln-gb", -format => "fasta");
+		my $seqOut = Bio::SeqIO->new(-file => ">$out/$gene.aln-gb.fa", -format => "fasta");
+		while(my $seq = $seqIn->next_seq){
+			$seq->id($proteome_id_map{$seq->id()});
+			$seqOut->write_seq($seq);
+		}
 	}
 	$L->info("Finished muscle and Gblocks.");
 }
@@ -219,13 +223,13 @@ sub complete_and_concat_alignments{
 	$L->info("Completing and concatenating alignments.");
 	open(PART, ">$out/full_alignment.concat.partition") or $L->logdie("Error opening $out/full_alignment.concat.partition. $!");
 	foreach my $gene (sort @genes){
-		unless(-f "$out/$gene.aln-gb"){
+		unless(-f "$out/$gene.aln-gb.fa"){
 			$L->warn("No Gblocks file for gene $gene - most likely only found in one proteome. Skipping...");
 			next;
 		}
 		my %seq = ();
 		my $length = 0;
-		my $seqIn = Bio::SeqIO->new(-file => "$out/$gene.aln-gb", -format => "fasta");
+		my $seqIn = Bio::SeqIO->new(-file => "$out/$gene.aln-gb.fa", -format => "fasta");
 		while(my $seq = $seqIn->next_seq){
 			$seq{$seq->id} = $seq->seq;
 			$length = $seq->length;
