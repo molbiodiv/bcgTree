@@ -96,7 +96,7 @@ sub rename_fasta_headers{
 	$L->info("All fasta files copied, headers adjusted.");
 	$L->info("Starting: Writing of proteome_id map.");
 	open(OUT, ">$out/proteome_id_map") or $L->logdie("Error opening $out/proteome_id_map. $!");
-	print OUT "$_\t".$self->{proteome_map}{$_} foreach(keys %{$self->{proteome_map}});
+	print OUT "$_\t".$self->{proteome_map}{$_}."\n" foreach(keys %{$self->{proteome_map}});
 	close OUT or $L->logdie("Error closing $out/proteome_id_map. $!");
 	$L->info("Finished: Writing of proteome_id map.");
 }
