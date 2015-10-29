@@ -20,6 +20,6 @@ my $script_args = ['bin/bcgTree.pl',
 script_runs($script_args, \%options, "Test if script runs muscle correctly");
 file_contents_like("$tmpdir/TIGR00442.aln", qr/ADQSVPAVGFAMGMERLLLLLEQVE---QAEVVRDCDVFLVAESA-FQGHALVLAEQIRD/, "Output file contains the expected alignment sequence from proteome 1");
 file_contents_like("$tmpdir/TIGR00442.aln", qr/A---TPAVGFAMGLERLVLLVQAVNPEFKADPV--VDIYLVASGADTQSAAMALAERLRD/, "Output file contains the expected alignment sequence from proteome 2");
-file_contents_like("$tmpdir/TIGR01031.aln-gb.fa", qr/MAVQQNKPTRSKRGMRRSHDALTLSVDKTSGEKHLRHHITADGYYRGRKVIAK/, "Output file contains the expected alignment sequence from proteome 1");
-file_contents_like("$tmpdir/TIGR01031.aln-gb.fa", qr/MAVQQNRKSRSRRDMRRSHDALTLTVDQTTGETHRRHHVTKDGIYRGRQLFAK/, "Output file contains the expected alignment sequence from proteome 2");
+file_contents_like("$tmpdir/TIGR01031.aln-gb.fa", qr/MAVQQNRKSRSRRDMRRSHDALTE-NALTVDQTTGETHRRHHVTKDGIYRGRQLFAK/, "Output file contains the expected alignment sequence from proteome 1");
+file_contents_like("$tmpdir/TIGR01031.aln-gb.fa", qr/MAVQQNKPTRSKRGMRRSHDALTAVTSLSVDKTSGEKHLRHHITADGYYRGRKVIAK/, "Output file contains the expected alignment sequence from proteome 2");
 remove_tree($tmpdir);
