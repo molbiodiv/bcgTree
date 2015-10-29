@@ -68,6 +68,7 @@ sub create_outdir_if_not_exists{
 =head2 rename_fasta_headers
 
 This function creates a temporary fasta file for each proteome with an internal proteome_id added to the beginning of each id.
+Usage of ids is necessary due to a limitation of Gblocks (only 72 characters allowed in header line).
 Additionally a all.concat.fa file is created that contains a concatenation of all proteome fasta files (with renamed headers).
 
 =cut
@@ -76,13 +77,17 @@ sub rename_fasta_headers{
 	my $self = shift;
 	my %proteome = %{$self->{proteome}};
 	my $separator = $self->{'separator'};
+	$self->{proteome_map} = {};
+	my $out = $self->{outdir};
+	my $proteome_id = 0;
 	$L->info("Copying fasta files - adjusting headers...");
-	my $seqOutAll = Bio::SeqIO->new(-file => ">".$self->{outdir}."/all.concat.fa", -format => "fasta");
-	foreach my $p (keys %proteome){
+	my $seqOutAll = Bio::SeqIO->new(-file => ">$out/all.concat.fa", -format => "fasta");
+	foreach my $p (sort keys %proteome){
+		$self->{proteome_map}{$p} = ++$proteome_id;
 		my $seqIn = Bio::SeqIO->new(-file => "$proteome{$p}", -format => "fasta");
-		my $seqOut = Bio::SeqIO->new(-file => ">".$self->{outdir}."/".$p.".fa", -format => "fasta");
+		my $seqOut = Bio::SeqIO->new(-file => ">$out/$p.fa", -format => "fasta");
 		while(my $seq = $seqIn->next_seq){
-			$seq->id($p.$separator.$seq->id());
+			$seq->id($proteome_id.$separator.$seq->id());
 			$seqOut->write_seq($seq);
 			$seqOutAll->write_seq($seq);
 		}
@@ -178,6 +183,7 @@ sub run_muscle_and_gblocks{
 	my $self = shift;
 	my @genes = @{$self->{genes}};
 	my $out = $self->{'outdir'};
+	my %proteome_id_map = reverse %{$self->{proteome_map}};
 	$L->info("Running muscle and Gblocks on gene sets.");
 	foreach my $gene (@genes){
 		# muscle
