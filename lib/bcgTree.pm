@@ -67,7 +67,7 @@ sub create_outdir_if_not_exists{
 
 =head2 rename_fasta_headers
 
-This function creates a temporary fasta file for each proteome with name added to the beginning of each id.
+This function creates a temporary fasta file for each proteome with an internal proteome_id added to the beginning of each id.
 Additionally a all.concat.fa file is created that contains a concatenation of all proteome fasta files (with renamed headers).
 
 =cut
