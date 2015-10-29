@@ -70,6 +70,7 @@ sub create_outdir_if_not_exists{
 This function creates a temporary fasta file for each proteome with an internal proteome_id added to the beginning of each id.
 Usage of ids is necessary due to a limitation of Gblocks (only 72 characters allowed in header line).
 Additionally a all.concat.fa file is created that contains a concatenation of all proteome fasta files (with renamed headers).
+Also write a file proteome_id_map containing the mapping from proteome to id.
 
 =cut
 
@@ -93,6 +94,11 @@ sub rename_fasta_headers{
 		}
 	}
 	$L->info("All fasta files copied, headers adjusted.");
+	$L->info("Starting: Writing of proteome_id map.");
+	open(OUT, ">$out/proteome_id_map") or $L->logdie("Error opening $out/proteome_id_map. $!");
+	print OUT "$_\t".$self->{proteome_map}{$_} foreach(keys %{$self->{proteome_map}});
+	close OUT or $L->logdie("Error closing $out/proteome_id_map. $!");
+	$L->info("Finished: Writing of proteome_id map.");
 }
 
 sub run_hmmsearch{
