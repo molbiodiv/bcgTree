@@ -261,14 +261,6 @@ sub complete_and_concat_alignments{
 		print OUT "$fullseq{$p}\n";
 	}
 	close OUT or $L->logdie("Error closing $out/full_alignment.concat.fa. $!");
-	my $in  = Bio::AlignIO->new(-file => "$out/full_alignment.concat.fa" ,
-                         -format => 'fasta');
-	my $phy = Bio::AlignIO->new(-file => ">$out/full_alignment.concat.phy",
-                         -format => 'phylip');
-
-	while ( my $aln = $in->next_aln ) {
-		$phy->write_aln($aln);
-	}
 	$L->info("Completing and concatenating alignments finished.");
 }
 
@@ -276,7 +268,7 @@ sub run_raxml{
 	my $self = shift;
 	my $out = $self->{'outdir'};
 	my $msg = "raxml on $out/full_alignment.concat.fa";
-	my $cmd = $self->{'raxml-bin'}." -f a -m GTRGAMMA -p 12345 -q $out/full_alignment.concat.partition -s $out/full_alignment.concat.phy -w ".File::Spec->rel2abs( $out )." -n final -T 2 -x 12345 -N 10";
+	my $cmd = $self->{'raxml-bin'}." -f a -m GTRGAMMA -p 12345 -q $out/full_alignment.concat.partition -s $out/full_alignment.concat.fa -w ".File::Spec->rel2abs( $out )." -n final -T 2 -x 12345 -N 10";
 	$self->run_command($cmd, $msg);
 	$L->info("Finished bcgTree.");
 }
