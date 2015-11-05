@@ -4,14 +4,14 @@ perl:
   - "5.20"
 sudo: require
 env:
-  - PERL5LIB=/usr/share/perl5/ PATH=$PATH:$PWD/Gblocks_0.91b
+  - PERL5LIB=/usr/share/perl5/ PATH=$PATH:$PWD/Gblocks_0.91b:$PWD/standard-RAxML
 before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -y libbio-perl-perl
     - sudo apt-get install -y hmmer
     - sudo apt-get install -y muscle
     - curl http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z | tar xz
-    - git clone https://github.com/stamatak/standard-RAxML.git; cd standard-RAxML; make -f Makefile.gcc; cd -; ln -s standard-RAxML/raxmlHPC
+    - git clone https://github.com/stamatak/standard-RAxML.git; cd standard-RAxML; make -f Makefile.gcc; cd -
     - cd SeqFilter; make; cd -;
 install:
     - export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1 HARNESS_OPTIONS=c HARNESS_TIMER=1
