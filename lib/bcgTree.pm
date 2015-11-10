@@ -196,7 +196,7 @@ sub run_muscle_and_gblocks{
 		my $cmd = $self->{'muscle-bin'}." -in $out/$gene.fa -out $out/$gene.aln";
 		$self->run_command($cmd, "muscle on $gene");
 		# Gblocks
-		$cmd = $self->{'gblocks-bin'}." $out/$gene.aln -t=p -b1=50 -b2=85 -b4=4 -b5=h";
+		$cmd = $self->{'gblocks-bin'}." $out/$gene.aln -t=p -b4=4 -b5=h";
 		# Ignore exit code for Gblocks as this is always 1, rather test for error string manually.
 		my $r = $self->run_command($cmd, "Gblocks on $gene", 1);
 		$L->logdie("ERROR: Gblocks on $gene failed") if($r=~/Execution terminated/);
