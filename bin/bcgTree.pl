@@ -139,7 +139,8 @@ my $bcgTree = bcgTree->new({
 	'muscle-bin' => $opt_muscle_bin,
 	'gblocks-bin' => $opt_gblocks_bin,
 	'raxml-bin' => $opt_raxml_bin,
-	'separator' => '_-_'
+	'separator' => '_-_',
+	'threads' => $opt_threads
 });
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->rename_fasta_headers();
