@@ -106,6 +106,15 @@ $options{'threads=i'} = \( my $opt_threads = 2 );
 
 =back
 
+=item [--bootstraps=<INT>]
+
+Number of bootstraps to be used (passed to raxml). Default: 10
+
+=cut
+
+$options{'bootstraps=i'} = \( my $opt_bootstraps = 10 );
+
+=back
 
 =head1 CODE
 
@@ -140,7 +149,8 @@ my $bcgTree = bcgTree->new({
 	'gblocks-bin' => $opt_gblocks_bin,
 	'raxml-bin' => $opt_raxml_bin,
 	'separator' => '_-_',
-	'threads' => $opt_threads
+	'threads' => $opt_threads,
+	'bootstraps' => $opt_bootstraps
 });
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->rename_fasta_headers();
