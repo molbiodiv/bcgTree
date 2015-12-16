@@ -20,9 +20,9 @@ ax.set_xticklabels([""]+mat.columns.tolist(), rotation=90)
 ax.yaxis.set_major_locator(MultipleLocator(1))
 ax.yaxis.set_major_formatter(FormatStrFormatter('%s'))
 ax.set_yticklabels([""]+mat.index.tolist())
-ax.tick_params(axis='both', which='both', labelsize=4, direction='out',
+ax.tick_params(axis='both', which='both', labelsize=8, direction='out',
                        labelleft='on', labelright='off', labelbottom='off',
                        labeltop='on', left='on', right='off', bottom='off',
                        top='on')
-plt.savefig(sys.argv[2], bbox_inches='tight', dpi = 1000)
+plt.savefig(sys.argv[2], bbox_inches='tight', dpi = 100)
 
