@@ -94,6 +94,18 @@ $options{'raxml-bin=s'} = \( my $opt_raxml_bin = `which raxmlHPC 2>/dev/null` );
 
 =back
 
+=item [--threads=<INT>]
+
+Number of threads to be used (currently only relevant for raxml). Default: 2
+From the raxml man page:
+PTHREADS VERSION ONLY! Specify the number of threads you want to run.  Make sure to set "-T" to at most the number of CPUs you have on your machine, otherwise, there will be a huge performance decrease!
+
+=cut
+
+$options{'threads=i'} = \( my $opt_threads = 2 );
+
+=back
+
 
 =head1 CODE
 
