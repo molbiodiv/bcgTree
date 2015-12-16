@@ -107,7 +107,7 @@ sub run_hmmsearch{
 	my $out = $self->{'outdir'};
 	$L->info("Running hmmsearch on proteomes.");
 	foreach my $p (keys %proteome){
-		my $cmd = $self->{'hmmsearch-bin'}." --cut_tc --notextw --tblout $out/$p.hmmsearch.tsv $FindBin::RealBin/../data/essential.hmm $out/$p.fa";
+		my $cmd = $self->{'hmmsearch-bin'}." --cut_tc --notextw --tblout $out/$p.hmmsearch.tsv ".$self->{'hmmfile'}." $out/$p.fa";
 		$self->run_command($cmd, "hmmsearch in $p");
 	}
 	$L->info("Finished hmmsearch.");

@@ -116,6 +116,16 @@ $options{'bootstraps=i'} = \( my $opt_bootstraps = 10 );
 
 =back
 
+=item [--hmmfile=<PATH>]
+
+Path to HMM file to be used for hmmsearch. Default: <bcgTreeDir>/data/essential.hmm
+
+=cut
+
+$options{'hmmfile=s'} = \( my $opt_hmmfile = "$FindBin::RealBin/../data/essential.hmm" );
+
+=back
+
 =head1 CODE
 
 =cut
@@ -150,7 +160,8 @@ my $bcgTree = bcgTree->new({
 	'raxml-bin' => $opt_raxml_bin,
 	'separator' => '_-_',
 	'threads' => $opt_threads,
-	'bootstraps' => $opt_bootstraps
+	'bootstraps' => $opt_bootstraps,
+	'hmmfile' => $opt_hmmfile
 });
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->rename_fasta_headers();
