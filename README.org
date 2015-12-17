@@ -36,7 +36,67 @@ make
 ../bin/bcgTree.pl --help
 #+END_SRC
 ** Usage
+#+BEGIN_SRC sh
+Usage:
+      $ bcgTree.pl [@cofigfile] --proteome bac1=bacterium1.pep.fa --proteome bac2=bacterium2.faa [options]
 
+Options:
+    [@configfile]            Optional path to a configfile with @ as prefix.
+                             Config files consist of command line parameters
+                             and arguments just as passed on the command
+                             line. Space and comment lines are allowed (and
+                             ignored). Spreading over multiple lines is
+                             supported.
+
+    --proteome <ORGANISM>=<FASTA> [--proteome <ORGANISM>=<FASTA> ..]
+                             Multiple pairs of organism and proteomes as
+                             fasta file paths
+
+    [--outdir <STRING>]      output directory for the generated output files
+                             (default: bcgTree)
+
+    [--help]                 show help
+
+    [--hmmsearch-bin=<FILE>] Path to hmmsearch binary file. Default tries if
+                             hmmsearch is in PATH;
+
+    [--muscle-bin=<FILE>]    Path to muscle binary file. Default tries if
+                             muscle is in PATH;
+
+    [--gblocks-bin=<FILE>]   Path to the Gblocks binary file. Default tries
+                             if Gblocks is in PATH;
+
+    [--raxml-bin=<FILE>]     Path to the raxml binary file. Default tries if
+                             raxmlHPC is in PATH;
+
+    [--threads=<INT>]
+        Number of threads to be used (currently only relevant for raxml).
+        Default: 2 From the raxml man page: PTHREADS VERSION ONLY! Specify
+        the number of threads you want to run. Make sure to set "-T" to at
+        most the number of CPUs you have on your machine, otherwise, there
+        will be a huge performance decrease!
+
+    [--bootstraps=<INT>]
+        Number of bootstraps to be used (passed to raxml). Default: 10
+
+    [--hmmfile=<PATH>]
+        Path to HMM file to be used for hmmsearch. Default:
+        <bcgTreeDir>/data/essential.hmm
+
+    [--raxml-x-rapidBootstrapRandomNumberSeed=<INT>]
+        Random number seed for raxml (passed through as -x option to raxml).
+        Default: Random number in range 1..1000000 (see raxml command in log
+        file to find out the actual value). Note: you can abbreviate options
+        (as long as they stay unique) so --raxml-x=12345 is equivalent to
+        --raxml-x-rapidBootstrapRandomNumberSeed=12345
+
+    [--raxml-p-parsimonyRandomSeed=<INT>]
+        Random number seed for raxml (passed through as -p option to raxml).
+        Default: Random number in range 1..1000000 (see raxml command in log
+        file to find out the actual value). Note: you can abbreviate options
+        (as long as they stay unique) so --raxml-p=12345 is equivalent to
+        --raxml-p-parsimonyRandomSeed=12345
+#+END_SRC
 ** Results
 
 ** Background
