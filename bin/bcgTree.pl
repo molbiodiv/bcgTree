@@ -60,6 +60,14 @@ show help
 
 $options{'help|h|?'} = \( my $opt_help );
 
+=item [--version] 
+
+show version number of bcgTree and exit
+
+=cut
+
+$options{'version'} = \( my $opt_version );
+
 =item [--hmmsearch-bin=<FILE>]
 
 Path to hmmsearch binary file. Default tries if hmmsearch is in PATH;
@@ -157,6 +165,10 @@ $options{'raxml-p-parsimonyRandomSeed=i'} = \( my $opt_raxml_p = int(rand(100000
 =cut
 
 GetOptions(%options) or pod2usage(1);
+if($opt_version){
+    print "bcgTree version: ".$bcgTree::VERSION."\n";
+    exit 0;
+}
 pod2usage(1) if ($opt_help);
 pod2usage( -msg => "No proteome specified. Use --proteome name=file.fa", -verbose => 0, -exitval => 1 )  unless ( $opt_proteome );
 pod2usage( -msg => 'hmmsearch not in $PATH and binary not specified use --hmmsearch-bin', -verbose => 0, -exitval => 1 ) unless ($opt_hmmsearch_bin);

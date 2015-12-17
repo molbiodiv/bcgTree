@@ -57,6 +57,8 @@ Options:
 
     [--help]                 show help
 
+    [--version]              show version number of bcgTree and exit
+
     [--hmmsearch-bin=<FILE>] Path to hmmsearch binary file. Default tries if
                              hmmsearch is in PATH;
 
