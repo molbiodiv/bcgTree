@@ -1,6 +1,8 @@
 * bcgTree
 Automatized phylogenetic tree building from bacterial core genomes.
 
+[[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
+
 An article describing bcgTree is currently under review.
 If you use bcgTree for your research please cite this repository in the meantime.
 Also please cite the external programs and the source of the HMMs (see Background section) if you use the default essential.hmm
