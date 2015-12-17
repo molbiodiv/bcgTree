@@ -126,6 +126,32 @@ $options{'hmmfile=s'} = \( my $opt_hmmfile = "$FindBin::RealBin/../data/essentia
 
 =back
 
+=item [--raxml-x-rapidBootstrapRandomNumberSeed=<INT>]
+
+Random number seed for raxml (passed through as -x option to raxml).
+Default: Random number in range 1..1000000 (see raxml command in log file to find out the actual value).
+Note: you can abbreviate options (as long as they stay unique)
+so --raxml-x=12345 is equivalent to --raxml-x-rapidBootstrapRandomNumberSeed=12345
+
+=cut
+
+$options{'raxml-x-rapidBootstrapRandomNumberSeed=i'} = \( my $opt_raxml_x = int(rand(1000000))+1 );
+
+=back
+
+=item [--raxml-p-parsimonyRandomSeed=<INT>]
+
+Random number seed for raxml (passed through as -p option to raxml).
+Default: Random number in range 1..1000000 (see raxml command in log file to find out the actual value).
+Note: you can abbreviate options (as long as they stay unique)
+so --raxml-p=12345 is equivalent to --raxml-p-parsimonyRandomSeed=12345
+
+=cut
+
+$options{'raxml-p-parsimonyRandomSeed=i'} = \( my $opt_raxml_p = int(rand(1000000))+1 );
+
+=back
+
 =head1 CODE
 
 =cut
@@ -161,7 +187,9 @@ my $bcgTree = bcgTree->new({
 	'separator' => '_-_',
 	'threads' => $opt_threads,
 	'bootstraps' => $opt_bootstraps,
-	'hmmfile' => $opt_hmmfile
+	'hmmfile' => $opt_hmmfile,
+	'raxml-p' => $opt_raxml_p,
+	'raxml-x' => $opt_raxml_x
 });
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->rename_fasta_headers();
