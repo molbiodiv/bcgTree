@@ -25,8 +25,16 @@ Newer versions should work (otherwise feel free to open an issue).
  - [[http://www.drive5.com/muscle/][muscle]] (v3.8.31)
  - [[http://molevol.cmima.csic.es/castresana/Gblocks.html][Gblocks]] (version 0.91b)
  - [[http://sco.h-its.org/exelixis/web/software/raxml/][RAxML]] (version 8.2.4)
+Additionally [[https://github.com/BioInf-Wuerzburg/SeqFilter][SeqFilter]] is needed but it is included as a git submodule (see Installation).
 ** Installation
-
+If you have all the Perl modules and external programs installed you can get bcgTree by executing the following commands:
+#+BEGIN_SRC sh
+git clone --recursive https://github.com/iimog/bcgTree.git
+cd bcgTree/SeqFilter
+make
+# Now you can run bcgTree.pl
+../bin/bcgTree.pl --help
+#+END_SRC
 ** Usage
 
 ** Results
