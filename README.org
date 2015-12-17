@@ -1,5 +1,10 @@
-# bcgTree
+* bcgTree
+Automatized phylogenetic tree building from bacterial core genomes.
 
+An article describing bcgTree is currently under review.
+If you use bcgTree for your research please cite this repository in the meantime.
+Also please cite the external programs and the source of the HMMs (see Background section) if you use the default essential.hmm
+** Background
 107 essential genes as described in:
 Dupont CL, Rusch DB, Yooseph S, et al. Genomic insights to SAR86, an abundant and uncultivated marine bacterial lineage. The ISME Journal. 2012;6(6):1186-1199. doi:10.1038/ismej.2011.189.
 Supplementary Table S1 (which is actually an image) contains a list of the used genes and HMMs with cut-offs.
