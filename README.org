@@ -54,4 +54,5 @@ TIGRFAMs and Pfam libraries (Haft et al., 2003; Finn et al., 2010)."
 In the publication:
 M Albertsen,	Hugenholtz P, Skarshewski A, Nielsen KL, Tyson GW and Nielsen PH, Genome sequences of rare, uncultured bacteria obtained by differential coverage binning of multiple metagenomes. Nature Biotechnology 31, 533–538 (2013) doi:10.1038/nbt.2579
 the authors use the same list of 107 genes (111 HMMs, glyS, pheT, proS and rpoC have two HMMs each)
-as above and provide a readily created hmm file via [https://github.com/MadsAlbertsen/multi-metagenome/](github).
+as above and provide a readily created hmm file via [[https://github.com/MadsAlbertsen/multi-metagenome/][GitHub]].
+This file has been used as a starting point but an [[https://github.com/MadsAlbertsen/multi-metagenome/issues/15][error]] had to be fixed.
