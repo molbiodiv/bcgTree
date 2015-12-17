@@ -4,6 +4,33 @@ Automatized phylogenetic tree building from bacterial core genomes.
 An article describing bcgTree is currently under review.
 If you use bcgTree for your research please cite this repository in the meantime.
 Also please cite the external programs and the source of the HMMs (see Background section) if you use the default essential.hmm
+** Dependencies
+*** Perl
+To execute bcgTree [[https://www.perl.org/][perl5]] is required along with the following modules (all available via [[http://www.cpan.org/][cpan]]):
+ - Getopt::Long
+ - Getopt::ArgvFile
+ - Pod::Usage
+ - Log::Log4perl
+ - FindBin
+ - File::Path
+ - File::Spec
+ - Bio::SeqIO
+ - Bio::AlignIO
+*** External programs
+bcgTree is a wrapper around multiple existing tools.
+The following external programs are called by bcgTree and have to be installed.
+The specified versions are the ones we used for testing (older versions might or might not work).
+Newer versions should work (otherwise feel free to open an issue).
+ - [[http://hmmer.org/][hmmsearch]] (HMMER version 3.1b1)
+ - [[http://www.drive5.com/muscle/][muscle]] (v3.8.31)
+ - [[http://molevol.cmima.csic.es/castresana/Gblocks.html][Gblocks]] (version 0.91b)
+ - [[http://sco.h-its.org/exelixis/web/software/raxml/][RAxML]] (version 8.2.4)
+** Installation
+
+** Usage
+
+** Results
+
 ** Background
 107 essential genes as described in:
 Dupont CL, Rusch DB, Yooseph S, et al. Genomic insights to SAR86, an abundant and uncultivated marine bacterial lineage. The ISME Journal. 2012;6(6):1186-1199. doi:10.1038/ismej.2011.189.
