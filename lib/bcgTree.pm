@@ -88,9 +88,13 @@ sub rename_fasta_headers{
 		my $seqIn = Bio::SeqIO->new(-file => "$proteome{$p}", -format => "fasta");
 		my $seqOut = Bio::SeqIO->new(-file => ">$out/$p.fa", -format => "fasta");
 		while(my $seq = $seqIn->next_seq){
+                    if(length($seq->seq)==0){
+                        $L->warn("Empty seq: ".$proteome_id.$separator.$seq->id().". Skipping seq...")
+                    } else {
 			$seq->id($proteome_id.$separator.$seq->id());
 			$seqOut->write_seq($seq);
 			$seqOutAll->write_seq($seq);
+                    }
 		}
 	}
 	$L->info("All fasta files copied, headers adjusted.");
