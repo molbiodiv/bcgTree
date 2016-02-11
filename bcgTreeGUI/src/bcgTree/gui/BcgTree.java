@@ -68,8 +68,8 @@ public class BcgTree extends JFrame {
 			System.out.println(System.getProperty("user.dir"));
 			try {
 				Process proc = Runtime.getRuntime().exec("perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl --help");
-				InputStream stderr = proc.getInputStream();
-	            InputStreamReader isr = new InputStreamReader(stderr);
+				InputStream stdout = proc.getInputStream();
+	            InputStreamReader isr = new InputStreamReader(stdout);
 	            BufferedReader br = new BufferedReader(isr);
 	            String line = null;
 	            while ( (line = br.readLine()) != null)
