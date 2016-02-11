@@ -2,6 +2,7 @@ package bcgTree.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -22,6 +23,8 @@ public class BcgTree extends JFrame {
 		mainWindow.pack();
 		mainWindow.setVisible(true);
 	}
+
+	private TextArea logTextArea;
 	
 	public BcgTree(){
 		initGUI();
@@ -47,7 +50,16 @@ public class BcgTree extends JFrame {
 		JPanel settingsPanel = new JPanel();
 		mainPanel.add(settingsPanel);
 		JPanel logPanel = new JPanel();
+		logPanel.setLayout(new BorderLayout());
 		mainPanel.add(logPanel);
+		// Add Elements to settingsPanel
+		//TODO
+		// Add log textarea
+		logTextArea = new TextArea();
+		logTextArea.setEditable(false);
+		logPanel.add(logTextArea, BorderLayout.CENTER);
+		
+		this.pack();
 	}
 	
 	ActionListener runActionListener = new ActionListener() {		
@@ -61,7 +73,7 @@ public class BcgTree extends JFrame {
 	            BufferedReader br = new BufferedReader(isr);
 	            String line = null;
 	            while ( (line = br.readLine()) != null)
-	                System.out.println(line);
+	                logTextArea.append(line + "\n");
 	            int exitVal = proc.waitFor();
 	            System.out.println("Process exitValue: " + exitVal);
 			} catch (IOException | InterruptedException e1) {
