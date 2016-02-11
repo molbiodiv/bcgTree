@@ -1,5 +1,6 @@
 package bcgTree.gui;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.io.InputStreamReader;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class BcgTree extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -26,16 +28,26 @@ public class BcgTree extends JFrame {
 	}
 	
 	public void initGUI(){
+		// Basic settings
 		this.setTitle("bcgTree");
-		this.setLayout(new GridLayout(4, 1));
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(new BorderLayout());
+		// Add title
 		JLabel titleLabel = new JLabel("bcgTree v1.0.0");
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
-		this.add(titleLabel);
-		this.add(new JButton("Check Requirements"));
-		this.add(new JButton("Set Parameters"));
-		JButton actionButton = new JButton("Action!");
-		this.add(actionButton);
-		actionButton.addActionListener(runActionListener);
+		this.add(titleLabel, BorderLayout.NORTH);
+		// Add "Run" button
+		JButton runButton = new JButton("Run");
+		this.add(runButton, BorderLayout.SOUTH);
+		runButton.addActionListener(runActionListener);
+		// Add central panel (split in parameter section and log/output section)
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new GridLayout(1, 2));
+		this.add(mainPanel, BorderLayout.CENTER);
+		JPanel settingsPanel = new JPanel();
+		mainPanel.add(settingsPanel);
+		JPanel logPanel = new JPanel();
+		mainPanel.add(logPanel);
 	}
 	
 	ActionListener runActionListener = new ActionListener() {		
