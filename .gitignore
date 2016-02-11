@@ -7,3 +7,4 @@ blib/
 tmp/
 cover_db/
 .pydevproject
+*~
