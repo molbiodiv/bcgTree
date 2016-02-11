@@ -22,6 +22,10 @@ public class BcgTree extends JFrame {
 	}
 	
 	public BcgTree(){
+		initGUI();
+	}
+	
+	public void initGUI(){
 		this.setTitle("bcgTree");
 		this.setLayout(new GridLayout(4, 1));
 		JLabel titleLabel = new JLabel("bcgTree v1.0.0");
@@ -31,26 +35,27 @@ public class BcgTree extends JFrame {
 		this.add(new JButton("Set Parameters"));
 		JButton actionButton = new JButton("Action!");
 		this.add(actionButton);
-		actionButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println(System.getProperty("user.dir"));
-				try {
-					Process proc = Runtime.getRuntime().exec("perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl --help");
-					InputStream stderr = proc.getInputStream();
-		            InputStreamReader isr = new InputStreamReader(stderr);
-		            BufferedReader br = new BufferedReader(isr);
-		            String line = null;
-		            while ( (line = br.readLine()) != null)
-		                System.out.println(line);
-		            int exitVal = proc.waitFor();
-		            System.out.println("Process exitValue: " + exitVal);
-				} catch (IOException | InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+		actionButton.addActionListener(runActionListener);
 	}
+	
+	ActionListener runActionListener = new ActionListener() {		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println(System.getProperty("user.dir"));
+			try {
+				Process proc = Runtime.getRuntime().exec("perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl --help");
+				InputStream stderr = proc.getInputStream();
+	            InputStreamReader isr = new InputStreamReader(stderr);
+	            BufferedReader br = new BufferedReader(isr);
+	            String line = null;
+	            while ( (line = br.readLine()) != null)
+	                System.out.println(line);
+	            int exitVal = proc.waitFor();
+	            System.out.println("Process exitValue: " + exitVal);
+			} catch (IOException | InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+	};
 
 }
