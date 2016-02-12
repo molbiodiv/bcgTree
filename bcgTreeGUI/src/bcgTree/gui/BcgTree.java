@@ -6,14 +6,19 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class BcgTree extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -25,8 +30,12 @@ public class BcgTree extends JFrame {
 	}
 
 	private TextArea logTextArea;
+	private GridLayout proteomesPanelLayout;
+	private JPanel proteomesPanel;
+	private Map<String, File> proteomes;
 	
 	public BcgTree(){
+		proteomes = new HashMap<String, File>();
 		initGUI();
 	}
 	
@@ -53,19 +62,26 @@ public class BcgTree extends JFrame {
 		logPanel.setLayout(new BorderLayout());
 		mainPanel.add(logPanel);
 		// Add Elements to settingsPanel
-		//TODO
+		JLabel proteomesLabel = new JLabel("Proteomes");
+		settingsPanel.add(proteomesLabel);
+		JButton proteomesAddButton = new JButton("+");
+		proteomesAddButton.addActionListener(proteomeAddActionListener);
+		settingsPanel.add(proteomesAddButton);
+		proteomesPanel = new JPanel();
+		proteomesPanelLayout = new GridLayout(0, 3);
+		proteomesPanel.setLayout(proteomesPanelLayout);
+		settingsPanel.add(proteomesPanel);
 		// Add log textarea
 		logTextArea = new TextArea();
 		logTextArea.setEditable(false);
 		logPanel.add(logTextArea, BorderLayout.CENTER);
-		
+		// final adjustments
 		this.pack();
 	}
 	
 	ActionListener runActionListener = new ActionListener() {		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println(System.getProperty("user.dir"));
 			try {
 				Process proc = Runtime.getRuntime().exec("perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl --help");
 				InputStream stdout = proc.getInputStream();
@@ -81,5 +97,49 @@ public class BcgTree extends JFrame {
 			}
 		}
 	};
+	
+	ActionListener proteomeAddActionListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			proteomeAddAction();
+		}
+	};
+	
+	public void proteomeAddAction(){
+		JFileChooser chooser = new JFileChooser();
+		chooser.setMultiSelectionEnabled(true);
+		chooser.showOpenDialog(this);
+		File[] files = chooser.getSelectedFiles();
+		proteomesPanelLayout.setRows(files.length);
+		for(int i=0; i<files.length; i++){
+			String name = files[i].getName();
+			String path = files[i].getAbsolutePath();
+			// avoid name collisions (does not matter if name and path are identical)
+			if(proteomes.get(name) != null && !proteomes.get(name).getAbsolutePath().equals(path)){
+				int suffix = 1;
+				while(proteomes.get(name+"_"+suffix) != null && !proteomes.get(name+"_"+suffix).getAbsolutePath().equals(path)){
+					suffix++;
+				}
+				name = name + "_" + suffix;
+			}
+			proteomes.put(name, files[i]);
+		}
+		updateProteomePanel();
+	}
+	
+	public void updateProteomePanel(){
+		proteomesPanel.removeAll();
+		proteomesPanelLayout.setRows(proteomes.size());
+		for(Map.Entry<String, File> entry : proteomes.entrySet()){
+			JButton removeButton = new JButton("-");
+			proteomesPanel.add(removeButton);
+			JTextField proteomeNameTextField = new JTextField(entry.getKey());
+			proteomesPanel.add(proteomeNameTextField);
+			JLabel proteomePathLabel = new JLabel(entry.getValue().getAbsolutePath());
+			proteomesPanel.add(proteomePathLabel);
+		}
+		this.revalidate();
+		this.repaint();
+	}
 
 }
