@@ -127,11 +127,22 @@ public class BcgTree extends JFrame {
 		updateProteomePanel();
 	}
 	
+	public void removeProteome(String name){
+		proteomes.remove(name);
+		updateProteomePanel();
+	}
+	
 	public void updateProteomePanel(){
 		proteomesPanel.removeAll();
 		proteomesPanelLayout.setRows(proteomes.size());
 		for(Map.Entry<String, File> entry : proteomes.entrySet()){
 			JButton removeButton = new JButton("-");
+			removeButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					removeProteome(entry.getKey());
+				}
+			});
 			proteomesPanel.add(removeButton);
 			JTextField proteomeNameTextField = new JTextField(entry.getKey());
 			proteomesPanel.add(proteomeNameTextField);
