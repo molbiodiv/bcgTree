@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -33,9 +34,10 @@ public class BcgTree extends JFrame {
 	private GridLayout proteomesPanelLayout;
 	private JPanel proteomesPanel;
 	private Map<String, File> proteomes;
+	private Map<JTextField, String> proteomeTextFields;
 	
 	public BcgTree(){
-		proteomes = new HashMap<String, File>();
+		proteomes = new TreeMap<String, File>();
 		initGUI();
 	}
 	
@@ -129,11 +131,23 @@ public class BcgTree extends JFrame {
 	
 	public void removeProteome(String name){
 		proteomes.remove(name);
+		renameProteomes();
 		updateProteomePanel();
+	}
+	
+	public void renameProteomes(){
+		TreeMap<String, File> newProteomes = new TreeMap<String, File>();
+		for(Map.Entry<JTextField, String> entry: proteomeTextFields.entrySet()){
+			if(proteomes.containsKey(entry.getValue())){
+				newProteomes.put(entry.getKey().getText(), proteomes.get(entry.getValue()));
+			}
+		}
+		proteomes = newProteomes;
 	}
 	
 	public void updateProteomePanel(){
 		proteomesPanel.removeAll();
+		proteomeTextFields = new HashMap<JTextField, String>();
 		proteomesPanelLayout.setRows(proteomes.size());
 		for(Map.Entry<String, File> entry : proteomes.entrySet()){
 			JButton removeButton = new JButton("-");
@@ -145,6 +159,7 @@ public class BcgTree extends JFrame {
 			});
 			proteomesPanel.add(removeButton);
 			JTextField proteomeNameTextField = new JTextField(entry.getKey());
+			proteomeTextFields.put(proteomeNameTextField, entry.getKey());
 			proteomesPanel.add(proteomeNameTextField);
 			JLabel proteomePathLabel = new JLabel(entry.getValue().getAbsolutePath());
 			proteomesPanel.add(proteomePathLabel);
