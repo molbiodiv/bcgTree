@@ -40,9 +40,12 @@ public class BcgTree extends JFrame {
 	private JPanel proteomesPanel;
 	private Map<String, File> proteomes;
 	private Map<JTextField, String> proteomeTextFields;
+	private String outdir;
+	private JTextField outdirTextField;
 	
 	public BcgTree(){
 		proteomes = new TreeMap<String, File>();
+		outdir = System.getProperty("user.home")+"/bcgTree";
 		initGUI();
 	}
 	
@@ -69,6 +72,7 @@ public class BcgTree extends JFrame {
 		logPanel.setLayout(new BorderLayout());
 		mainPanel.add(logPanel);
 		// Add Elements to settingsPanel
+		// proteome settings
 		JLabel proteomesLabel = new JLabel("Proteomes");
 		settingsPanel.add(proteomesLabel);
 		JButton proteomesAddButton = new JButton("+");
@@ -78,6 +82,20 @@ public class BcgTree extends JFrame {
 		proteomesPanelLayout = new GridLayout(0, 3);
 		proteomesPanel.setLayout(proteomesPanelLayout);
 		settingsPanel.add(proteomesPanel);
+		// outputdir settings
+		JLabel outdirLabel = new JLabel("Output directory:");
+		settingsPanel.add(outdirLabel);
+		outdirTextField = new JTextField(outdir);
+		outdirTextField.setEditable(false);
+		settingsPanel.add(outdirTextField);
+		JButton outdirChooseButton = new JButton("choose");
+		outdirChooseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				openOutdirChooseDialog();
+			}
+		});
+		settingsPanel.add(outdirChooseButton);
 		// Add log textarea
 		logTextArea = new TextArea();
 		logTextArea.setEditable(false);
@@ -86,6 +104,16 @@ public class BcgTree extends JFrame {
 		this.pack();
 	}
 	
+	protected void openOutdirChooseDialog() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int exitOption = chooser.showOpenDialog(this);
+		if(exitOption == JFileChooser.APPROVE_OPTION){
+			outdir = chooser.getSelectedFile().getAbsolutePath();
+			outdirTextField.setText(outdir);
+		}
+	}
+
 	ActionListener runActionListener = new ActionListener() {		
 		@Override
 		public void actionPerformed(ActionEvent e) {
