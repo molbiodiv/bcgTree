@@ -170,11 +170,11 @@ public class BcgTree extends JFrame {
 					if(e.isTemporary()){
 						return;
 					}
-					checkDuplicateProteomeNames();
 					if(proteomeNameTextField.getText().contains(" ")){
 						proteomeNameTextField.setText(proteomeNameTextField.getText().replace(" ", "_"));
 						showSpaceInProteomeNameWarningDialog();
 					}
+					checkDuplicateProteomeNames();
 				}
 				@Override
 				public void focusGained(FocusEvent e) {	
@@ -187,6 +187,10 @@ public class BcgTree extends JFrame {
 		}
 		this.revalidate();
 		this.repaint();
+	}
+	
+	protected void showSpaceInProteomeNameWarningDialog() {
+		JOptionPane.showMessageDialog(this, "The proteome name contained spaces, those have been automatically replaced by underscores.", "Whitespace Replace Warning", JOptionPane.WARNING_MESSAGE);
 	}
 
 	protected void checkDuplicateProteomeNames(){
