@@ -5,19 +5,24 @@ import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -159,6 +164,22 @@ public class BcgTree extends JFrame {
 			});
 			proteomesPanel.add(removeButton);
 			JTextField proteomeNameTextField = new JTextField(entry.getKey());
+			proteomeNameTextField.addFocusListener(new FocusListener() {
+				@Override
+				public void focusLost(FocusEvent e) {
+					if(e.isTemporary()){
+						return;
+					}
+					checkDuplicateProteomeNames();
+					if(proteomeNameTextField.getText().contains(" ")){
+						proteomeNameTextField.setText(proteomeNameTextField.getText().replace(" ", "_"));
+						showSpaceInProteomeNameWarningDialog();
+					}
+				}
+				@Override
+				public void focusGained(FocusEvent e) {	
+				}
+			});
 			proteomeTextFields.put(proteomeNameTextField, entry.getKey());
 			proteomesPanel.add(proteomeNameTextField);
 			JLabel proteomePathLabel = new JLabel(entry.getValue().getAbsolutePath());
@@ -166,6 +187,17 @@ public class BcgTree extends JFrame {
 		}
 		this.revalidate();
 		this.repaint();
+	}
+
+	protected void checkDuplicateProteomeNames(){
+		Set<String> usedNames = new HashSet<String>();
+		for(JTextField tf: proteomeTextFields.keySet()){
+			String name = tf.getText();
+			if(usedNames.contains(name)){
+				JOptionPane.showMessageDialog(this, "The name: '"+name+"' is used twice for different proteomes. Please fix otherwise one of the entries will be lost.", "Duplicate Name Warning", JOptionPane.WARNING_MESSAGE);
+			}
+			usedNames.add(name);
+		}
 	}
 
 }
