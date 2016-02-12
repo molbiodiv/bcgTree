@@ -143,7 +143,10 @@ public class BcgTree extends JFrame {
 	public void proteomeAddAction(){
 		JFileChooser chooser = new JFileChooser();
 		chooser.setMultiSelectionEnabled(true);
-		chooser.showOpenDialog(this);
+		int exitOption = chooser.showOpenDialog(this);
+		if(exitOption != JFileChooser.APPROVE_OPTION){
+			return;
+		}
 		File[] files = chooser.getSelectedFiles();
 		proteomesPanelLayout.setRows(files.length);
 		for(int i=0; i<files.length; i++){
