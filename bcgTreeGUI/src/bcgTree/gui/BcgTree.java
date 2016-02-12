@@ -119,7 +119,7 @@ public class BcgTree extends JFrame {
 		File[] files = chooser.getSelectedFiles();
 		proteomesPanelLayout.setRows(files.length);
 		for(int i=0; i<files.length; i++){
-			String name = files[i].getName();
+			String name = files[i].getName().replace(" ", "_");
 			String path = files[i].getAbsolutePath();
 			// avoid name collisions (does not matter if name and path are identical)
 			if(proteomes.get(name) != null && !proteomes.get(name).getAbsolutePath().equals(path)){
