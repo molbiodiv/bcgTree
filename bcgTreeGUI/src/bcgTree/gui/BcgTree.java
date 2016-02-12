@@ -9,9 +9,12 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -117,6 +120,21 @@ public class BcgTree extends JFrame {
 	ActionListener runActionListener = new ActionListener() {		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			// Apply changes to proteome names
+			renameProteomes();
+			// create outdir and write options file there:
+			new File(outdir).mkdirs();
+			PrintWriter writer;
+			try {
+				writer = new PrintWriter(outdir+"/options.txt", "UTF-8");
+				writer.println("--outdir \""+outdir+"\"");
+				for(Map.Entry<String, File> entry: proteomes.entrySet()){					
+					writer.println("--proteome "+entry.getKey()+"="+"\""+entry.getValue().getAbsolutePath()+"\"");
+				}
+				writer.close();
+			} catch (FileNotFoundException | UnsupportedEncodingException e2) {
+				e2.printStackTrace();
+			}
 			try {
 				Process proc = Runtime.getRuntime().exec("perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl --help");
 				InputStream stdout = proc.getInputStream();
