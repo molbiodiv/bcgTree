@@ -1,6 +1,7 @@
 package bcgTree.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -101,6 +102,7 @@ public class BcgTree extends JFrame {
 		settingsPanel.add(outdirChooseButton);
 		// Add log textarea
 		logTextArea = new TextArea();
+		logTextArea.setForeground(Color.red);
 		logTextArea.setEditable(false);
 		logPanel.add(logTextArea, BorderLayout.CENTER);
 		// final adjustments
