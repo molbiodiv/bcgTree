@@ -136,16 +136,17 @@ public class BcgTree extends JFrame {
 				e2.printStackTrace();
 			}
 			try {
-				Process proc = Runtime.getRuntime().exec("perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl --help");
-				InputStream stdout = proc.getInputStream();
-	            InputStreamReader isr = new InputStreamReader(stdout);
-	            BufferedReader br = new BufferedReader(isr);
-	            String line = null;
-	            while ( (line = br.readLine()) != null)
-	                logTextArea.append(line + "\n");
-	            int exitVal = proc.waitFor();
-	            System.out.println("Process exitValue: " + exitVal);
-			} catch (IOException | InterruptedException e1) {
+				Process proc = Runtime.getRuntime().exec("perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl @"+outdir+"/options.txt");
+				// collect stderr
+	            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
+	            // collect stdout
+	            StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "OUTPUT");
+	            // start gobblers
+	            errorGobbler.start();
+	            outputGobbler.start();
+	            //int exitVal = proc.waitFor();
+	            //System.out.println("Process exitValue: " + exitVal);
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
@@ -251,6 +252,35 @@ public class BcgTree extends JFrame {
 			}
 			usedNames.add(name);
 		}
+	}
+	
+	// Helper class to process stdout and stderr of the command
+	// see http://www.javaworld.com/article/2071275/core-java/when-runtime-exec---won-t.html?page=2
+	class StreamGobbler extends Thread
+	{
+	    InputStream is;
+	    String type;
+	    
+	    StreamGobbler(InputStream is, String type)
+	    {
+	        this.is = is;
+	        this.type = type;
+	    }
+	    
+	    public void run()
+	    {
+	        try
+	        {
+	            InputStreamReader isr = new InputStreamReader(is);
+	            BufferedReader br = new BufferedReader(isr);
+	            String line=null;
+	            while ( (line = br.readLine()) != null)
+	            	logTextArea.append(line + "\n");
+	            } catch (IOException ioe)
+	              {
+	                ioe.printStackTrace();  
+	              }
+	    }
 	}
 
 }
