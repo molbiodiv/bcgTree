@@ -122,6 +122,9 @@ public class BcgTree extends JFrame {
 	ActionListener runActionListener = new ActionListener() {		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			// Clear Textfield
+			logTextArea.setText("");
+			logTextArea.setForeground(Color.BLACK);
 			// Apply changes to proteome names
 			renameProteomes();
 			// create outdir and write options file there:
