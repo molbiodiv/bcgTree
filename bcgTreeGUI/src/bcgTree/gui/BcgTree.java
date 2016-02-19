@@ -49,6 +49,7 @@ public class BcgTree extends JFrame {
 	private JTextField outdirTextField;
 	private JProgressBar progressBar;
 	private BcgTree self;
+	private JButton runButton;
 	
 	public BcgTree(){
 		self = this;
@@ -67,7 +68,7 @@ public class BcgTree extends JFrame {
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 		this.add(titleLabel, BorderLayout.NORTH);
 		// Add "Run" button
-		JButton runButton = new JButton("Run");
+		runButton = new JButton("Run");
 		this.add(runButton, BorderLayout.SOUTH);
 		runButton.addActionListener(runActionListener);
 		// Add central panel (split in parameter section and log/output section)
@@ -158,6 +159,8 @@ public class BcgTree extends JFrame {
 	            PostProcessWorker postProcessWorker = new PostProcessWorker(proc);
 	            postProcessWorker.start();
 	            progressBar.setIndeterminate(true);
+	            runButton.setEnabled(false);
+	            
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -306,6 +309,7 @@ public class BcgTree extends JFrame {
 			try {
 				exitVal = this.process.waitFor();
 				progressBar.setIndeterminate(false);
+				runButton.setEnabled(true);
 				if(exitVal != 0){
 					progressBar.setValue(0);
 					logTextArea.setForeground(Color.RED);
