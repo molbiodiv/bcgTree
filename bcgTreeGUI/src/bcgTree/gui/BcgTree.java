@@ -102,7 +102,6 @@ public class BcgTree extends JFrame {
 		settingsPanel.add(outdirChooseButton);
 		// Add log textarea
 		logTextArea = new TextArea();
-		logTextArea.setForeground(Color.red);
 		logTextArea.setEditable(false);
 		logPanel.add(logTextArea, BorderLayout.CENTER);
 		// final adjustments
@@ -149,8 +148,8 @@ public class BcgTree extends JFrame {
 	            // start gobblers
 	            errorGobbler.start();
 	            outputGobbler.start();
-	            //int exitVal = proc.waitFor();
-	            //System.out.println("Process exitValue: " + exitVal);
+	            PostProcessWorker postProcessWorker = new PostProcessWorker(proc);
+	            postProcessWorker.start();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -286,6 +285,23 @@ public class BcgTree extends JFrame {
 	                ioe.printStackTrace();  
 	              }
 	    }
+	}
+	
+	// Helper class to check state of the process and reset GUI on finish
+	class PostProcessWorker extends Thread{
+		Process process;
+		PostProcessWorker(Process process){
+			this.process = process;
+		}
+		public void run(){
+			int exitVal;
+			try {
+				exitVal = this.process.waitFor();
+				System.out.println("Process exitValue: " + exitVal);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
