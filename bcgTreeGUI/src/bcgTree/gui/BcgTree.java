@@ -28,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
 public class BcgTree extends JFrame {
@@ -46,8 +47,11 @@ public class BcgTree extends JFrame {
 	private Map<JTextField, String> proteomeTextFields;
 	private String outdir;
 	private JTextField outdirTextField;
+	private JProgressBar progressBar;
+	private BcgTree self;
 	
 	public BcgTree(){
+		self = this;
 		proteomes = new TreeMap<String, File>();
 		outdir = System.getProperty("user.home")+"/bcgTree";
 		initGUI();
@@ -104,6 +108,9 @@ public class BcgTree extends JFrame {
 		logTextArea = new TextArea();
 		logTextArea.setEditable(false);
 		logPanel.add(logTextArea, BorderLayout.CENTER);
+		// Add progressBar
+		progressBar = new JProgressBar(0, 100);
+		logPanel.add(progressBar, BorderLayout.SOUTH);
 		// final adjustments
 		this.pack();
 	}
@@ -150,6 +157,7 @@ public class BcgTree extends JFrame {
 	            outputGobbler.start();
 	            PostProcessWorker postProcessWorker = new PostProcessWorker(proc);
 	            postProcessWorker.start();
+	            progressBar.setIndeterminate(true);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -297,7 +305,13 @@ public class BcgTree extends JFrame {
 			int exitVal;
 			try {
 				exitVal = this.process.waitFor();
-				System.out.println("Process exitValue: " + exitVal);
+				progressBar.setIndeterminate(false);
+				if(exitVal != 0){
+					progressBar.setValue(0);
+				}
+				else{
+					progressBar.setValue(100);
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
