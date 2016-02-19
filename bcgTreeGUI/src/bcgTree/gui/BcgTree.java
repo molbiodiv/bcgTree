@@ -308,9 +308,12 @@ public class BcgTree extends JFrame {
 				progressBar.setIndeterminate(false);
 				if(exitVal != 0){
 					progressBar.setValue(0);
+					logTextArea.setForeground(Color.RED);
+					JOptionPane.showMessageDialog(self, "bcgTree did not complete your job successfully please check the log for details.", "There was an Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else{
 					progressBar.setValue(100);
+					JOptionPane.showMessageDialog(self, "bcgTree finished your job successfully. Output is in "+outdir, "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
