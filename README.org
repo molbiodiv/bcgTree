@@ -17,8 +17,9 @@ To execute bcgTree [[https://www.perl.org/][perl5]] is required along with the f
  - FindBin
  - File::Path
  - File::Spec
- - Bio::SeqIO
- - Bio::AlignIO
+The following modules are included in this repo:
+ - [[https://github.com/BioInf-Wuerzburg/perl5lib-Fasta][perl5lib-Fasta]]
+ - [[https://github.com/BioInf-Wuerzburg/perl5lib-Verbose][perl5lib-Verbose]]
 *** External programs
 bcgTree is a wrapper around multiple existing tools.
 The following external programs are called by bcgTree and have to be installed.
@@ -28,15 +29,13 @@ Newer versions should work (otherwise feel free to open an issue).
  - [[http://www.drive5.com/muscle/][muscle]] (v3.8.31)
  - [[http://molevol.cmima.csic.es/castresana/Gblocks.html][Gblocks]] (version 0.91b)
  - [[http://sco.h-its.org/exelixis/web/software/raxml/][RAxML]] (version 8.2.4)
-Additionally [[https://github.com/BioInf-Wuerzburg/SeqFilter][SeqFilter]] is needed but it is included as a git submodule (see Installation).
+Additionally [[https://github.com/BioInf-Wuerzburg/SeqFilter][SeqFilter] is needed but it is included in this repo.
 ** Installation
 If you have all the Perl modules and external programs installed you can get bcgTree by executing the following commands:
 #+BEGIN_SRC sh
-git clone --recursive https://github.com/iimog/bcgTree.git
-cd bcgTree/SeqFilter
-make
+git clone https://github.com/iimog/bcgTree.git
 # Now you can run bcgTree.pl
-../bin/bcgTree.pl --help
+bcgTree/bin/bcgTree.pl --help
 #+END_SRC
 ** Usage
 #+BEGIN_SRC sh
@@ -134,5 +133,9 @@ as above and provide a readily created hmm file via [[https://github.com/MadsAlb
 This file has been used as a starting point but an [[https://github.com/MadsAlbertsen/multi-metagenome/issues/15][error]] had to be fixed.
 
 ** Changes
+*** v1.0.2 <2016-02-22 Mo>
+ - Remove Bioperl dependency
+ - Add submodules directly (SeqFilter)
+ - Update documentation
 *** v1.0.1 <2016-02-22 Mo>
  - Add java GUI
