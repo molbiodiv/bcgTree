@@ -7,8 +7,8 @@ use Log::Log4perl qw(:no_extra_logdie_message);
 use File::Path qw(make_path);
 use File::Spec;
 use FindBin;
-use Bio::SeqIO;
-use Bio::AlignIO;
+use lib "$FindBin::RealBin/perl5lib-Fasta/lib";
+use Fasta::Parser;
 
 our $VERSION = '1.0.1';
 
@@ -82,18 +82,18 @@ sub rename_fasta_headers{
 	my $out = $self->{outdir};
 	my $proteome_id = 0;
 	$L->info("Copying fasta files - adjusting headers...");
-	my $seqOutAll = Bio::SeqIO->new(-file => ">$out/all.concat.fa", -format => "fasta");
+	my $seqOutAll = Fasta::Parser->new(file => "$out/all.concat.fa", mode => ">");
 	foreach my $p (sort keys %proteome){
 		$self->{proteome_map}{$p} = ++$proteome_id;
-		my $seqIn = Bio::SeqIO->new(-file => "$proteome{$p}", -format => "fasta");
-		my $seqOut = Bio::SeqIO->new(-file => ">$out/$p.fa", -format => "fasta");
+		my $seqIn = Fasta::Parser->new(file => "$proteome{$p}", mode => "<");
+		my $seqOut = Fasta::Parser->new(file => "$out/$p.fa", mode => ">");
 		while(my $seq = $seqIn->next_seq){
                     if(length($seq->seq)==0){
                         $L->warn("Empty seq: ".$proteome_id.$separator.$seq->id().". Skipping seq...")
                     } else {
 			$seq->id($proteome_id.$separator.$seq->id());
-			$seqOut->write_seq($seq);
-			$seqOutAll->write_seq($seq);
+			$seqOut->append_seq($seq);
+			$seqOutAll->append_seq($seq);
                     }
 		}
 	}
@@ -205,11 +205,14 @@ sub run_muscle_and_gblocks{
 		my $r = $self->run_command($cmd, "Gblocks on $gene", 1);
 		$L->logdie("ERROR: Gblocks on $gene failed") if($r=~/Execution terminated/);
 		# Removel of unnecessary spaces
-		my $seqIn = Bio::SeqIO->new(-file => "$out/$gene.aln-gb", -format => "fasta");
-		my $seqOut = Bio::SeqIO->new(-file => ">$out/$gene.aln-gb.fa", -format => "fasta");
+		my $seqIn = Fasta::Parser->new(file => "$out/$gene.aln-gb", mode => "<");
+		my $seqOut = Fasta::Parser->new(file => "$out/$gene.aln-gb.fa", mode => ">");
 		while(my $seq = $seqIn->next_seq){
 			$seq->id($proteome_id_map{$seq->id()});
-			$seqOut->write_seq($seq);
+			my $s = $seq->seq;
+			$s =~ s/\s+//g;
+			$seq->seq($s);
+			$seqOut->append_seq($seq);
 		}
 	}
 	$L->info("Finished muscle and Gblocks.");
@@ -239,10 +242,10 @@ sub complete_and_concat_alignments{
 		}
 		my %seq = ();
 		my $length = 0;
-		my $seqIn = Bio::SeqIO->new(-file => "$out/$gene.aln-gb.fa", -format => "fasta");
+		my $seqIn = Fasta::Parser->new(file => "$out/$gene.aln-gb.fa", mode => "<");
 		while(my $seq = $seqIn->next_seq){
 			$seq{$seq->id} = $seq->seq;
-			$length = $seq->length;
+			$length = length($seq->seq);
 		}
 		print PART "WAG, $gene = ".($totalpos+1)."-";
 		$totalpos += $length;
