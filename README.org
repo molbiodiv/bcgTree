@@ -133,6 +133,11 @@ as above and provide a readily created hmm file via [[https://github.com/MadsAlb
 This file has been used as a starting point but an [[https://github.com/MadsAlbertsen/multi-metagenome/issues/15][error]] had to be fixed.
 
 ** Changes
+*** v1.0.4 <2016-02-23 Di>
+ - Add parameter to check external programs
+ - Fix SeqFilter dependencies
+ - Add swingx and own accordion element for GUI
+ - Improve GUI design (GridBagLayout)
 *** v1.0.3 <2016-02-23 Di>
  - Add log4perl and Getopt::ArgvFile to package (simplify installation)
 *** v1.0.2 <2016-02-22 Mo>
