@@ -70,6 +70,18 @@ show version number of bcgTree and exit
 
 $options{'version'} = \( my $opt_version );
 
+=item [--check-external-programs] 
+
+Check if all of the required external programs can be found and are executable, then exit.
+Report table with program, status (ok or !fail!) and path.
+If all external programs are found exit code is 0 otherwise 1.
+Note that this parameter does not check that the paths belong to the actual programs,
+it only checks that the given locations are executable files.
+
+=cut
+
+$options{'check-external-programs'} = \( my $opt_check_external_programs = 0 );
+
 =item [--hmmsearch-bin=<FILE>]
 
 Path to hmmsearch binary file. Default tries if hmmsearch is in PATH;
@@ -172,12 +184,13 @@ if($opt_version){
     exit 0;
 }
 pod2usage(1) if ($opt_help);
+chomp($opt_hmmsearch_bin, $opt_muscle_bin, $opt_gblocks_bin, $opt_raxml_bin);
+check_external_programs() if($opt_check_external_programs);
 pod2usage( -msg => "No proteome specified. Use --proteome name=file.fa", -verbose => 0, -exitval => 1 )  unless ( $opt_proteome );
 pod2usage( -msg => 'hmmsearch not in $PATH and binary not specified use --hmmsearch-bin', -verbose => 0, -exitval => 1 ) unless ($opt_hmmsearch_bin);
 pod2usage( -msg => 'muscle not in $PATH and binary not specified use --muscle-bin', -verbose => 0, -exitval => 1 ) unless ($opt_muscle_bin);
 pod2usage( -msg => 'Gblocks not in $PATH and binary not specified use --gblocks-bin', -verbose => 0, -exitval => 1 ) unless ($opt_gblocks_bin);
 pod2usage( -msg => 'raxmlHPC not in $PATH and binary not specified use --raxml-bin', -verbose => 0, -exitval => 1 ) unless ($opt_raxml_bin);
-chomp($opt_hmmsearch_bin, $opt_muscle_bin, $opt_gblocks_bin, $opt_raxml_bin);
 
 # init a root logger in exec mode
 Log::Log4perl->init(
@@ -216,6 +229,21 @@ $bcgTree->run_raxml();
 
 sub logfile{
 	return "$opt_outdir/bcgTree.log";
+}
+
+sub check_external_programs{
+	my %programs = ("hmmsearch" => $opt_hmmsearch_bin, "muscle" => $opt_muscle_bin, "Gblocks" => $opt_gblocks_bin, "RAxML" => $opt_raxml_bin);
+	my $fail = 0;
+	foreach my $p (sort keys %programs){
+		my $path = $programs{$p};
+		my $result = 'ok';
+		if(! -X $path){
+			$result = '!fail!';
+			$fail = 1;	
+		}
+		printf "%-10s%6s\t%s\n", $p, $result, $path;
+	}
+	exit($fail);
 }
 
 __END__
