@@ -1,14 +1,14 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Getopt::Long;
 use Pod::Usage;
 use FindBin;
 use lib "$FindBin::RealBin/../lib/Log-Log4perl-1.46/lib";
-use lib "$FindBin::RealBin/../lib/Getopt-ArgvFile-1.11";
+use lib "$FindBin::RealBin/../lib/Getopt-ArgvFile-1.11/lib";
 use lib "$FindBin::RealBin/../lib";
 use Log::Log4perl qw(:no_extra_logdie_message);
-use ArgvFile;
+use Getopt::ArgvFile;
+use Getopt::Long;
 use bcgTree;
 
 my %options;
@@ -23,7 +23,7 @@ Wrapper to produce phylogenetic trees from the core genome (107 essential genes)
 
 =head1 USAGE
 
-  $ bcgTree.pl [@cofigfile] --proteome bac1=bacterium1.pep.fa --proteome bac2=bacterium2.faa [options]
+  $ bcgTree.pl [@configfile] --proteome bac1=bacterium1.pep.fa --proteome bac2=bacterium2.faa [options]
 
 =head1 OPTIONS
 
