@@ -7,8 +7,9 @@ use Getopt::Long qw(:config no_ignore_case bundling);
 use Pod::Usage;
 
 use FindBin qw($RealBin);
-use lib "$RealBin/../../lib/perl5lib-Fasta";
-use lib "$RealBin/../../lib/perl5lib-Verbose";
+use lib "$RealBin/../../lib/perl5lib-Fasta/lib";
+use lib "$RealBin/../../lib/perl5lib-Fastq/lib";
+use lib "$RealBin/../../lib/perl5lib-Verbose/lib";
 use File::Basename;
 
 use IO::File;
