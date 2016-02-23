@@ -1,0 +1,179 @@
+
+1.11 This is a distribution maintenance release. No new
+     features or bugfixes were added, there is no need
+     to update from version 1.10.
+
+     There are two reasons for the changes: a new version
+     of CPAN.pm and the CPANTS code quality checks.
+
+     Adapted tests to run with CPAN.pm 1.90.
+
+     Moved change log from README section "What's new" to
+     this file.
+
+     Added META.yaml.
+
+     Added demos.
+
+     Added POD test scripts: t/pod.t and t/pod-coverage.t.
+
+     POD optimizations and fixes.
+
+
+1.10 New options "resolveRelativePathes" and "resolveEnvVars"
+     make it behave like the shell in resolving relative
+     pathes (relative to the option file they are used in)
+     and environment variables.
+
+1.09 This version integrates several improvements suggested
+     by Kathryn Andersen, provided as complete patches that
+     were carefully prepared. Thanks!
+
+     First, option "startupFilename" accepts *lists* now,
+     both directly provided and supplied by a callback.
+     For each startup directory, the list is searched for
+     the name of an existing file. The first matching file
+     gets processed.
+
+       Example:
+
+         use Getopt::ArgvFile startupFilenames=>[qw(.rc .cfg)];
+
+       searches for startup files named ".rc" and ".cfg"
+       (in this order), using the first file available
+       in each startup path.
+
+     Second, a new option "fileOption" allows to declare
+     an option usable instead of an option file *prefix*,
+     intended to make option files more familiar to new
+     users.
+
+       Example:
+
+          use Getopt::ArgvFile fileOption=>'options';
+
+       allows to specify an option file by
+
+          ... -options file ...
+
+       , which is a synonym for (the still valid)
+
+          ... @file
+
+     Nesting and cascading still work as before.
+
+       Example:
+
+          ... -options -options file
+
+       is a synonym for (the still valid)
+
+          ... @@file
+
+       syntax.
+
+     Besides these patches, Test::More::eq_array() turned
+     out to be buggy (in older versions of Test::More, at
+     least), so tests now use the well working
+     Test::More::is_deeply() function.
+     
+     Finally, the results of "startupFilename" callbacks
+     were not checked yet. This is fixed.
+
+1.08 In very rare circumstances, the one line processing
+     via use() that was introduced with 1.07 could break
+     older scripts written for 1.06 or before. These were
+     the conditions:
+
+      * The module was loaded by "use Getopt::ArgvFile",
+        without import hints.
+
+      * Therefore, &argvFile was not imported into the
+        loaders namespace, so it had to be called via full
+        name as "Getopt::ArgvFile::argvFile(...)".
+
+      * The loader made use of cascading (was aware of
+        multiple prefixes like in "@@optionfile", of which
+        only the first level should be processed by the
+        call of argvFile() and remaining hints should be
+        passed through to another script).
+
+     In such cases, option hints were processed *twice*
+     unintentionally with 1.07, cause both "use" and the
+     explicit call of argvFile() invoked this processing,
+     which caused *two* level hints to be resolved instead
+     of one.
+
+     To adapt such scripts, 1.08 introduces a "justload"
+     switch for "use":
+
+       use Getopt::ArgvFile justload=>1;
+
+     This loads the module, but suppresses further operations.
+
+     Alternatively, one could remove the explicit call
+     of Getopt::ArgvFile::argvFile() from affected scripts.
+
+     -
+
+     More tests added.
+
+1.07 Bugfix: a missing HOME environment variable was not
+     handled correctly in all cases, causing error messages.
+     Thanks to Matthew Brett for the bug report.
+
+     -
+
+     It is now possible to process option files while
+     the module is loaded.
+
+     Before, a typical use looked like this:
+
+      use Getopt::ArgvFile qw(argvFile);
+      ...
+      argvFile(default=>1);
+
+     While this is still possible and valid, it can be
+     reduced to one line now:
+
+      use Getopt::ArgvFile default=>1;
+
+     Just pass the parameters of argvFile() to use().
+     Thanks to johanl AT darsermann.com for the
+     suggestion.
+
+
+1.06 argvFile() takes a new option "startupFilename"
+     to let users specify what scheme should be used
+     to find startup files (thanks to Helmut Steinbach
+     for the initial idea). Names may be specified
+     directly or by a reference to a function which
+     will then be invoked with the scriptname to
+     provide the filename dynamically.
+
+1.05 Using File::Spec::Functions to build filenames
+     more portable.
+
+     Using Cwd::abs_path() now to check if several
+     startup file locations are identical.
+
+     Added support for startup files in the *current*
+     directory (thanks to Helmut Steinbach for this
+     suggestion).
+
+     Switched to Test::More (for installation checks).
+
+1.04 fixed a bug: if the script directory was identical
+     to the users home and both default and home setting
+     were used, the default options were read twice
+     (thanks to Manfred Kuegler for the report).
+
+1.03 introduced new parameter "prefix".
+     POD comments in option files are supported now
+     (according to an idea of Joe Pepin).
+
+1.02 introduced new parameter "array".
+
+1.01 came with an updated README to reflect that the
+     required module Text::ParseWords 3.1 is available
+     on CPAN now.

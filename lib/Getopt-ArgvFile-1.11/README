@@ -1,0 +1,188 @@
+
+Release
+=======
+
+Getopt::ArgvFile 1.11.
+
+
+Overview
+========
+
+This module is a simple supplement to other option handling modules.
+It allows script options and parameters to be read from files
+instead of from the command line by interpolating file contents
+into @ARGV. This way it PREPARES the final option handling.
+
+Getopt::ArgvFile does NOT perform any option processing itself, and
+should work fine together with any other option handling module
+(e.g. Getopt::Long) or even self coded option handling.
+
+Well, the usual process can be illustrated by the following:
+
+                     --------------- 
+ command -> @ARGV -> | Getopt::xxx |
+  line               ---------------
+
+Getopt::ArgvFile adds an additional interpolation of @ARGV, replacing
+strings pointing to files with options by the contents of these files:
+
+                          -------------                    ---------------
+ command -> @ARGV with -> | Getopt::  | -> @ARGV with   -> | Getopt::xxx |
+  line       file hints   |  ArgvFile |    options only    ---------------
+                          -------------
+                 |              ^
+                 v              |
+                                |
+            option files --------
+
+
+For example, let's say your script accepts two mandatory options ("-first"
+and "-second") each taking parameters, which have to be followed by three
+script parameters, the usual call would be anything like
+
+	yourScript -first 1stPar -second 2ndPar par1 par2 par3
+
+If a user finds out that the options and their parameters are almost
+always the same for him, and if you use Getopt::ArgvFile in your script,
+he could store the stable part of this call in a file like
+
+	# always pass 1stPar to -first
+	-first 1stPar
+
+	# as well as 2ndPar to -second
+	-second 2ndPar
+
+If this file is named "opts", subsequent calls may be shortened to
+
+	yourScript @opts par1 par2 par3
+
+What your script will see in @ARGV after a call of
+Getopt::ArgvFile::argvFile() will be exactly the same as in the initial
+call showed above, so that the script can process the command line as
+usual then. But from the USERS point of view, the call was simpler indeed.
+
+More, if even the script parameters do not change from call to call,
+they may be stored in a second file "pars", and the call would become
+
+	yourScript @opts @pars
+
+The use of Getopt::ArgvFile can simplify periodical script calls as well
+as increase the handability of multi option scripts. (As an example,
+imagine a cronjob set up with option files which could be completely
+maintained outside the crontab.)
+
+The module can process an alternative array instead of @ARGV if one prefers.
+
+Further more, Getopt::ArgvFile supports both option file nesting and
+cascading as well as automatically read "default option files". Please
+see the documentation for details. It also contains several usage examples.
+
+
+Synopsis
+========
+
+To offer support of option files, simply add something like the following
+to your script:
+
+	# load module
+	use Getopt::ArgvFile qw(argvFile);
+	
+	# solve option files, if any
+	argvFile(default=>1);
+
+Or use the one line invocation - just pass the parameters of argvFile() to
+use():
+
+	# load module and process option file hints in @ARGV
+	use Getopt::ArgvFile default=>1;
+   
+
+Now the command line can be processed as usual, e.g. by
+
+	Getopt::Long::GetOptions(...);
+
+
+If options should be processed into another array, this can be done this way:
+
+        # prepare target array
+        my @options=('@options1', '@options2', '@options3');
+
+        # replace file hints by file contents
+        argvFile(array=>\@options);
+
+
+Requirements
+============
+
+Getopt::ArgvFile is tested with Perl versions 5.005 and 5.6.x.
+(Versions prior 1.04 were tested with 5.00[34], too.)
+It should run under later versions as well.
+
+Text::ParseWords 3.1 is required.
+
+
+Installation
+============
+
+This module can be installed as usual by
+
+	perl Makefile.PL
+	make
+	make test
+	make install
+
+
+What's new?
+===========
+
+Please see the changelog ("Changes") for a distribution history.
+
+
+Problems?
+=========
+
+If you run into trouble with this module, feel free
+to contact me at perl@jochen-stenzel.de.
+
+
+Author, Copyright, License
+==========================
+
+Copyright (c) 1993-2007 Jochen Stenzel. All rights reserved.
+
+This module is free software, you can redistribute it and/or modify it
+under the terms of the Artistic License distributed with Perl version
+5.003 or (at your option) any later version. Please refer to the
+Artistic License that came with your Perl distribution for more
+details.
+
+The Artistic License should have been included in your distribution of
+Perl. It resides in the file named "Artistic" at the top-level of the
+Perl source tree (where Perl was downloaded/unpacked - ask your
+system administrator if you dont know where this is).  Alternatively,
+the current version of the Artistic License distributed with Perl can
+be viewed on-line on the World-Wide Web (WWW) from the following URL:
+
+      http://www.perl.com/perl/misc/Artistic.html
+
+
+Disclaimer
+==========
+
+This software is distributed in the hope that it will be useful, but
+is provided "AS IS" WITHOUT WARRANTY OF ANY KIND, either expressed or
+implied, INCLUDING, without limitation, the implied warranties of
+MERCHANTABILITY and FITNESS FOR A PARTICULAR PURPOSE.
+
+The ENTIRE RISK as to the quality and performance of the software
+IS WITH YOU (the holder of the software).  Should the software prove
+defective, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR
+CORRECTION.
+
+IN NO EVENT WILL ANY COPYRIGHT HOLDER OR ANY OTHER PARTY WHO MAY CREATE,
+MODIFY, OR DISTRIBUTE THE SOFTWARE BE LIABLE OR RESPONSIBLE TO YOU OR TO
+ANY OTHER ENTITY FOR ANY KIND OF DAMAGES (no matter how awful - not even
+if they arise from known or unknown flaws in the software).
+
+Please refer to the Artistic License that came with your Perl
+distribution for more details.

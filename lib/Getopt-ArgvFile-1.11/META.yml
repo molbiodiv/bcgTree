@@ -1,0 +1,14 @@
+--- #YAML:1.0
+name:                Getopt-ArgvFile
+version:             1.11
+abstract:            ~
+license:             artistic
+generated_by:        ExtUtils::MakeMaker version 6.32
+distribution_type:   module
+requires:     
+    Test::Harness:                 1.25
+    Test::More:                    0.11
+    Text::ParseWords:              3.1
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.2.html
+    version: 1.2
