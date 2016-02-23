@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -30,6 +31,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
+import org.jdesktop.swingx.JXCollapsiblePane;
 
 public class BcgTree extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -50,6 +56,7 @@ public class BcgTree extends JFrame {
 	private JProgressBar progressBar;
 	private BcgTree self;
 	private JButton runButton;
+	private JPanel settingsPanel;
 	
 	public BcgTree(){
 		self = this;
@@ -63,6 +70,17 @@ public class BcgTree extends JFrame {
 		this.setTitle("bcgTree");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
+		// Set look and file
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
 		// Add title
 		JLabel titleLabel = new JLabel("bcgTree v1.0.0");
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -75,22 +93,42 @@ public class BcgTree extends JFrame {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(1, 2));
 		this.add(mainPanel, BorderLayout.CENTER);
-		JPanel settingsPanel = new JPanel();
+		settingsPanel = new JPanel();
 		mainPanel.add(settingsPanel);
 		JPanel logPanel = new JPanel();
 		logPanel.setLayout(new BorderLayout());
 		mainPanel.add(logPanel);
 		// Add Elements to settingsPanel
 		// proteome settings
+		JPanel proteomesSection = new JPanel();
+		proteomesSection.setLayout(new BorderLayout());
+		settingsPanel.add(proteomesSection);
+		JPanel proteomesTitelPanel = new JPanel();
+		JXCollapsiblePane proteomesCollapsiblePane = new JXCollapsiblePane();
+		// get the built-in toggle action
+		 Action toggleAction = proteomesCollapsiblePane.getActionMap().
+		   get(JXCollapsiblePane.TOGGLE_ACTION);
+		 
+		 // use the collapse/expand icons from the JTree UI
+		 toggleAction.putValue(JXCollapsiblePane.COLLAPSE_ICON,
+		                       UIManager.getIcon("Tree.expandedIcon"));
+		 toggleAction.putValue(JXCollapsiblePane.EXPAND_ICON,
+		                       UIManager.getIcon("Tree.collapsedIcon"));
+		proteomesTitelPanel.add(new JLabel("Add Proteomes"));
+		JButton col = new JButton(proteomesCollapsiblePane.getActionMap().get(JXCollapsiblePane.TOGGLE_ACTION));
+		col.setText("Add Proteomes");
+		proteomesTitelPanel.add(col);
+		proteomesSection.add(proteomesTitelPanel, BorderLayout.NORTH);
+		proteomesSection.add(proteomesCollapsiblePane, BorderLayout.SOUTH);
 		JLabel proteomesLabel = new JLabel("Proteomes");
-		settingsPanel.add(proteomesLabel);
+		proteomesCollapsiblePane.add(proteomesLabel);
 		JButton proteomesAddButton = new JButton("+");
 		proteomesAddButton.addActionListener(proteomeAddActionListener);
-		settingsPanel.add(proteomesAddButton);
+		proteomesCollapsiblePane.add(proteomesAddButton);
 		proteomesPanel = new JPanel();
 		proteomesPanelLayout = new GridLayout(0, 3);
 		proteomesPanel.setLayout(proteomesPanelLayout);
-		settingsPanel.add(proteomesPanel);
+		proteomesCollapsiblePane.add(proteomesPanel);
 		// outputdir settings
 		JLabel outdirLabel = new JLabel("Output directory:");
 		settingsPanel.add(outdirLabel);
@@ -113,6 +151,7 @@ public class BcgTree extends JFrame {
 		progressBar = new JProgressBar(0, 100);
 		logPanel.add(progressBar, BorderLayout.SOUTH);
 		// final adjustments
+		SwingUtilities.updateComponentTreeUI(this);
 		this.pack();
 	}
 	
