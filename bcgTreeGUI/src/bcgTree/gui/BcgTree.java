@@ -38,6 +38,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 public class BcgTree extends JFrame {
 	private static final long serialVersionUID = 1L;
+	public static final String VERSION = "1.0.4";
 
 	public static void main(String[] args) {
 		BcgTree mainWindow = new BcgTree();
@@ -81,7 +82,7 @@ public class BcgTree extends JFrame {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
 		// Add title
-		JLabel titleLabel = new JLabel("bcgTree v1.0.0");
+		JLabel titleLabel = new JLabel("bcgTree "+VERSION);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 		this.add(titleLabel, BorderLayout.NORTH);
 		// Add central panel (split in parameter section and log/output section)
