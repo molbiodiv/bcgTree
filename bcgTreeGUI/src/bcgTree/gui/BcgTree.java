@@ -2,6 +2,8 @@ package bcgTree.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -22,7 +24,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -34,8 +35,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-
-import org.jdesktop.swingx.JXCollapsiblePane;
 
 public class BcgTree extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -85,56 +84,39 @@ public class BcgTree extends JFrame {
 		JLabel titleLabel = new JLabel("bcgTree v1.0.0");
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 		this.add(titleLabel, BorderLayout.NORTH);
-		// Add "Run" button
-		runButton = new JButton("Run");
-		this.add(runButton, BorderLayout.SOUTH);
-		runButton.addActionListener(runActionListener);
 		// Add central panel (split in parameter section and log/output section)
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(1, 2));
 		this.add(mainPanel, BorderLayout.CENTER);
 		settingsPanel = new JPanel();
+		settingsPanel.setLayout(new GridBagLayout());
 		mainPanel.add(settingsPanel);
 		JPanel logPanel = new JPanel();
 		logPanel.setLayout(new BorderLayout());
 		mainPanel.add(logPanel);
 		// Add Elements to settingsPanel
 		// proteome settings
-		JPanel proteomesSection = new JPanel();
-		proteomesSection.setLayout(new BorderLayout());
-		settingsPanel.add(proteomesSection);
-		JPanel proteomesTitelPanel = new JPanel();
-		JXCollapsiblePane proteomesCollapsiblePane = new JXCollapsiblePane();
-		// get the built-in toggle action
-		 Action toggleAction = proteomesCollapsiblePane.getActionMap().
-		   get(JXCollapsiblePane.TOGGLE_ACTION);
-		 
-		 // use the collapse/expand icons from the JTree UI
-		 toggleAction.putValue(JXCollapsiblePane.COLLAPSE_ICON,
-		                       UIManager.getIcon("Tree.expandedIcon"));
-		 toggleAction.putValue(JXCollapsiblePane.EXPAND_ICON,
-		                       UIManager.getIcon("Tree.collapsedIcon"));
-		proteomesTitelPanel.add(new JLabel("Add Proteomes"));
-		JButton col = new JButton(proteomesCollapsiblePane.getActionMap().get(JXCollapsiblePane.TOGGLE_ACTION));
-		col.setText("Add Proteomes");
-		proteomesTitelPanel.add(col);
-		proteomesSection.add(proteomesTitelPanel, BorderLayout.NORTH);
-		proteomesSection.add(proteomesCollapsiblePane, BorderLayout.SOUTH);
-		JLabel proteomesLabel = new JLabel("Proteomes");
-		proteomesCollapsiblePane.add(proteomesLabel);
+		JPanel proteomesPane = new JPanel();
+		Accordion proteomeAccordion = new Accordion("Add proteomes", proteomesPane);
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		settingsPanel.add(proteomeAccordion, c);
 		JButton proteomesAddButton = new JButton("+");
 		proteomesAddButton.addActionListener(proteomeAddActionListener);
-		proteomesCollapsiblePane.add(proteomesAddButton);
+		proteomesPane.add(proteomesAddButton);
 		proteomesPanel = new JPanel();
 		proteomesPanelLayout = new GridLayout(0, 3);
 		proteomesPanel.setLayout(proteomesPanelLayout);
-		proteomesCollapsiblePane.add(proteomesPanel);
+		proteomesPane.add(proteomesPanel);
 		// outputdir settings
+		JPanel outdirPane = new JPanel();
 		JLabel outdirLabel = new JLabel("Output directory:");
-		settingsPanel.add(outdirLabel);
+		outdirPane.add(outdirLabel);
 		outdirTextField = new JTextField(outdir);
 		//outdirTextField.setEditable(false);
-		settingsPanel.add(outdirTextField);
+		outdirPane.add(outdirTextField);
 		JButton outdirChooseButton = new JButton("choose");
 		outdirChooseButton.addActionListener(new ActionListener() {
 			@Override
@@ -142,7 +124,21 @@ public class BcgTree extends JFrame {
 				openOutdirChooseDialog();
 			}
 		});
-		settingsPanel.add(outdirChooseButton);
+		outdirPane.add(outdirChooseButton);
+		Accordion outdirAccordion = new Accordion("Set output directory", outdirPane);
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 1;
+		settingsPanel.add(outdirAccordion, c);
+		// Add "Run" button
+		runButton = new JButton("Run");
+		c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridx = 0;
+		c.gridy = 2;
+		settingsPanel.add(runButton, c);
+		runButton.addActionListener(runActionListener);
 		// Add log textarea
 		logTextArea = new TextArea();
 		logTextArea.setEditable(false);
