@@ -9,15 +9,15 @@ If you use bcgTree for your research please cite this repository in the meantime
 Also please cite the external programs and the source of the HMMs (see Background section) if you use the default essential.hmm
 ** Dependencies
 *** Perl
-To execute bcgTree [[https://www.perl.org/][perl5]] is required along with the following modules (all available via [[http://www.cpan.org/][cpan]]):
+To execute bcgTree [[https://www.perl.org/][perl5]] is required along with the following modules (should be part of the core installation, but also available via [[http://www.cpan.org/][cpan]]):
  - Getopt::Long
- - Getopt::ArgvFile
  - Pod::Usage
- - Log::Log4perl
  - FindBin
  - File::Path
  - File::Spec
 The following modules are included in this repo:
+ - [[http://search.cpan.org/~mschilli/Log-Log4perl-1.46/lib/Log/Log4perl.pm][Log::Log4perl]]
+ - [[http://search.cpan.org/~jstenzel/Getopt-ArgvFile-1.11/ArgvFile.pm][Getopt::ArgvFile]]
  - [[https://github.com/BioInf-Wuerzburg/perl5lib-Fasta][perl5lib-Fasta]]
  - [[https://github.com/BioInf-Wuerzburg/perl5lib-Verbose][perl5lib-Verbose]]
 *** External programs
@@ -133,6 +133,8 @@ as above and provide a readily created hmm file via [[https://github.com/MadsAlb
 This file has been used as a starting point but an [[https://github.com/MadsAlbertsen/multi-metagenome/issues/15][error]] had to be fixed.
 
 ** Changes
+*** v1.0.3 <2016-02-23 Di>
+ - Add log4perl and Getopt::ArgvFile to package (simplify installation)
 *** v1.0.2 <2016-02-22 Mo>
  - Remove Bioperl dependency
  - Add submodules directly (SeqFilter)
