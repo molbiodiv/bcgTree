@@ -3,11 +3,12 @@ package bcgTree;
 use 5.010000;
 use strict;
 use warnings;
+use FindBin;
+use lib "$FindBin::RealBin/Log-Log4perl-1.46/lib";
+use lib "$FindBin::RealBin/perl5lib-Fasta/lib";
 use Log::Log4perl qw(:no_extra_logdie_message);
 use File::Path qw(make_path);
 use File::Spec;
-use FindBin;
-use lib "$FindBin::RealBin/perl5lib-Fasta/lib";
 use Fasta::Parser;
 
 our $VERSION = '1.0.1';

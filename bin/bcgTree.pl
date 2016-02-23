@@ -3,9 +3,10 @@ use strict;
 use warnings;
 use Getopt::Long;
 use Pod::Usage;
-use Log::Log4perl qw(:no_extra_logdie_message);
 use FindBin;
+use lib "$FindBin::RealBin/Log-Log4perl-1.46/lib";
 use lib "$FindBin::RealBin/../lib";
+use Log::Log4perl qw(:no_extra_logdie_message);
 use bcgTree;
 use Getopt::ArgvFile;
 
