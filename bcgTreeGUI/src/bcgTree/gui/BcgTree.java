@@ -133,7 +133,7 @@ public class BcgTree extends JFrame {
 		JLabel outdirLabel = new JLabel("Output directory:");
 		settingsPanel.add(outdirLabel);
 		outdirTextField = new JTextField(outdir);
-		outdirTextField.setEditable(false);
+		//outdirTextField.setEditable(false);
 		settingsPanel.add(outdirTextField);
 		JButton outdirChooseButton = new JButton("choose");
 		outdirChooseButton.addActionListener(new ActionListener() {
