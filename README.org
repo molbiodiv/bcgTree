@@ -7,6 +7,7 @@ If you use bcgTree for your research please cite this repository in the meantime
 Also please cite the external programs and the source of the HMMs (see Background section) if you use the default essential.hmm
 
 ** Dependencies
+Please note that some of the dependencies have their own Licenses.
 *** Perl
 To execute bcgTree [[https://www.perl.org/][perl5]] is required along with the following modules (should be part of the core installation, but also available via [[http://www.cpan.org/][cpan]]):
  - Getopt::Long
@@ -15,12 +16,15 @@ To execute bcgTree [[https://www.perl.org/][perl5]] is required along with the f
  - File::Path
  - File::Spec
 The following modules are included in this repo:
- - [[http://search.cpan.org/~mschilli/Log-Log4perl-1.46/lib/Log/Log4perl.pm][Log::Log4perl]]
- - [[http://search.cpan.org/~jstenzel/Getopt-ArgvFile-1.11/ArgvFile.pm][Getopt::ArgvFile]]
- - [[https://github.com/BioInf-Wuerzburg/perl5lib-Fasta][perl5lib-Fasta]]
- - [[https://github.com/BioInf-Wuerzburg/perl5lib-Verbose][perl5lib-Verbose]]
+ - [[http://search.cpan.org/~mschilli/Log-Log4perl-1.46/lib/Log/Log4perl.pm][Log::Log4perl]] ([[file:lib/Log-Log4perl-1.46/LICENSE][Artistic License]])
+ - [[http://search.cpan.org/~jstenzel/Getopt-ArgvFile-1.11/ArgvFile.pm][Getopt::ArgvFile]] ([[file:lib/Getopt-ArgvFile-1.11/README][Artistic License]])
+ - [[https://github.com/BioInf-Wuerzburg/perl5lib-Fasta][perl5lib-Fasta]] ([[file:lib/perl5lib-Fasta/LICENSE][MIT License]])
+ - [[https://github.com/BioInf-Wuerzburg/perl5lib-Fastq][perl5lib-Fastq]] ([[file:lib/perl5lib-Fastq/LICENSE][MIT License]])
+ - [[https://github.com/BioInf-Wuerzburg/perl5lib-Verbose][perl5lib-Verbose]] ([[file:lib/perl5lib-Verbose/LICENSE][MIT License]])
 *** Java
 To use the graphical user interface a Java Runtime Environment ([[http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html][JRE]], tested with version 8) is required.
+The following extra frameworks are used (included):
+ - [[https://swingx.java.net/][SwingX]] 1.6.5 ([[http://www.gnu.org/copyleft/lesser.html][LGPL]])
 *** External programs
 bcgTree is a wrapper around multiple existing tools.
 The following external programs are called by bcgTree and have to be installed.
