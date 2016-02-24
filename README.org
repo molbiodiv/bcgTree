@@ -63,7 +63,7 @@ bcgTree.pl @outdir/options.txt
 *** Command line
 #+BEGIN_SRC sh
 Usage:
-      $ bcgTree.pl [@cofigfile] --proteome bac1=bacterium1.pep.fa --proteome bac2=bacterium2.faa [options]
+      $ bcgTree.pl [@configfile] --proteome bac1=bacterium1.pep.fa --proteome bac2=bacterium2.faa [options]
 
 Options:
     [@configfile]            Optional path to a configfile with @ as prefix.
@@ -83,6 +83,16 @@ Options:
     [--help]                 show help
 
     [--version]              show version number of bcgTree and exit
+
+    [--check-external-programs]
+                             Check if all of the required external programs
+                             can be found and are executable, then exit.
+                             Report table with program, status (ok or
+                             !fail!) and path. If all external programs are
+                             found exit code is 0 otherwise 1. Note that
+                             this parameter does not check that the paths
+                             belong to the actual programs, it only checks
+                             that the given locations are executable files.
 
     [--hmmsearch-bin=<FILE>] Path to hmmsearch binary file. Default tries if
                              hmmsearch is in PATH;
