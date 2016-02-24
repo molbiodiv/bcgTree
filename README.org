@@ -1,12 +1,11 @@
 * bcgTree
 Automatized phylogenetic tree building from bacterial core genomes.
 
-[[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
-
 An article describing bcgTree is currently under review.
 If you use bcgTree for your research please cite this repository in the meantime: [[https://zenodo.org/badge/latestdoi/12731/iimog/bcgTree][https://zenodo.org/badge/12731/iimog/bcgTree.svg]]
 
 Also please cite the external programs and the source of the HMMs (see Background section) if you use the default essential.hmm
+
 ** Dependencies
 *** Perl
 To execute bcgTree [[https://www.perl.org/][perl5]] is required along with the following modules (should be part of the core installation, but also available via [[http://www.cpan.org/][cpan]]):
@@ -20,6 +19,8 @@ The following modules are included in this repo:
  - [[http://search.cpan.org/~jstenzel/Getopt-ArgvFile-1.11/ArgvFile.pm][Getopt::ArgvFile]]
  - [[https://github.com/BioInf-Wuerzburg/perl5lib-Fasta][perl5lib-Fasta]]
  - [[https://github.com/BioInf-Wuerzburg/perl5lib-Verbose][perl5lib-Verbose]]
+*** Java
+To use the graphical user interface a Java Runtime Environment ([[http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html][JRE]], tested with version 8) is required.
 *** External programs
 bcgTree is a wrapper around multiple existing tools.
 The following external programs are called by bcgTree and have to be installed.
@@ -133,6 +134,9 @@ as above and provide a readily created hmm file via [[https://github.com/MadsAlb
 This file has been used as a starting point but an [[https://github.com/MadsAlbertsen/multi-metagenome/issues/15][error]] had to be fixed.
 
 ** Changes
+[[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
+*** v1.0.5
+ - Improve layout of GUI (proteomes panel)
 *** v1.0.4 <2016-02-23 Di>
  - Add parameter to check external programs
  - Fix SeqFilter dependencies
