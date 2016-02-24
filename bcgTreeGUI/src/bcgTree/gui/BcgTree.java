@@ -47,7 +47,6 @@ public class BcgTree extends JFrame {
 	}
 
 	private TextArea logTextArea;
-	private GridLayout proteomesPanelLayout;
 	private JPanel proteomesPanel;
 	private Map<String, File> proteomes;
 	private Map<JTextField, String> proteomeTextFields;
@@ -108,8 +107,7 @@ public class BcgTree extends JFrame {
 		proteomesAddButton.addActionListener(proteomeAddActionListener);
 		proteomesPane.add(proteomesAddButton);
 		proteomesPanel = new JPanel();
-		proteomesPanelLayout = new GridLayout(0, 3);
-		proteomesPanel.setLayout(proteomesPanelLayout);
+		proteomesPanel.setLayout(new GridBagLayout());
 		proteomesPane.add(proteomesPanel);
 		// outputdir settings
 		JPanel outdirPane = new JPanel();
@@ -218,7 +216,6 @@ public class BcgTree extends JFrame {
 			return;
 		}
 		File[] files = chooser.getSelectedFiles();
-		proteomesPanelLayout.setRows(files.length);
 		for(int i=0; i<files.length; i++){
 			String name = files[i].getName().replace(" ", "_");
 			String path = files[i].getAbsolutePath();
@@ -254,7 +251,7 @@ public class BcgTree extends JFrame {
 	public void updateProteomePanel(){
 		proteomesPanel.removeAll();
 		proteomeTextFields = new HashMap<JTextField, String>();
-		proteomesPanelLayout.setRows(proteomes.size());
+		int row = 0;
 		for(Map.Entry<String, File> entry : proteomes.entrySet()){
 			JButton removeButton = new JButton("-");
 			removeButton.addActionListener(new ActionListener() {
@@ -263,7 +260,10 @@ public class BcgTree extends JFrame {
 					removeProteome(entry.getKey());
 				}
 			});
-			proteomesPanel.add(removeButton);
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = 0;
+			c.gridy = row;
+			proteomesPanel.add(removeButton, c);
 			JTextField proteomeNameTextField = new JTextField(entry.getKey());
 			proteomeNameTextField.addFocusListener(new FocusListener() {
 				@Override
@@ -282,9 +282,18 @@ public class BcgTree extends JFrame {
 				}
 			});
 			proteomeTextFields.put(proteomeNameTextField, entry.getKey());
-			proteomesPanel.add(proteomeNameTextField);
+			c = new GridBagConstraints();
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.gridx = 1;
+			c.gridy = row;
+			proteomesPanel.add(proteomeNameTextField, c);
 			JLabel proteomePathLabel = new JLabel(entry.getValue().getAbsolutePath());
-			proteomesPanel.add(proteomePathLabel);
+			c = new GridBagConstraints();
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.gridx = 2;
+			c.gridy = row;
+			proteomesPanel.add(proteomePathLabel, c);
+			row++;
 		}
 		this.revalidate();
 		this.repaint();
