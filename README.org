@@ -60,6 +60,16 @@ The internal call of bcgTree is then just:
 #+BEGIN_SRC sh
 bcgTree.pl @outdir/options.txt
 #+END_SRC
+If you feel comfortable using the command line, calling the perl script directly is still the recommendet way to use bcgTree.
+Nevertheless here are some screenshots of the GUI:
+#+ATTR_HTML: :width 640
+[[doc/screenshot0.png]]
+#+ATTR_HTML: :width 640
+[[doc/screenshot1.png]]
+#+ATTR_HTML: :width 640
+[[doc/screenshot2.png]]
+#+ATTR_HTML: :width 640
+[[doc/screenshot3.png]]
 *** Command line
 #+BEGIN_SRC sh
 Usage:
@@ -168,6 +178,8 @@ This file has been used as a starting point but an [[https://github.com/MadsAlbe
 ** Changes
 [[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
 *** v1.0.5
+ - Add GUI screenshots to README
+ - Finish GUI layout
  - Fix outdir bug (manually entered text was ignored)
  - Update documentation in README
  - Improve layout of GUI (proteomes panel)
