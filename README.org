@@ -32,11 +32,18 @@ Newer versions should work (otherwise feel free to open an issue).
  - [[http://sco.h-its.org/exelixis/web/software/raxml/][RAxML]] (version 8.2.4)
 Additionally [[https://github.com/BioInf-Wuerzburg/SeqFilter][SeqFilter] is needed but it is included in this repo.
 ** Installation
-If you have all the Perl modules and external programs installed you can get bcgTree by executing the following commands:
+You can download the latest release from [[https://github.com/iimog/bcgTree/releases][here]].
+After extraction you can start the graphical interface by double clicking the bcgTree.jar file in the bcgTreeGUI folder.
+Please remember to install the required external programms (see above).
+Alternatively you can start the perl script bcgTree.pl in the bin folder from the command line.
+You can also clone the bcgTree git repository by executing the following commands:
 #+BEGIN_SRC sh
 git clone https://github.com/iimog/bcgTree.git
 # Now you can run bcgTree.pl
 bcgTree/bin/bcgTree.pl --help
+# Or start the java GUI
+cd bcgTree/bcgTreeGUI
+java -jar bcgTree.jar
 #+END_SRC
 ** Usage
 #+BEGIN_SRC sh
