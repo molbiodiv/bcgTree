@@ -126,12 +126,30 @@ public class BcgTree extends JFrame {
 		c.gridx = 0;
 		c.gridy = 1;
 		settingsPanel.add(outdirAccordion, c);
+		// Add check programms
+		JPanel checkProgramsPanel = new JPanel();
+		checkProgramsPanel.add(new JLabel("Not yet implemented"));
+		Accordion checkProgramsAccordion = new Accordion("Check external programs", checkProgramsPanel);
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 2;
+		settingsPanel.add(checkProgramsAccordion, c);
+		// Add check programms
+		JPanel advancedSettingsPanel = new JPanel();
+		advancedSettingsPanel.add(new JLabel("Not yet implemented"));
+		Accordion advancedSettingsAccordion = new Accordion("Advanced settings", advancedSettingsPanel);
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		settingsPanel.add(advancedSettingsAccordion, c);
 		// Add "Run" button
 		runButton = new JButton("Run");
 		c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.CENTER;
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 4;
 		settingsPanel.add(runButton, c);
 		runButton.addActionListener(runActionListener);
 		// Add log textarea
