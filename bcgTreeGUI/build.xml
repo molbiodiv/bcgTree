@@ -12,6 +12,7 @@
                 <attribute name="Class-Path" value="."/>
             </manifest>
             <fileset dir="${dir.jarfile}/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/lib/swingx-all-1.6.5-1.jar"/>
         </jar>
     </target>
 </project>
