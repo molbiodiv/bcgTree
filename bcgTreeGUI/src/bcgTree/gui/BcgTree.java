@@ -66,7 +66,7 @@ public class BcgTree extends JFrame {
 	
 	public void initGUI(){
 		// Basic settings
-		this.setTitle("bcgTree");
+		this.setTitle("bcgTree "+VERSION);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		// Set look and file
@@ -80,10 +80,6 @@ public class BcgTree extends JFrame {
 		} catch (Exception e) {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
-		// Add title
-		JLabel titleLabel = new JLabel("bcgTree "+VERSION);
-		titleLabel.setHorizontalAlignment(JLabel.CENTER);
-		this.add(titleLabel, BorderLayout.NORTH);
 		// Add central panel (split in parameter section and log/output section)
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(1, 2));
