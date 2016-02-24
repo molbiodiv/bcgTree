@@ -168,6 +168,8 @@ This file has been used as a starting point but an [[https://github.com/MadsAlbe
 ** Changes
 [[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
 *** v1.0.5
+ - Fix outdir bug (manually entered text was ignored)
+ - Update documentation in README
  - Improve layout of GUI (proteomes panel)
 *** v1.0.4 <2016-02-23 Di>
  - Add parameter to check external programs

@@ -169,6 +169,7 @@ public class BcgTree extends JFrame {
 			// Apply changes to proteome names
 			renameProteomes();
 			// create outdir and write options file there:
+			outdir = outdirTextField.getText();
 			new File(outdir).mkdirs();
 			PrintWriter writer;
 			try {
