@@ -42,6 +42,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 public class BcgTree extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static final String VERSION = "1.0.5";
+	private static final int DEFAULT_TEXTFIELD_COLUMNS = 30;
 
 	public static void main(String[] args) {
 		BcgTree mainWindow = new BcgTree();
@@ -124,7 +125,7 @@ public class BcgTree extends JFrame {
 		JPanel outdirPane = new JPanel();
 		JLabel outdirLabel = new JLabel("Output directory:");
 		outdirPane.add(outdirLabel);
-		outdirTextField = new JTextField(outdir);
+		outdirTextField = new JTextField(outdir, DEFAULT_TEXTFIELD_COLUMNS);
 		outdirPane.add(outdirTextField);
 		JButton outdirChooseButton = new JButton("choose");
 		outdirChooseButton.addActionListener(new ActionListener() {
@@ -204,13 +205,13 @@ public class BcgTree extends JFrame {
 		threadsSpinner = new JSpinner(new SpinnerNumberModel(2, 1, 80, 1));
 		advancedSettingsPanel.add(threadsSpinner);
 		advancedSettingsPanel.add(new JLabel("--raxml-x-rapidBootstrapRandomNumberSeed"));
-		randomSeedXTextField = new JTextField("");
+		randomSeedXTextField = new JTextField("", DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(randomSeedXTextField);
 		advancedSettingsPanel.add(new JLabel("--raxml-p-parsimonyRandomSeed"));
-		randomSeedPTextField = new JTextField("");
+		randomSeedPTextField = new JTextField("", DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(randomSeedPTextField);
 		advancedSettingsPanel.add(new JLabel("--hmmfile"));
-		hmmfileTextField = new JTextField(System.getProperty("user.dir")+"/../data/essential.hmm");
+		hmmfileTextField = new JTextField(System.getProperty("user.dir")+"/../data/essential.hmm", DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(hmmfileTextField);
 		return advancedSettingsPanel;
 	}
@@ -352,7 +353,7 @@ public class BcgTree extends JFrame {
 		c.gridx = 0;
 		c.gridy = row;
 		checkProgramsPanel.add(checkProgramLabel, c);
-		JTextField checkProgramTextField = new JTextField(currentPath);
+		JTextField checkProgramTextField = new JTextField(currentPath, DEFAULT_TEXTFIELD_COLUMNS);
 		programPaths.put(commandLineOption, checkProgramTextField);
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -418,7 +419,7 @@ public class BcgTree extends JFrame {
 			c.gridx = 0;
 			c.gridy = row;
 			proteomesPanel.add(removeButton, c);
-			JTextField proteomeNameTextField = new JTextField(entry.getKey());
+			JTextField proteomeNameTextField = new JTextField(entry.getKey(), DEFAULT_TEXTFIELD_COLUMNS);
 			proteomeNameTextField.addFocusListener(new FocusListener() {
 				@Override
 				public void focusLost(FocusEvent e) {
