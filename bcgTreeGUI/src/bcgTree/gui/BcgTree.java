@@ -284,6 +284,27 @@ public class BcgTree extends JFrame {
 		updateProteomePanel();
 	}
 	
+	private JPanel getCheckProgramPanel(String name, String currentPath, String commandLineOption){
+		JPanel checkProgramPane = new JPanel();
+		JLabel checkProgramLabel = new JLabel(name);
+		checkProgramPane.add(checkProgramLabel);
+		JTextField checkProgramTextField = new JTextField(currentPath);
+		programPaths.put(commandLineOption, checkProgramTextField);
+		checkProgramPane.add(checkProgramTextField);
+		JButton outdirChooseButton = new JButton("choose");
+		outdirChooseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String newPath = openProgramChooseDialog();
+				if(newPath != null){
+					checkProgramTextField.setText(newPath);
+				}
+			}
+		});
+		checkProgramPane.add(outdirChooseButton);
+		return checkProgramPane;
+	}
+	
 	protected String openProgramChooseDialog() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
