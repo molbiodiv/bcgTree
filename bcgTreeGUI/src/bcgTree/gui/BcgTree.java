@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -141,6 +142,12 @@ public class BcgTree extends JFrame {
 		checkProgramsButton.addActionListener(checkProgramsActionListener);
 		checkProgramsButtonPanel.add(checkProgramsButton);
 		JButton saveProgramsButton = new JButton("save");
+		saveProgramsButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				saveGlobalSettings();
+			}
+		});
 		checkProgramsButtonPanel.add(saveProgramsButton);
 		checkProgramsPanel.add(checkProgramsButtonPanel);
 		
@@ -484,6 +491,17 @@ public class BcgTree extends JFrame {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void saveGlobalSettings(){
+		Properties globalSettings = new Properties();
+		for(String p : programPaths.keySet()){
+			String path = programPaths.get(p).getText();
+			if(!path.equals("")){						
+				globalSettings.setProperty(p, path);
+			}
+		}
+		SettingsFileHandler.saveSettings(globalSettings);
 	}
 
 }
