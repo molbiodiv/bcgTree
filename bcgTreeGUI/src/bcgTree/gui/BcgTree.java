@@ -48,10 +48,10 @@ public class BcgTree extends JFrame {
 
 	private Map<String, File> proteomes;
 	private String outdir;
-	private String hmmsearch_bin = "hmmsearch";
-	private String muscle_bin = "muscle";
-	private String gblocks_bin = "Gblocks";
-	private String raxml_bin = "raxmlHPC";
+	private String hmmsearch_bin = "";
+	private String muscle_bin = "";
+	private String gblocks_bin = "";
+	private String raxml_bin = "";
 	private TextArea logTextArea;
 	private JPanel proteomesPanel;
 	private Map<JTextField, String> proteomeTextFields;
