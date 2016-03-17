@@ -254,6 +254,8 @@ public class BcgTree extends JFrame {
 	            // start gobblers
 	            errorGobbler.start();
 	            outputGobbler.start();
+	            PostCheckWorker postCheckWorker = new PostCheckWorker(proc);
+	            postCheckWorker.start();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -453,6 +455,24 @@ public class BcgTree extends JFrame {
 				else{
 					progressBar.setValue(100);
 					JOptionPane.showMessageDialog(self, "bcgTree finished your job successfully. Output is in "+outdir, "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	class PostCheckWorker extends Thread{
+		Process process;
+		PostCheckWorker(Process process){
+			this.process = process;
+		}
+		public void run(){
+			int exitVal;
+			try {
+				exitVal = this.process.waitFor();
+				if(exitVal != 0){
+					logTextArea.setForeground(Color.RED);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
