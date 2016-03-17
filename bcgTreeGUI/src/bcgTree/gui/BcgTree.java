@@ -239,7 +239,18 @@ public class BcgTree extends JFrame {
 			PrintWriter writer;
 			try {
 				writer = new PrintWriter(outdir+"/options.txt", "UTF-8");
-				writer.println("--outdir \""+outdir+"\"");
+				writer.println("--outdir=\""+outdir+"\"");
+				writer.println("--bootstraps="+bootstrapSpinner.getValue());
+				writer.println("--threads="+threadsSpinner.getValue());
+				writer.println("--hmmfile=\""+hmmfileTextField.getText()+"\"");
+				String pSeed = randomSeedPTextField.getText();
+				if(! pSeed.equals("")){
+					writer.println("--raxml-p-parsimonyRandomSeed="+pSeed);
+				}
+				String xSeed = randomSeedXTextField.getText();
+				if(! xSeed.equals("")){
+					writer.println("--raxml-x-rapidBootstrapRandomNumberSeed="+xSeed);
+				}
 				for(String p : programPaths.keySet()){
 					String path = programPaths.get(p).getText();
 					if(!path.equals("")){						
