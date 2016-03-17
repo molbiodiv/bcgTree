@@ -62,6 +62,7 @@ public class BcgTree extends JFrame {
 	private JButton runButton;
 	private JPanel settingsPanel;
 	private Map<String, JTextField> programPaths = new HashMap<String, JTextField>();
+	private JPanel checkProgramsPanel;
 	
 	public BcgTree(){
 		self = this;
@@ -133,11 +134,13 @@ public class BcgTree extends JFrame {
 		c.gridy = 1;
 		settingsPanel.add(outdirAccordion, c);
 		// Add check programms
-		JPanel checkProgramsPanel = new JPanel(new GridLayout(5, 1));
-		checkProgramsPanel.add(getCheckProgramPanel("hmmsearch", hmmsearch_bin, "hmmsearch-bin"));
-		checkProgramsPanel.add(getCheckProgramPanel("muscle", muscle_bin, "muscle-bin"));
-		checkProgramsPanel.add(getCheckProgramPanel("Gblocks", gblocks_bin, "gblocks-bin"));
-		checkProgramsPanel.add(getCheckProgramPanel("RAxML", raxml_bin, "raxml-bin"));
+		JPanel checkProgramsMainPanel = new JPanel(new BorderLayout());
+		checkProgramsPanel = new JPanel(new GridBagLayout());
+		checkProgramsMainPanel.add(checkProgramsPanel, BorderLayout.CENTER);
+		addCheckProgramPanel("hmmsearch", hmmsearch_bin, "hmmsearch-bin", 0);
+		addCheckProgramPanel("muscle", muscle_bin, "muscle-bin", 1);
+		addCheckProgramPanel("Gblocks", gblocks_bin, "gblocks-bin", 2);
+		addCheckProgramPanel("RAxML", raxml_bin, "raxml-bin",3);
 		JPanel checkProgramsButtonPanel = new JPanel(new GridLayout(1,2));
 		JButton checkProgramsButton = new JButton("check");
 		checkProgramsButton.addActionListener(checkProgramsActionListener);
@@ -150,9 +153,9 @@ public class BcgTree extends JFrame {
 			}
 		});
 		checkProgramsButtonPanel.add(saveProgramsButton);
-		checkProgramsPanel.add(checkProgramsButtonPanel);
+		checkProgramsMainPanel.add(checkProgramsButtonPanel, BorderLayout.SOUTH);
 		
-		Accordion checkProgramsAccordion = new Accordion("Check external programs", checkProgramsPanel);
+		Accordion checkProgramsAccordion = new Accordion("Check external programs", checkProgramsMainPanel);
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -307,13 +310,19 @@ public class BcgTree extends JFrame {
 		updateProteomePanel();
 	}
 	
-	private JPanel getCheckProgramPanel(String name, String currentPath, String commandLineOption){
-		JPanel checkProgramPane = new JPanel();
+	private void addCheckProgramPanel(String name, String currentPath, String commandLineOption, int row){
 		JLabel checkProgramLabel = new JLabel(name);
-		checkProgramPane.add(checkProgramLabel);
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = row;
+		checkProgramsPanel.add(checkProgramLabel, c);
 		JTextField checkProgramTextField = new JTextField(currentPath);
 		programPaths.put(commandLineOption, checkProgramTextField);
-		checkProgramPane.add(checkProgramTextField);
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = row;
+		checkProgramsPanel.add(checkProgramTextField, c);
 		JButton outdirChooseButton = new JButton("choose");
 		outdirChooseButton.addActionListener(new ActionListener() {
 			@Override
@@ -324,8 +333,10 @@ public class BcgTree extends JFrame {
 				}
 			}
 		});
-		checkProgramPane.add(outdirChooseButton);
-		return checkProgramPane;
+		c = new GridBagConstraints();
+		c.gridx = 2;
+		c.gridy = row;
+		checkProgramsPanel.add(outdirChooseButton, c);
 	}
 	
 	protected String openProgramChooseDialog() {
