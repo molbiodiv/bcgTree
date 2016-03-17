@@ -46,16 +46,21 @@ public class BcgTree extends JFrame {
 		mainWindow.setVisible(true);
 	}
 
+	private Map<String, File> proteomes;
+	private String outdir;
+	private String hmmsearch_bin = "hmmsearch";
+	private String muscle_bin = "muscle";
+	private String gblocks_bin = "Gblocks";
+	private String raxml_bin = "raxmlHPC";
 	private TextArea logTextArea;
 	private JPanel proteomesPanel;
-	private Map<String, File> proteomes;
 	private Map<JTextField, String> proteomeTextFields;
-	private String outdir;
-	private JTextField outdirTextField;
+	private JTextField checkProgramTextField;
 	private JProgressBar progressBar;
 	private BcgTree self;
 	private JButton runButton;
 	private JPanel settingsPanel;
+	private Map<String, JTextField> programPaths = new HashMap<String, JTextField>();
 	
 	public BcgTree(){
 		self = this;
