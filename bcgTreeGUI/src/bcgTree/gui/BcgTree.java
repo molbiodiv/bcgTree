@@ -204,6 +204,12 @@ public class BcgTree extends JFrame {
 			try {
 				writer = new PrintWriter(outdir+"/options.txt", "UTF-8");
 				writer.println("--outdir \""+outdir+"\"");
+				for(String p : programPaths.keySet()){
+					String path = programPaths.get(p).getText();
+					if(!path.equals("")){						
+						writer.println("--" + p + "=" + programPaths.get(p).getText());
+					}
+				}
 				for(Map.Entry<String, File> entry: proteomes.entrySet()){					
 					writer.println("--proteome "+entry.getKey()+"="+"\""+entry.getValue().getAbsolutePath()+"\"");
 				}
