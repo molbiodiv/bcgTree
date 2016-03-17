@@ -320,6 +320,7 @@ public class BcgTree extends JFrame {
 		programPaths.put(commandLineOption, checkProgramTextField);
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipadx = 100;
 		c.gridx = 1;
 		c.gridy = row;
 		checkProgramsPanel.add(checkProgramTextField, c);
