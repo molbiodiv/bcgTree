@@ -238,8 +238,15 @@ public class BcgTree extends JFrame {
 			logTextArea.setText("WARNING: It is only checked whether the paths of each program point to an executable file.\nIt is not checked whether it is the correct program.\n\n");
 			logTextArea.setForeground(Color.BLACK);
 			try {
-				Process proc = Runtime.getRuntime().exec("perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl --check-external-programs");
-						//+outdir+"/options.txt");
+				String callBcgTree = "perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl --check-external-programs";
+				for(String p : programPaths.keySet()){
+					String path = programPaths.get(p).getText();
+					if(!path.equals("")){						
+						callBcgTree += " --" + p + "=" + programPaths.get(p).getText();
+					}
+				}
+				logTextArea.append(callBcgTree+"\n");
+				Process proc = Runtime.getRuntime().exec(callBcgTree);
 				// collect stderr
 	            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
 	            // collect stdout
