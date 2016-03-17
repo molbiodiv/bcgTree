@@ -177,6 +177,9 @@ This file has been used as a starting point but an [[https://github.com/MadsAlbe
 
 ** Changes
 [[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
+*** v1.0.6 <2016-03-17 Do>
+ - Improve layout (avoid errors with large text fields)
+ - Update jar file
 *** v1.0.5 <2016-03-17 Do>
  - Add advanced settings and external programs to GUI
  - Add GUI screenshots to README
