@@ -55,7 +55,7 @@ public class BcgTree extends JFrame {
 	private TextArea logTextArea;
 	private JPanel proteomesPanel;
 	private Map<JTextField, String> proteomeTextFields;
-	private JTextField checkProgramTextField;
+	private JTextField outdirTextField;
 	private JProgressBar progressBar;
 	private BcgTree self;
 	private JButton runButton;
@@ -115,7 +115,6 @@ public class BcgTree extends JFrame {
 		JLabel outdirLabel = new JLabel("Output directory:");
 		outdirPane.add(outdirLabel);
 		outdirTextField = new JTextField(outdir);
-		//outdirTextField.setEditable(false);
 		outdirPane.add(outdirTextField);
 		JButton outdirChooseButton = new JButton("choose");
 		outdirChooseButton.addActionListener(new ActionListener() {
