@@ -221,6 +221,28 @@ public class BcgTree extends JFrame {
 		}
 	};
 	
+	ActionListener checkProgramsActionListener = new ActionListener() {		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// Clear Textfield
+			logTextArea.setText("WARNING: It is only checked whether the paths of each program point to an executable file.\nIt is not checked whether it is the correct program.\n\n");
+			logTextArea.setForeground(Color.BLACK);
+			try {
+				Process proc = Runtime.getRuntime().exec("perl "+System.getProperty("user.dir")+"/../bin/bcgTree.pl --check-external-programs");
+						//+outdir+"/options.txt");
+				// collect stderr
+	            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
+	            // collect stdout
+	            StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "OUTPUT");
+	            // start gobblers
+	            errorGobbler.start();
+	            outputGobbler.start();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+	};
+	
 	ActionListener proteomeAddActionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
