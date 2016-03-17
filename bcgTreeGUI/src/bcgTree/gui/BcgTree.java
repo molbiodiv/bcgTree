@@ -284,6 +284,16 @@ public class BcgTree extends JFrame {
 		updateProteomePanel();
 	}
 	
+	protected String openProgramChooseDialog() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int exitOption = chooser.showOpenDialog(this);
+		if(exitOption == JFileChooser.APPROVE_OPTION){
+			return chooser.getSelectedFile().getAbsolutePath();
+		}
+		return null;
+	}
+
 	public void removeProteome(String name){
 		proteomes.remove(name);
 		renameProteomes();
