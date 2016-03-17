@@ -131,8 +131,19 @@ public class BcgTree extends JFrame {
 		c.gridy = 1;
 		settingsPanel.add(outdirAccordion, c);
 		// Add check programms
-		JPanel checkProgramsPanel = new JPanel();
-		checkProgramsPanel.add(new JLabel("Not yet implemented"));
+		JPanel checkProgramsPanel = new JPanel(new GridLayout(5, 1));
+		checkProgramsPanel.add(getCheckProgramPanel("hmmsearch", hmmsearch_bin, "hmmsearch-bin"));
+		checkProgramsPanel.add(getCheckProgramPanel("muscle", muscle_bin, "muscle-bin"));
+		checkProgramsPanel.add(getCheckProgramPanel("Gblocks", gblocks_bin, "gblocks-bin"));
+		checkProgramsPanel.add(getCheckProgramPanel("RAxML", raxml_bin, "raxml-bin"));
+		JPanel checkProgramsButtonPanel = new JPanel(new GridLayout(1,2));
+		JButton checkProgramsButton = new JButton("check");
+		checkProgramsButton.addActionListener(checkProgramsActionListener);
+		checkProgramsButtonPanel.add(checkProgramsButton);
+		JButton saveProgramsButton = new JButton("save");
+		checkProgramsButtonPanel.add(saveProgramsButton);
+		checkProgramsPanel.add(checkProgramsButtonPanel);
+		
 		Accordion checkProgramsAccordion = new Accordion("Check external programs", checkProgramsPanel);
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
