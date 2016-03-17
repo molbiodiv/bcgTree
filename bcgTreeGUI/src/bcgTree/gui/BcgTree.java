@@ -32,7 +32,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -63,6 +65,11 @@ public class BcgTree extends JFrame {
 	private JPanel settingsPanel;
 	private Map<String, JTextField> programPaths = new HashMap<String, JTextField>();
 	private JPanel checkProgramsPanel;
+	private JSpinner bootstrapSpinner;
+	private JSpinner threadsSpinner;
+	private JTextField randomSeedXTextField;
+	private JTextField randomSeedPTextField;
+	private JTextField hmmfileTextField;
 	
 	public BcgTree(){
 		self = this;
@@ -162,9 +169,7 @@ public class BcgTree extends JFrame {
 		c.gridy = 2;
 		settingsPanel.add(checkProgramsAccordion, c);
 		// Add check programms
-		JPanel advancedSettingsPanel = new JPanel();
-		advancedSettingsPanel.add(new JLabel("Not yet implemented"));
-		Accordion advancedSettingsAccordion = new Accordion("Advanced settings", advancedSettingsPanel);
+		Accordion advancedSettingsAccordion = new Accordion("Advanced settings", getAdvancedSettingsPanel());
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -188,6 +193,26 @@ public class BcgTree extends JFrame {
 		// final adjustments
 		SwingUtilities.updateComponentTreeUI(this);
 		this.pack();
+	}
+	
+	private JPanel getAdvancedSettingsPanel(){
+		JPanel advancedSettingsPanel = new JPanel(new GridLayout(5, 2));
+		advancedSettingsPanel.add(new JLabel("--bootstraps"));
+		bootstrapSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
+		advancedSettingsPanel.add(bootstrapSpinner);
+		advancedSettingsPanel.add(new JLabel("--threads"));
+		threadsSpinner = new JSpinner(new SpinnerNumberModel(2, 1, 80, 1));
+		advancedSettingsPanel.add(threadsSpinner);
+		advancedSettingsPanel.add(new JLabel("--raxml-x-rapidBootstrapRandomNumberSeed"));
+		randomSeedXTextField = new JTextField("");
+		advancedSettingsPanel.add(randomSeedXTextField);
+		advancedSettingsPanel.add(new JLabel("--raxml-p-parsimonyRandomSeed"));
+		randomSeedPTextField = new JTextField("");
+		advancedSettingsPanel.add(randomSeedPTextField);
+		advancedSettingsPanel.add(new JLabel("--hmmfile"));
+		hmmfileTextField = new JTextField(System.getProperty("user.dir")+"/../data/essential.hmm");
+		advancedSettingsPanel.add(hmmfileTextField);
+		return advancedSettingsPanel;
 	}
 	
 	protected void openOutdirChooseDialog() {
