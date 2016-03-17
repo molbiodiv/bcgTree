@@ -67,6 +67,7 @@ public class BcgTree extends JFrame {
 		self = this;
 		proteomes = new TreeMap<String, File>();
 		outdir = System.getProperty("user.home")+"/bcgTree";
+		loadGlobalSettings();
 		initGUI();
 	}
 	
@@ -502,6 +503,16 @@ public class BcgTree extends JFrame {
 			}
 		}
 		SettingsFileHandler.saveSettings(globalSettings);
+	}
+	
+	public void loadGlobalSettings(){
+		Properties globalSettings = SettingsFileHandler.loadSettings();
+		if(globalSettings != null){
+			hmmsearch_bin = globalSettings.getProperty("hmmsearch-bin", "");
+			muscle_bin = globalSettings.getProperty("muscle-bin", "");
+			gblocks_bin = globalSettings.getProperty("gblocks-bin", "");
+			raxml_bin = globalSettings.getProperty("raxml-bin", "");
+		}
 	}
 
 }
