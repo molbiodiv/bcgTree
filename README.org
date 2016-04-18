@@ -182,6 +182,8 @@ The logo has been designed by Markus J. Ankenbrand and Alexander Keller.
 Cliparts from [[openclipart.org]] (public domain) have been used:
  - [[https://openclipart.org/detail/188718/oak-tree][Oak Tree]]
  - [[https://openclipart.org/detail/125869/diagramme-de-venn-venn-diagram][Venn Diagram]]
+The font is from [[fontlibrary.org]] (available under [[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL][SIL Open Font License]]):
+ - [[https://fontlibrary.org/en/font/ranchers][Ranchers]]
 ** Changes
 [[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
 *** v1.0.6 <2016-03-17 Do>

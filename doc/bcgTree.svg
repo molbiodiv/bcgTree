@@ -13,7 +13,10 @@
    inkscape:version="0.91 r13725"
    sodipodi:docname="bcgTree.svg"
    width="467.12384"
-   height="787.26544">
+   height="787.26544"
+   inkscape:export-filename="/home/s216121/PhD/bcgTree/data/logo/bcgTree.png"
+   inkscape:export-xdpi="84"
+   inkscape:export-ydpi="84">
   <defs
      id="defs4190">
     <inkscape:path-effect
@@ -96,15 +99,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1276"
-     inkscape:window-height="985"
+     inkscape:window-width="1916"
+     inkscape:window-height="1125"
      id="namedview4188"
      showgrid="false"
      inkscape:zoom="0.92996795"
-     inkscape:cx="198.98408"
-     inkscape:cy="240.60138"
-     inkscape:window-x="3840"
-     inkscape:window-y="18"
+     inkscape:cx="156.713"
+     inkscape:cy="377.18059"
+     inkscape:window-x="1920"
+     inkscape:window-y="54"
      inkscape:window-maximized="0"
      inkscape:current-layer="g4262"
      fit-margin-top="0"
@@ -185,30 +188,42 @@
            inkscape:export-filename="/Users/lmproulx/Desktop/isotype/text3279.png"
            inkscape:connector-curvature="0"
            inkscape:export-xdpi="84.154686" />
-        <g
+        <text
+           xml:space="preserve"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.9550705px;line-height:125%;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#c5c5c5;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           id="text4286">
-          <path
-             d="m 607.75298,940.30161 9.43443,0 q 8.38827,0 8.38827,6.6003 0,3.27162 -2.87217,5.44002 4.1656,1.80699 4.1656,6.44812 0,3.55694 -2.45371,5.66827 -1.19833,1.00812 -2.56784,1.40756 -1.36951,0.39944 -3.69008,0.39944 l -1.46462,0 0,-6.67638 1.31245,0 q 1.16028,0 1.63581,-0.28532 0.47553,-0.30433 0.47553,-1.04615 0,-1.25539 -1.94015,-1.25539 l -1.48364,0 0,-6.92366 q 2.13036,0 2.13036,-1.46462 0,-1.35049 -1.92113,-1.35049 l -1.42658,0 0,19.00201 -7.72253,0 0,-25.96371 z"
-             style=""
-             id="path4153" />
-        </g>
-        <g
+           x="605.14709"
+           y="968.60266"
+           id="text4286"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan4288"
+             x="605.14709"
+             y="968.60266"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.95507431px;line-height:125%;font-family:Ranchers;-inkscape-font-specification:'Ranchers, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start">B</tspan></text>
+        <text
+           xml:space="preserve"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.9550705px;line-height:125%;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#828282;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           id="text4290">
-          <path
-             d="m 736.31421,953.15941 8.08394,0.20923 q -0.79889,6.27694 -4.35582,9.70073 -3.53791,3.42378 -9.24422,3.42378 -5.80141,0 -9.71975,-3.88029 -3.89931,-3.89931 -3.89931,-9.66268 0,-5.80142 3.9754,-9.75779 3.99441,-3.95638 9.83387,-3.95638 5.74435,0 9.5866,3.88029 2.66294,2.68197 3.76616,7.47527 l -8.27414,0.55161 q -1.38854,-4.26071 -5.26883,-4.26071 -2.47273,0 -4.08952,1.71189 -1.59777,1.71189 -1.59777,4.35582 0,2.54881 1.57875,4.22267 1.57874,1.65483 3.99441,1.65483 2.45372,0 3.89932,-1.46462 1.46461,-1.46462 1.73091,-4.20365 z"
-             style=""
-             id="path4157" />
-        </g>
-        <g
+           x="716.15192"
+           y="968.18378"
+           id="text4290"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan4292"
+             x="716.15192"
+             y="968.18378"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.95507431px;line-height:125%;font-family:Ranchers;-inkscape-font-specification:'Ranchers, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start">C</tspan></text>
+        <text
+           xml:space="preserve"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.9550705px;line-height:125%;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#434343;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           id="text4294">
-          <path
-             d="m 673.62122,1030.4649 7.36113,0 q 2.37763,2.9483 2.37763,6.2199 0,3.8042 -2.79609,6.391 -2.77707,2.5869 -6.84757,2.5869 -5.28785,0 -8.97793,-4.0134 -3.69008,-4.0135 -3.69008,-9.7768 0,-5.7824 3.74715,-9.6247 3.76616,-3.8422 9.39639,-3.8422 1.92112,0 4.26071,0.7798 l 0,7.7226 q -1.82602,-0.856 -3.32868,-0.856 -2.72001,0 -4.45092,1.6929 -1.7119,1.6929 -1.7119,4.3939 0,2.758 1.59777,4.3748 1.59777,1.6168 4.31777,1.6168 1.73092,0 1.73092,-1.0081 0,-0.7609 -1.14126,-0.7609 l -1.84504,0 0,-5.8965 z"
-             style=""
-             id="path4160" />
-        </g>
+           x="660.02118"
+           y="1045.016"
+           id="text4294"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan4296"
+             x="660.02118"
+             y="1045.016"
+             style="-inkscape-font-specification:'Ranchers, Normal';font-family:Ranchers;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:38.9550734px;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">G</tspan></text>
         <path
            inkscape:export-xdpi="84.154686"
            inkscape:connector-curvature="0"
