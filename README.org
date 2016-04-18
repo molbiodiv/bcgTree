@@ -1,7 +1,7 @@
 * bcgTree
 Automatized phylogenetic tree building from bacterial core genomes.
 
-[[doc/bcgTree.svg]]
+[[doc/bcgTree.png]]
 
 An article describing bcgTree is currently under review.
 If you use bcgTree for your research please cite this repository in the meantime: [[https://zenodo.org/badge/latestdoi/12731/iimog/bcgTree][https://zenodo.org/badge/12731/iimog/bcgTree.svg]]
