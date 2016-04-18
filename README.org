@@ -36,7 +36,7 @@ Newer versions should work (otherwise feel free to open an issue).
  - [[http://www.drive5.com/muscle/][muscle]] (v3.8.31)
  - [[http://molevol.cmima.csic.es/castresana/Gblocks.html][Gblocks]] (version 0.91b)
  - [[http://sco.h-its.org/exelixis/web/software/raxml/][RAxML]] (version 8.2.4)
-Additionally [[https://github.com/BioInf-Wuerzburg/SeqFilter][SeqFilter] is needed but it is included in this repo.
+Additionally [[https://github.com/BioInf-Wuerzburg/SeqFilter][SeqFilter]] is needed but it is included in this repo.
 ** Installation
 You can download the latest release from [[https://github.com/iimog/bcgTree/releases][here]].
 After extraction you can start the graphical interface by double clicking the bcgTree.jar file in the bcgTreeGUI folder.
