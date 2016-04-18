@@ -1,6 +1,8 @@
 * bcgTree
 Automatized phylogenetic tree building from bacterial core genomes.
 
+[[file:doc/bcgTree.svg]]
+
 An article describing bcgTree is currently under review.
 If you use bcgTree for your research please cite this repository in the meantime: [[https://zenodo.org/badge/latestdoi/12731/iimog/bcgTree][https://zenodo.org/badge/12731/iimog/bcgTree.svg]]
 
@@ -175,6 +177,11 @@ the authors use the same list of 107 genes (111 HMMs, glyS, pheT, proS and rpoC 
 as above and provide a readily created hmm file via [[https://github.com/MadsAlbertsen/multi-metagenome/][GitHub]].
 This file has been used as a starting point but an [[https://github.com/MadsAlbertsen/multi-metagenome/issues/15][error]] had to be fixed.
 
+** Logo
+The logo has been designed by Markus J. Ankenbrand and Alexander Keller.
+Cliparts from [[openclipart.org]] (public domain) have been used:
+ - [[https://openclipart.org/detail/188718/oak-tree][Oak Tree]]
+ - [[https://openclipart.org/detail/125869/diagramme-de-venn-venn-diagram][Venn Diagram]]
 ** Changes
 [[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
 *** v1.0.6 <2016-03-17 Do>
