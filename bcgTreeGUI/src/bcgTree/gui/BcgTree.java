@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,6 +26,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -184,6 +187,14 @@ public class BcgTree extends JFrame {
 		c.gridy = 4;
 		settingsPanel.add(runButton, c);
 		runButton.addActionListener(runActionListener);
+		// Add bcgTree logo
+		try {
+			BufferedImage logo = ImageIO.read(getClass().getResource("/bcgTree.png"));
+			JLabel picLabel = new JLabel(new ImageIcon(logo));
+			logPanel.add(picLabel, BorderLayout.NORTH);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		// Add log textarea
 		logTextArea = new TextArea();
 		logTextArea.setEditable(false);
