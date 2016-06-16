@@ -186,6 +186,8 @@ The font is from [[fontlibrary.org]]:
  - [[https://fontlibrary.org/en/font/ranchers][Ranchers]] ([[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL][SIL Open Font License]])
 ** Changes
 [[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
+*** v1.0.7 <2016-06-16 Do>
+ - Add logo to GUI
 *** v1.0.6 <2016-03-17 Do>
  - Improve layout (avoid errors with large text fields)
  - Update jar file
