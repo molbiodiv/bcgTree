@@ -1,4 +1,18 @@
-* Introduction
-* Versions
-* Data
+* TODO Introduction
+* Environment
+The original analyses have been performed on a machine with the following specs (except where otherwise noted):
+ - Intel(R) Core(TM)2 Duo CPU E8500 @3.16GHz
+ - 4GB RAM
+ - Ubuntu 14.04.3 LTS 64bit
+* TODO Versions
+** TODO bcgTree
+** TODO external Programs
+* TODO Data
+** TODO Lactobacillales ezbiocloud
+** TODO Lactobacillus ncbi
+*** Genomes
+*** 16S
+** TODO All bacteria ncbi
+*** Genomes
+*** 16S
 * Code
