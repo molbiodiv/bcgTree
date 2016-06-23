@@ -42,6 +42,7 @@ You can download the latest release from [[https://github.com/iimog/bcgTree/rele
 After extraction you can start the graphical interface by double clicking the bcgTree.jar file in the bcgTreeGUI folder.
 Please remember to install the required external programms (see above).
 Alternatively you can start the perl script bcgTree.pl in the bin folder from the command line.
+Using the command line interface is the recommended way.
 You can also clone the bcgTree git repository by executing the following commands:
 #+BEGIN_SRC sh
 git clone https://github.com/iimog/bcgTree.git
