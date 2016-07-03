@@ -212,3 +212,6 @@ The font is from [[fontlibrary.org]]:
  - Update documentation
 *** v1.0.1 <2016-02-22 Mo>
  - Add java GUI
+
+** Fun
+See [[http://codeology.braintreepayments.com/iimog/bcgtree][this visualization]] created by [[http://codeology.braintreepayments.com/][codeology]].
