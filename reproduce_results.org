@@ -1,4 +1,7 @@
-* TODO Introduction
+* Introduction
+Here we describe all steps required to reproduce the results from our publication in as much detail as possible.
+It should be possible to follow along this recipe, execute all the commands and arrive at the same results.
+However if you have difficulties reproducing the results or find any clitches in the description don't hesitate to open an issue.
 * Environment
 The original analyses have been performed on a machine with the following specs (except where otherwise noted):
  - Intel(R) Core(TM)2 Duo CPU E8500 @3.16GHz
