@@ -15,8 +15,8 @@ The original analyses have been performed on a machine with the following specs 
  - muscle: v3.8.31
  - Gblocks: version 0.91b
  - RAxML: version 8.2.4 (raxmlHPC-PTHREADS-SSE3)
-* TODO Data
-** Lactobacillales ezbiocloud
+* INPG Data
+** INPG Lactobacillales ezbiocloud
 To download all Lactobacillales from ezbiocloud execute the following command in reproduce/data:
 #+BEGIN_SRC sh :dir reproduce/data
 mkdir -p ezbiocloud_lactobacillales
@@ -44,12 +44,53 @@ done >ezbiocloud_lactobacillales.options
 #+END_SRC
 As this returns all the Lactobacillales genomes in ezbiocloud at the time you execute it the results will vary over time.
 In order to reproduce the tree from the publication you can use the ezbiocloud_lactobacillales.options file in reproduce/precomputed.
-** TODO Lactobacillus ncbi
-*** TODO Genomes
-*** TODO 16S
-** TODO All bacteria ncbi
-*** TODO Genomes
-*** TODO 16S
+** INPG Bacteria NCBI
+*** Proteomes
+To download the faa files from all bacteria in genomes via ftp do the following in reproduce/data:
+#+BEGIN_SRC sh :dir reproduce/data
+mkdir -p ncbi
+cd ncbi
+# The download link has been invalidated in the meantime, it was originally:
+# wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/all.faa.tar.gz
+# now it is:
+wget ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/Bacteria/all.faa.tar.gz
+tar xvzf all.faa.tar.gz
+rm all.faa.tar.gz
+# Combine the peptide files of each genome
+for i in *
+do
+    cat $i/*.faa > $i.fa
+    rm -rf $i
+done
+rename "s/[,:\s)(;'\]\[]/_/g" *
+# Create the options file for bcgTree
+for i in *.fa
+do
+     echo "--proteome "$(basename $i .fa)"="$PWD"/"$i
+done >ncbi_all.options
+cd ..
+#+END_SRC
+You can also use the precomputed options file in the reproduce/precomputed folder.
+*** 16S rRNA
+To download the 16S rRNA sequences from NCBI execute the following commands in reproduce/data:
+#+BEGIN_SRC sh :dir reproduce/data
+mkdir -p ncbi_16S
+cd ncbi_16S
+# The download link has been invalidated in the meantime, it was originally:
+# wget ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/all.frn.tar.gz
+# now it is:
+wget ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/Bacteria/all.frn.tar.gz
+tar xvzf all.frn.tar.gz
+rm all.frn.tar.gz
+for i in *
+do
+    cat $i/*.frn | grep 16S | head -n1 | perl -pe 's/^>//;s/ .*//' >$i.ids
+    cat $i/*.frn | ../../SeqFilter/bin/SeqFilter --in - --ids $i.ids --out $i.16S.fa
+    rm $i.ids
+    rm -rf $i
+done
+cd ..
+#+END_SRC
 * TODO Code
 ** TODO Case study: Lactobacillus phylogeny
 ** TODO Comparison to 16S topology
