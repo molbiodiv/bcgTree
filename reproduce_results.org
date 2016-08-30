@@ -8,7 +8,34 @@ The original analyses have been performed on a machine with the following specs 
 ** TODO bcgTree
 ** TODO external Programs
 * TODO Data
-** TODO Lactobacillales ezbiocloud
+** Lactobacillales ezbiocloud
+To download all Lactobacillales from ezbiocloud execute the following command in reproduce/data:
+#+BEGIN_SRC sh :dir reproduce/data
+mkdir -p ezbiocloud_lactobacillales
+# Search for Lactobacillales, extract project IDs, download zipped peptide fastas of the projects
+curl "http://www.ezbiocloud.net/search?k=ezgenome&v=Lactobacillales" |
+ grep case2 | cut -f5 -d"=" | cut -f1 -d \" | sort -u | tail -n+2 |
+ xargs -n1 -I{} wget -O ezbiocloud_lactobacillales/{}.zip "http://www.ezbiocloud.net/mod_download_fasta_ezgenome.jsp?acc="{}"&mode=CDS_AA"
+cd ezbiocloud_lactobacillales
+for i in *.zip; do unzip $i; done
+rm *.zip
+
+# move files with errors into error subdir
+mkdir -p error
+for i in $(grep --color=none -lr error); do mv $i error; done
+
+# replace offending characters in file names
+rename "s/[,:\s)(;'\]\[]/_/g" *
+
+# create options file for bcgTree
+for i in $(\ls *.fasta)
+do
+   BASE=$(basename $i _1.0_CDS_AA.fasta)
+   echo --proteome $BASE=$PWD/$i
+done >ezbiocloud_lactobacillales.options
+#+END_SRC
+As this returns all the Lactobacillales genomes in ezbiocloud at the time you execute it the results will vary over time.
+In order to reproduce the tree from the publication you can use the ezbiocloud_lactobacillales.options file in reproduce/precomputed.
 ** TODO Lactobacillus ncbi
 *** TODO Genomes
 *** TODO 16S
