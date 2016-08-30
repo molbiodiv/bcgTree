@@ -7,9 +7,14 @@ The original analyses have been performed on a machine with the following specs 
  - Intel(R) Core(TM)2 Duo CPU E8500 @3.16GHz
  - 4GB RAM
  - Ubuntu 14.04.3 LTS 64bit
-* TODO Versions
-** TODO bcgTree
-** TODO external Programs
+* Versions
+** bcgTree
+ - Version 1.0.4 CLI [[http://dx.doi.org/10.5281/zenodo.47769][https://zenodo.org/badge/doi/10.5281/zenodo.47769.svg]]
+** external Programs
+ - hmmsearch: HMMER version 3.1b1
+ - muscle: v3.8.31
+ - Gblocks: version 0.91b
+ - RAxML: version 8.2.4 (raxmlHPC-PTHREADS-SSE3)
 * TODO Data
 ** Lactobacillales ezbiocloud
 To download all Lactobacillales from ezbiocloud execute the following command in reproduce/data:
