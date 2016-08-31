@@ -169,7 +169,7 @@ raxmlHPC -f a -m GTRGAMMA -p 12345 -s lactobacillus_paenibacillus.16S.aln-gb -n 
 cd ../..
 #+END_SRC
 The final tree is in RAxML_bipartitions.lactobacillus_16S
-*** INPG Evaluation set 2 (High Level Taxonomy)
+*** Evaluation set 2 (High Level Taxonomy)
 **** bcgTree
 To calculate the high-level tree (bcgTree) run the following in reproduce/analysis
 #+BEGIN_SRC sh :dir ../reproduce/analysis
@@ -183,5 +183,24 @@ done
 perl ../../../../bin/bcgTree.pl @high_level.options --out high_level --bootstraps 100
 cd ../..
 #+END_SRC
+**** 16S
+To calculate the corresponding 16S tree:
+#+BEGIN_SRC sh :dir reproduce/analysis
+mkdir -p evaluation2/16S
+cd evaluation2/16S
+rm -f high_level.16S.fa
+for i in $(cat ../bcgTree/high_level.options | grep proteome | rev | cut -f1 -d"/" | rev | perl -pe 's/\.fa$/.16S.fa/')
+do
+    BASE=$(basename $i .16S.fa)
+    cat ../../../data/ncbi_16S/$i | perl -pe 's/^>/>'$BASE' /' >>high_level.16S.fa
+done
+muscle -in high_level.16S.fa -out high_level.16S.aln
+perl -i -pe 's/ .*//' high_level.16S.aln
+Gblocks high_level.16S.aln -t=p -b4=4 -b5=h
+perl -i -pe 's/ //g;s/:/_/g' high_level.16S.aln-gb
+raxmlHPC -f a -m GTRGAMMA -p 12345 -s high_level.16S.aln-gb -n high_level_16S -T 4 -x 12345 -N 100
+cd ../..
+#+END_SRC
+The final tree is in RAxML_bipartitions.high_level_16S
 *** TODO Multi-marker benefits
 ** TODO Computational performance
