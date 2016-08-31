@@ -38,6 +38,8 @@ rename "s/[,:\s)(;'\]\[=]/_/g" *
 # create options file for bcgTree
 for i in $(\ls *.fasta)
 do
+   # Filter empty sequences
+   cat $i | SeqFilter --min-len 1 --out $i
    BASE=$(basename $i _1.0_CDS_AA.fasta)
    echo --proteome $BASE=$PWD/$i
 done >ezbiocloud_lactobacillales.options
@@ -114,8 +116,27 @@ wget ftp://ftp.ncbi.nih.gov/genomes/archive/old_refseq/Bacteria/Lactobacillus_ca
 echo "ref|NC_017473|:258849-260429|16S" | SeqFilter --ids - NC_017473.frn --out Lactobacillus_casei_LC2W_uid162121.16S.fa
 rm NC_017473.frn
 #+END_SRC
-* TODO Code
-** TODO Case study: Lactobacillus phylogeny
-** TODO Comparison to 16S topology
-** TODO Multi-marker benefits
+* INPG Code
+** Case study: Lactobacillus phylogeny
+The full list of Lactobacillales genomes from ezbiocloud contains 2225 genomes.
+Of those 622 from the genus Enterococcus and 1188 from the genus Streptococcus.
+To reduce the size of the tree all genomes from ezbiocloud except those of Enterococcus and Streptococcus have been used and only 50 random genomes of each of those genera have been added:
+The commands to get this set were (in reproduce/data/ezbiocloud_lactobacillales)
+#+BEGIN_SRC sh :dir
+grep -vP "Enterococcus|Streptococcus" ezbiocloud_lactobacillales.options >ezbiocloud_lactobacillales_reduced.options
+grep "Enterococcus" ezbiocloud_lactobacillales.options | shuf | head -n50 >>ezbiocloud_lactobacillales_reduced.options
+grep "Streptococcus" ezbiocloud_lactobacillales.options | shuf | head -n50 >>ezbiocloud_lactobacillales_reduced.options
+#+END_SRC
+This results in a list of 515 Lactobacillales genomes.
+As shuf returns a random list you will need to use the precomputed ezbiocloud_lactobacillales_reduced.options file in order to exactly reproduce the published tree.
+ATTENTION: This tree has been calculated on a 80 Core Interl Xeon CPU with 512GB of RAM running Ubuntu 12.04 LTS 64 bit.
+To start the calculation simply run in the reproduce analysis folder:
+#+BEGIN_SRC sh :dir reproduce/analysis
+../../bin/bcgTree.pl @../data/ezbiocloud_lactobacillales/ezbiocloud_lactobacillales_reduced.options --outdir case_study_lactobacillus
+#+END_SRC
+The final tree has been refined with figtree (collapsing of nodes on Genus <G> or Species <S> level).
+Sorry, no idea how to automate this.
+** INPG Comparison to 16S topology
+*** TODO Evaluation set 1
+*** TODO Evaluation set 2
 ** TODO Computational performance
