@@ -128,7 +128,7 @@ Options:
         will be a huge performance decrease!
 
     [--bootstraps=<INT>]
-        Number of bootstraps to be used (passed to raxml). Default: 10
+        Number of bootstraps to be used (passed to raxml). Default: 100
 
     [--hmmfile=<PATH>]
         Path to HMM file to be used for hmmsearch. Default:

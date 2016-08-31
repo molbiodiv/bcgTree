@@ -130,11 +130,11 @@ $options{'threads=i'} = \( my $opt_threads = 2 );
 
 =item [--bootstraps=<INT>]
 
-Number of bootstraps to be used (passed to raxml). Default: 10
+Number of bootstraps to be used (passed to raxml). Default: 100
 
 =cut
 
-$options{'bootstraps=i'} = \( my $opt_bootstraps = 10 );
+$options{'bootstraps=i'} = \( my $opt_bootstraps = 100 );
 
 =back
 
