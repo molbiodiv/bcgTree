@@ -137,6 +137,44 @@ To start the calculation simply run in the reproduce analysis folder:
 The final tree has been refined with figtree (collapsing of nodes on Genus <G> or Species <S> level).
 Sorry, no idea how to automate this.
 ** INPG Comparison to 16S topology
-*** TODO Evaluation set 1
-*** TODO Evaluation set 2
+*** Evaluation set 1 (Lactobacillus NCBI)
+**** bcgTree
+To calculate the Lactobacillus trees (bcgTree and 16S) run the following in reproduce/analysis
+#+BEGIN_SRC sh :dir reproduce/analysis
+mkdir -p evaluation1/bcgTree
+cd evaluation1/bcgTree
+grep Lactobacillus ../../../data/ncbi/ncbi_all.options >lactobacillus_paenibacillus.options
+grep Paenibacillus ../../../data/ncbi/ncbi_all.options >>lactobacillus_paenibacillus.options
+perl ../../../../bin/bcgTree.pl @lactobacillus_paenibacillus.options --out lactobacillus_paenibacillus
+python ../../../../bin/plot_matrix.py lactobacillus_paenibacillus/absence_presence.csv lactobacillus_paenibacillus_ap.svg
+cd ../..
+#+END_SRC
+The final tree is in RAxML_bipartitions_final
+**** 16S
+To calculate the corresponding 16S tree:
+#+BEGIN_SRC sh :dir reproduce/analysis
+mkdir -p evaluation1/16S
+cd evaluation1/16S
+rm -f lactobacillus_paenibacillus.16S.fa
+for i in $(cat ../bcgTree/lactobacillus_paenibacillus.options | grep proteome | rev | cut -f1 -d"/" | rev | perl -pe 's/\.fa$/.16S.fa/')
+do
+    BASE=$(basename $i .16S.fa)
+    cat ../../../data/ncbi_16S/$i | perl -pe 's/^>/>'$BASE' /' >>lactobacillus_paenibacillus.16S.fa
+done
+muscle -in lactobacillus_paenibacillus.16S.fa -out lactobacillus_paenibacillus.16S.aln
+perl -i -pe 's/ .*//' lactobacillus_paenibacillus.16S.aln
+Gblocks lactobacillus_paenibacillus.16S.aln -t=p -b4=4 -b5=h
+perl -i -pe 's/ //g;s/:/_/g' lactobacillus_paenibacillus.16S.aln-gb
+raxmlHPC -f a -m GTRGAMMA -p 12345 -s lactobacillus_paenibacillus.16S.aln-gb -n lactobacillus_16S -T 4 -x 12345 -N 100
+#+END_SRC
+The final tree is in RAxML_bipartitions.lactobacillus_16S
+*** INPG Evaluation set 2 (High Level Taxonomy)
+#+BEGIN_SRC sh :dir ../analysis/use_cases/all_classes
+for i in Sulfolobus Thermococcus Bifidobacterium Rhodococcus Bacteroides Flavobacterium Chlamydia Parachlamydia Lactobacillus Paenibacillus Rhizobium Wolbachia Burkholderia Ralstonia Desulfovibrio Geobacter Campylobacter Helicobacter Erwinia Pseudomonas Borrelia Sphaerochaeta Kosmotoga Thermotoga
+do
+    grep $i ../../essential_genes/bcgTree.options | head -n1 >>one_per_genus.options
+done
+~/projects/bcgTree/bin/bcgTree.pl @one_per_genus.options --out one_per_genus
+#+END_SRC
+*** TODO Multi-marker benefits
 ** TODO Computational performance
