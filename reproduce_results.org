@@ -15,8 +15,8 @@ The original analyses have been performed on a machine with the following specs 
  - muscle: v3.8.31
  - Gblocks: version 0.91b
  - RAxML: version 8.2.4 (raxmlHPC-PTHREADS-SSE3)
-* INPG Data
-** INPG Lactobacillales ezbiocloud
+* Data
+** Lactobacillales ezbiocloud
 To download all Lactobacillales from ezbiocloud execute the following command in reproduce/data:
 #+BEGIN_SRC sh :dir reproduce/data
 mkdir -p ezbiocloud_lactobacillales
@@ -33,7 +33,7 @@ mkdir -p error
 for i in $(grep --color=none -lr error); do mv $i error; done
 
 # replace offending characters in file names
-rename "s/[,:\s)(;'\]\[]/_/g" *
+rename "s/[,:\s)(;'\]\[=]/_/g" *
 
 # create options file for bcgTree
 for i in $(\ls *.fasta)
@@ -44,7 +44,8 @@ done >ezbiocloud_lactobacillales.options
 #+END_SRC
 As this returns all the Lactobacillales genomes in ezbiocloud at the time you execute it the results will vary over time.
 In order to reproduce the tree from the publication you can use the ezbiocloud_lactobacillales.options file in reproduce/precomputed.
-** INPG Bacteria NCBI
+But be aware, that this file contains the paths relative to that directory so either make them absolute or call bcgTree from there if you want to use the precomputed file.
+** Bacteria NCBI
 *** Proteomes
 To download the faa files from all bacteria in genomes via ftp do the following in reproduce/data:
 #+BEGIN_SRC sh :dir reproduce/data
@@ -62,7 +63,7 @@ do
     cat $i/*.faa > $i.fa
     rm -rf $i
 done
-rename "s/[,:\s)(;'\]\[]/_/g" *
+rename "s/[,:\s)(;'\]\[=]/_/g" *
 # Create the options file for bcgTree
 for i in *.fa
 do
@@ -71,6 +72,7 @@ done >ncbi_all.options
 cd ..
 #+END_SRC
 You can also use the precomputed options file in the reproduce/precomputed folder.
+But be aware, that this file contains the paths relative to that directory so either make them absolute or call bcgTree from there if you want to use the precomputed file.
 *** 16S rRNA
 To download the 16S rRNA sequences from NCBI execute the following commands in reproduce/data:
 #+BEGIN_SRC sh :dir reproduce/data
@@ -85,11 +87,32 @@ rm all.frn.tar.gz
 for i in *
 do
     cat $i/*.frn | grep 16S | head -n1 | perl -pe 's/^>//;s/ .*//' >$i.ids
-    cat $i/*.frn | ../../SeqFilter/bin/SeqFilter --in - --ids $i.ids --out $i.16S.fa
+    cat $i/*.frn | ../../../SeqFilter/bin/SeqFilter - --ids $i.ids --out $i.16S.fa
     rm $i.ids
     rm -rf $i
 done
+rename "s/[,:\s)(;'\]\[=]/_/g" *
 cd ..
+#+END_SRC
+This way there is exactly one 16S sequence for most of the genomes.
+However that of Lactobacillus_brevis_KB290_uid195560 is missing due to a lack of annotation.
+To get this the whole genome is downloaded and rnammer used for extraction.
+You need rnammer version 1.2 for that (be aware that rnammer relies on hmmsearch version 2).
+#+BEGIN_SRC sh :dir reproduce/data/ncbi_16S
+wget ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/Bacteria/Lactobacillus_brevis_KB290_uid195560/NC_020819.fna -O Lactobacillus_brevis_KB290_uid195560.fna
+rnammer -S bac -m lsu,ssu,tsu -f Lactobacillus_brevis_KB290_uid195560.rrna.fa Lactobacillus_brevis_KB290_uid195560.fna
+grep 16s Lactobacillus_brevis_KB290_uid195560.rrna.fa | head -n1 | perl -pe 's/^>//;s/ .*//' >Lactobacillus_brevis_KB290_uid195560.16S.id
+../../../SeqFilter Lactobacillus_brevis_KB290_uid195560.rrna.fa --ids Lactobacillus_brevis_KB290_uid195560.16S.id --out Lactobacillus_brevis_KB290_uid195560.16S.fa
+perl -i -pe 's/^>/>Lactobacillus_brevis_KB290_uid195560 /' Lactobacillus_brevis_KB290_uid195560.16S.fa
+rm Lactobacillus_brevis_KB290_uid195560.fna Lactobacillus_brevis_KB290_uid195560.rrna.fa Lactobacillus_brevis_KB290_uid195560.16S.id
+#+END_SRC
+If you have difficulties here I also provide the precomputed 16S rRNA file for Lactobacillus_brevis_KB290_uid195560.
+Preliminary analyses also showed that the sequence of Lactobacillus_casei_LC2W_uid162121 was not really 16S due to misannotation.
+So to get the real 16S sequence execute the following commands:
+#+BEGIN_SRC sh :dir reproduce/data/ncbi_16S
+wget ftp://ftp.ncbi.nih.gov/genomes/archive/old_refseq/Bacteria/Lactobacillus_casei_LC2W_uid162121/NC_017473.frn
+echo "ref|NC_017473|:258849-260429|16S" | SeqFilter --ids - NC_017473.frn --out Lactobacillus_casei_LC2W_uid162121.16S.fa
+rm NC_017473.frn
 #+END_SRC
 * TODO Code
 ** TODO Case study: Lactobacillus phylogeny
