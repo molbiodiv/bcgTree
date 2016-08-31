@@ -13,7 +13,8 @@ my %options = (exit => 1);
 
 my $script_args = ['bin/bcgTree.pl',
                    '--proteome', 'Acinetobacter=t/data/NC_005966.faa',
-                   '--outdir', $tmpdir
+                   '--outdir', $tmpdir,
+		   '--bootstrap', 10
                   ];
 
 script_runs($script_args, \%options, "Test if script executes hmmsearch");

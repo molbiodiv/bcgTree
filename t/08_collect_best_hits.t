@@ -14,7 +14,8 @@ my %options = (exit => 1);
 my $script_args = ['bin/bcgTree.pl',
                    '--proteome', 'Acinetobacter=t/data/NC_005966.faa',
                    '--proteome', 'Escherichia=t/data/NC_008253.faa',
-                   '--outdir', $tmpdir
+                   '--outdir', $tmpdir,
+                   '--bootstrap', 10
                   ];
 
 script_runs($script_args, \%options, "Test if script collects best hmmsearch hits");

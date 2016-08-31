@@ -13,7 +13,8 @@ my %options = (exit => 1);
 
 my $script_args = ['bin/bcgTree.pl',
                    '--proteome', 'bacterium1=t/data/simple.fa',
-                   '--outdir', $tmpdir
+                   '--outdir', $tmpdir,
+		   '--bootstrap', 10
                   ];
 
 script_runs($script_args, \%options, "Test if script runs with existent fasta file as parameter");

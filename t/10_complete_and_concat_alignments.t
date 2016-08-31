@@ -15,7 +15,8 @@ my $script_args = ['bin/bcgTree.pl',
                    '--proteome', 'Acinetobacter=t/data/Acinetobacter_PF002xx.fa',
                    '--proteome', 'Escherichia=t/data/Escherichia_PF002xx.fa',
                    '--proteome', 'Filifactor=t/data/Filifactor_PF002xx.fa',
-                   '--outdir', $tmpdir
+                   '--outdir', $tmpdir,
+                   '--bootstrap', 10
                   ];
 
 script_runs($script_args, \%options, "Test if script runs muscle correctly");
