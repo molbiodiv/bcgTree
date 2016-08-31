@@ -8,6 +8,7 @@ If you use bcgTree for your research please cite: [[http://dx.doi.org/10.1139/ge
 
 Also please cite the external programs and the source of the HMMs (see Background section) if you use the default essential.hmm
 
+See [[file:reproduce_results.org][this file]] for instructions on how to reproduce results from our article.
 ** Dependencies
 Please note that some of the dependencies have their own Licenses.
 *** Perl
