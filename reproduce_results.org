@@ -297,3 +297,63 @@ cd ../..
 #+END_SRC
 
 ** TODO Computational performance
+To get an impression on how the runtime scales with the number of genomes the following analysis has been performed.
+To reproduce go to reproduce/analysis:
+#+BEGIN_SRC sh :dir reproduce/analysis
+mkdir -p performance
+cd performance
+for i in $(seq 5 1 15)
+do
+    for j in $(seq 1 1 5)
+    do
+        shuf ../../data/ncbi/ncbi_all.options | head -n ${i} >${i}_${j}.options
+        ../../../bin/bcgTree.pl @${i}_${j}.options --out ${i}_${j}
+    done
+done
+for i in $(seq 5 5 50)
+do
+    shuf ../../data/ncbi/ncbi_all.options | head -n ${i} >${i}_0.options
+    ../../../bin/bcgTree.pl @${i}_0.options --out ${i}_0
+done
+
+#Gather timestamps:
+echo "genomes"$'\t'"rep"$'\t'"start"$'\t'"startRaxml"$'\t'"end" >timestamps.tsv 
+for i in *_*.options
+do
+    BASE=$(basename $i .options)
+    echo -n $BASE$'\t' | perl -pe 's/_/\t/'
+    LOG="$BASE/bcgTree.log"
+    cat <(head -n1 $LOG) <(grep "Starting: raxml" $LOG) <(tail -n1 $LOG) | cut -f1,2 -d" " | perl -pe 's/\n/\t/' | perl -pe 's/\t$/\n/'
+done >>timestamps.tsv
+cd ..
+#+END_SRC
+Analysis of timestamps in R (go to folder reproduce/analysis/performance):
+#+BEGIN_SRC R :dir reproduce/analysis/performance
+data <- read.table("timestamps.tsv", header=T, sep="\t")
+#The date/time string can be converted to an appropriate object with strptime
+#strptime(as.character(data$end), "[%m-%d %H:%M:%S]")
+time_until_finished = difftime(strptime(as.character(data$end), "[%m-%d %H:%M:%S]"), strptime(as.character(data$start), "[%m-%d %H:%M:%S]"), unit="sec")
+time_until_raxml = difftime(strptime(as.character(data$startRaxml), "[%m-%d %H:%M:%S]"), strptime(as.character(data$start), "[%m-%d %H:%M:%S]"), unit="sec")
+
+cor(as.numeric(data$genomes), as.numeric(time_until_raxml))
+cor(as.numeric(data$genomes), as.numeric(time_until_finished))
+cor.test(as.numeric(data$genomes), as.numeric(time_until_finished))
+# quite surprisingly the linear(!) correlation between number of genomes and runtime is very strong
+
+pdf("runtime_vs_genome_number.pdf")
+plot(data$genomes, 
+ time_until_finished,
+ xlab="Number of genomes",
+ ylab="Time in s",
+ main="Runtime of bcgTree depending on number of genomes",
+ ylim=c(1,max(time_until_finished))
+)
+points(data$genomes,
+ time_until_raxml,
+ col="red"
+)
+# add regression line
+abline(lm(time_until_finished ~ data$genomes))
+legend("topleft", legend=c("runtime before raxML", "total runtime", "regression"), pch=c(1,1,NA), lty=c(0,0,1), col=c("red","black","black"))
+dev.off()
+#+END_SRC
