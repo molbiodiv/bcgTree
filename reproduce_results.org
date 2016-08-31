@@ -139,13 +139,13 @@ Sorry, no idea how to automate this.
 ** INPG Comparison to 16S topology
 *** Evaluation set 1 (Lactobacillus NCBI)
 **** bcgTree
-To calculate the Lactobacillus trees (bcgTree and 16S) run the following in reproduce/analysis
+To calculate the Lactobacillus tree (bcgTree) run the following in reproduce/analysis
 #+BEGIN_SRC sh :dir reproduce/analysis
 mkdir -p evaluation1/bcgTree
 cd evaluation1/bcgTree
 grep Lactobacillus ../../../data/ncbi/ncbi_all.options >lactobacillus_paenibacillus.options
 grep Paenibacillus ../../../data/ncbi/ncbi_all.options >>lactobacillus_paenibacillus.options
-perl ../../../../bin/bcgTree.pl @lactobacillus_paenibacillus.options --out lactobacillus_paenibacillus
+perl ../../../../bin/bcgTree.pl @lactobacillus_paenibacillus.options --out lactobacillus_paenibacillus --bootstraps 100
 python ../../../../bin/plot_matrix.py lactobacillus_paenibacillus/absence_presence.csv lactobacillus_paenibacillus_ap.svg
 cd ../..
 #+END_SRC
@@ -166,15 +166,22 @@ perl -i -pe 's/ .*//' lactobacillus_paenibacillus.16S.aln
 Gblocks lactobacillus_paenibacillus.16S.aln -t=p -b4=4 -b5=h
 perl -i -pe 's/ //g;s/:/_/g' lactobacillus_paenibacillus.16S.aln-gb
 raxmlHPC -f a -m GTRGAMMA -p 12345 -s lactobacillus_paenibacillus.16S.aln-gb -n lactobacillus_16S -T 4 -x 12345 -N 100
+cd ../..
 #+END_SRC
 The final tree is in RAxML_bipartitions.lactobacillus_16S
 *** INPG Evaluation set 2 (High Level Taxonomy)
-#+BEGIN_SRC sh :dir ../analysis/use_cases/all_classes
+**** bcgTree
+To calculate the high-level tree (bcgTree) run the following in reproduce/analysis
+#+BEGIN_SRC sh :dir ../reproduce/analysis
+mkdir -p evaluation2/bcgTree
+cd evaluation2/bcgTree
+rm -f high_level.options
 for i in Sulfolobus Thermococcus Bifidobacterium Rhodococcus Bacteroides Flavobacterium Chlamydia Parachlamydia Lactobacillus Paenibacillus Rhizobium Wolbachia Burkholderia Ralstonia Desulfovibrio Geobacter Campylobacter Helicobacter Erwinia Pseudomonas Borrelia Sphaerochaeta Kosmotoga Thermotoga
 do
-    grep $i ../../essential_genes/bcgTree.options | head -n1 >>one_per_genus.options
+    grep $i ../../../data/ncbi/ncbi_all.options | head -n1 >>high_level.options
 done
-~/projects/bcgTree/bin/bcgTree.pl @one_per_genus.options --out one_per_genus
+perl ../../../../bin/bcgTree.pl @high_level.options --out high_level --bootstraps 100
+cd ../..
 #+END_SRC
 *** TODO Multi-marker benefits
 ** TODO Computational performance
