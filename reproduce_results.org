@@ -202,7 +202,15 @@ raxmlHPC -f a -m GTRGAMMA -p 12345 -s high_level.16S.aln-gb -n high_level_16S -T
 cd ../..
 #+END_SRC
 The final tree is in RAxML_bipartitions.high_level_16S
-** TODO Multi-marker benefits
+*** Bootstrap distribution
+In order to get the distribution of bootstrap values for each tree you can execute:
+#+BEGIN_SRC reproduce/analysis
+perl -pe 's/\)/\n/g' evaluation1/16S/RAxML_bipartitions.lactobacillus_16S | cut -f1 -s -d":" | tail -n+2 | perl -pe 's/^/16S\tevaluation1\t/' >bootstraps
+perl -pe 's/\)/\n/g' evaluation2/16S/RAxML_bipartitions.high_level_16S | cut -f1 -s -d":" | tail -n+2 | perl -pe 's/^/16S\tevaluation2\t/' >>bootstraps
+perl -pe 's/\)/\n/g' evaluation1/bcgTree/lactobacillus_paenibacillus/RAxML_bipartitions.final | cut -f1 -s -d":" | tail -n+2 | perl -pe 's/^/bcgTree\tevaluation1\t/' >>bootstraps
+perl -pe 's/\)/\n/g' evaluation2/bcgTree/high_level/RAxML_bipartitions.final | cut -f1 -s -d":" | tail -n+2 | perl -pe 's/^/bcgTree\tevaluation2\t/' >>bootstraps
+#+END_SRC
+** Multi-marker benefits
 Calculate trees with random subselections of the partitions on high-level and low-level use cases.
 In reproduce/analysis execute the following commands:
 #+BEGIN_SRC sh :dir reproduce/analysis
