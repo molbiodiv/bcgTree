@@ -136,7 +136,7 @@ To start the calculation simply run in the reproduce analysis folder:
 #+END_SRC
 The final tree has been refined with figtree (collapsing of nodes on Genus <G> or Species <S> level).
 Sorry, no idea how to automate this.
-** INPG Comparison to 16S topology
+** Comparison to 16S topology
 *** Evaluation set 1 (Lactobacillus NCBI)
 **** bcgTree
 To calculate the Lactobacillus tree (bcgTree) run the following in reproduce/analysis
@@ -202,5 +202,90 @@ raxmlHPC -f a -m GTRGAMMA -p 12345 -s high_level.16S.aln-gb -n high_level_16S -T
 cd ../..
 #+END_SRC
 The final tree is in RAxML_bipartitions.high_level_16S
-*** TODO Multi-marker benefits
+** TODO Multi-marker benefits
+Calculate trees with random subselections of the partitions on high-level and low-level use cases.
+In reproduce/analysis execute the following commands:
+#+BEGIN_SRC sh :dir reproduce/analysis
+mkdir -p multimarker/evaluation1
+cd multimarker/evaluation1
+cp ../../evaluation1/bcgTree/lactobacillus_paenibacillus/full_alignment.concat.* .
+for j in {0..9}
+do
+    for i in {1..108}
+    do
+        NEWDIR=$(printf "%02d" $j)_$(printf "%03d" $((109-i)))
+        mkdir $NEWDIR
+        cp full_alignment.concat.fa full_alignment.concat.partition $NEWDIR
+        cd $NEWDIR
+        cut -f4 -d" " full_alignment.concat.partition | shuf | head -n $i >exclude_file
+        raxmlHPC -E exclude_file -s full_alignment.concat.fa -q full_alignment.concat.partition -n EXCLUDE -m GTRGAMMA
+        raxmlHPC -f a -m GTRGAMMA -p 12345 -q full_alignment.concat.partition.exclude_file -s full_alignment.concat.fa.exclude_file -n partsub_$i -T 6 -x 12345 -N 1
+        cd -
+    done
+done
+
+# Create qdist table
+echo -e "batch\tgene_count\tqdist\tqdist_rel" >lactobacillus_paenibacillus.qdist_by_genenumber.tsv
+for j in {0..9}
+do
+   for i in {1..108}
+   do
+      echo -n $j$'\t'$i$'\t'
+      FILE="$(printf "%02d" $j)_$(printf "%03d" $i)/RAxML_bestTree.partsub_"
+      if [ -f $FILE ]
+      then
+         qdist ../../evaluation1/bcgTree/lactobacillus_paenibacillus/RAxML_bestTree.final $FILE | tail -n1 | cut -f7,8
+      else
+         echo -e "NA\tNA"
+      fi
+   done
+done >>lactobacillus_paenibacillus.qdist_by_genenumber.tsv
+echo -ne "16S\t1\t" >>lactobacillus_paenibacillus.qdist_by_genenumber.tsv
+qdist ../../evaluation1/bcgTree/lactobacillus_paenibacillus/RAxML_bestTree.final ../../evaluation1/16S/RAxML_bestTree.lactobacillus_16S | tail -n1 | cut -f7,8 >>lactobacillus_paenibacillus.qdist_by_genenumber.tsv
+
+cd ../..
+#+END_SRC
+
+Repeat this step for the evaluation2 set:
+#+BEGIN_SRC sh :dir reproduce/analysis
+mkdir -p multimarker/evaluation2
+cd multimarker/evaluation2
+cp ../../evaluation2/bcgTree/high_level/full_alignment.concat.* .
+for j in {0..9}
+do
+    for i in {1..108}
+    do
+        NEWDIR=$(printf "%02d" $j)_$(printf "%03d" $((109-i)))
+        mkdir $NEWDIR
+        cp full_alignment.concat.fa full_alignment.concat.partition $NEWDIR
+        cd $NEWDIR
+        cut -f4 -d" " full_alignment.concat.partition | shuf | head -n $i >exclude_file
+        raxmlHPC -E exclude_file -s full_alignment.concat.fa -q full_alignment.concat.partition -n EXCLUDE -m GTRGAMMA
+        raxmlHPC -f a -m GTRGAMMA -p 12345 -q full_alignment.concat.partition.exclude_file -s full_alignment.concat.fa.exclude_file -n partsub_$i -T 6 -x 12345 -N 1
+        cd -
+    done
+done
+
+# Create qdist table
+echo -e "batch\tgene_count\tqdist\tqdist_rel" >high_level.qdist_by_genenumber.tsv
+for j in {0..9}
+do
+   for i in {1..108}
+   do
+      echo -n $j$'\t'$i$'\t'
+      FILE="$(printf "%02d" $j)_$(printf "%03d" $i)/RAxML_bestTree.partsub_"
+      if [ -f $FILE ]
+      then
+         qdist ../../evaluation2/bcgTree/high_level/RAxML_bestTree.final $FILE | tail -n1 | cut -f7,8
+      else
+         echo -e "NA\tNA"
+      fi
+   done
+done >>high_level.qdist_by_genenumber.tsv
+echo -ne "16S\t1\t" >>high_level.qdist_by_genenumber.tsv
+qdist ../../evaluation2/bcgTree/high_level/RAxML_bestTree.final ../../evaluation2/16S/RAxML_bestTree.high_level_16S | tail -n1 | cut -f7,8 >>high_level.qdist_by_genenumber.tsv
+
+cd ../..
+#+END_SRC
+
 ** TODO Computational performance
