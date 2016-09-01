@@ -39,14 +39,14 @@ Newer versions should work (otherwise feel free to open an issue).
  - [[http://sco.h-its.org/exelixis/web/software/raxml/][RAxML]] (version 8.2.4) - Stamatakis et al, 2014. RAxML version 8: A tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics 30, 1312–1313.
 Additionally [[https://github.com/BioInf-Wuerzburg/SeqFilter][SeqFilter]] (Hackl et al, 2014. proovread: large-scale high-accuracy PacBio correction through iterative short read consensus. Bioinformatics 30, 3004-3011) is needed but it is included in this repo.
 ** Installation
-You can download the latest release from [[https://github.com/iimog/bcgTree/releases][here]].
+You can download the latest release from [[https://github.com/molbiodiv/bcgTree/releases][here]].
 After extraction you can start the graphical interface by double clicking the bcgTree.jar file in the bcgTreeGUI folder.
 Please remember to install the required external programms (see above).
 Alternatively you can start the perl script bcgTree.pl in the bin folder from the command line.
 Using the command line interface is the recommended way.
 You can also clone the bcgTree git repository by executing the following commands:
 #+BEGIN_SRC sh
-git clone https://github.com/iimog/bcgTree.git
+git clone https://github.com/molbiodiv/bcgTree.git
 # Now you can run bcgTree.pl
 bcgTree/bin/bcgTree.pl --help
 # Or start the java GUI
@@ -56,7 +56,7 @@ java -jar bcgTree.jar
 ** Usage
 *** GUI
 The graphical user interface is just a convenient way to call bcgTree.
-Usage is meant to be self-explanatory, any suggestions for improvement are welcome (please open an [[https://github.com/iimog/bcgTree/issues][issue]]).
+Usage is meant to be self-explanatory, any suggestions for improvement are welcome (please open an [[https://github.com/molbiodiv/bcgTree/issues][issue]]).
 In fact it adds no extra functionality it just collects the parameters and calls the perl script on the command line.
 The output is written to a text field as well as a log file.
 In order to preserve replicability all parameters are written in a file called options.txt in the output folder.
@@ -187,7 +187,7 @@ Cliparts from [[openclipart.org]] have been used:
 The font is from [[fontlibrary.org]]:
  - [[https://fontlibrary.org/en/font/ranchers][Ranchers]] ([[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL][SIL Open Font License]])
 ** Changes
-[[https://travis-ci.org/iimog/bcgTree][https://travis-ci.org/iimog/bcgTree.svg?branch=master]]
+[[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
 *** v1.0.7 <2016-06-16 Do>
  - Add logo to GUI
 *** v1.0.6 <2016-03-17 Do>
@@ -215,4 +215,4 @@ The font is from [[fontlibrary.org]]:
  - Add java GUI
 
 ** Fun
-See [[http://codeology.braintreepayments.com/iimog/bcgtree][this visualization]] created by [[http://codeology.braintreepayments.com/][codeology]].
+See [[http://codeology.braintreepayments.com/molbiodiv/bcgtree][this visualization]] created by [[http://codeology.braintreepayments.com/][codeology]].
