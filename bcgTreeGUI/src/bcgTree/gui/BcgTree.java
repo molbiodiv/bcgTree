@@ -29,6 +29,7 @@ import java.util.TreeMap;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -74,6 +75,8 @@ public class BcgTree extends JFrame {
 	private JTextField randomSeedXTextField;
 	private JTextField randomSeedPTextField;
 	private JTextField hmmfileTextField;
+	private JSpinner minProteomesSpinner;
+	private JCheckBox allProteomesCheckbox;
 	
 	public BcgTree(){
 		self = this;
@@ -208,7 +211,7 @@ public class BcgTree extends JFrame {
 	}
 	
 	private JPanel getAdvancedSettingsPanel(){
-		JPanel advancedSettingsPanel = new JPanel(new GridLayout(5, 2));
+		JPanel advancedSettingsPanel = new JPanel(new GridLayout(7, 2));
 		advancedSettingsPanel.add(new JLabel("--bootstraps"));
 		bootstrapSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
 		advancedSettingsPanel.add(bootstrapSpinner);
@@ -224,6 +227,18 @@ public class BcgTree extends JFrame {
 		advancedSettingsPanel.add(new JLabel("--hmmfile"));
 		hmmfileTextField = new JTextField(System.getProperty("user.dir")+"/../data/essential.hmm", DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(hmmfileTextField);
+		advancedSettingsPanel.add(new JLabel("--min-proteomes"));
+		minProteomesSpinner = new JSpinner(new SpinnerNumberModel(2, 1, 10000, 1));
+		advancedSettingsPanel.add(minProteomesSpinner);
+		advancedSettingsPanel.add(new JLabel("--all-proteomes"));
+		allProteomesCheckbox = new JCheckBox();
+		allProteomesCheckbox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				minProteomesSpinner.setEnabled(!allProteomesCheckbox.isSelected());
+			}
+		});
+		advancedSettingsPanel.add(allProteomesCheckbox);
 		return advancedSettingsPanel;
 	}
 	
@@ -255,6 +270,11 @@ public class BcgTree extends JFrame {
 				writer.println("--bootstraps="+bootstrapSpinner.getValue());
 				writer.println("--threads="+threadsSpinner.getValue());
 				writer.println("--hmmfile=\""+hmmfileTextField.getText()+"\"");
+				if(allProteomesCheckbox.isSelected()){
+					writer.println("--all-proteomes");
+				} else {
+					writer.println("--min-proteomes="+minProteomesSpinner.getValue());
+				}
 				String pSeed = randomSeedPTextField.getText();
 				if(! pSeed.equals("")){
 					writer.println("--raxml-p-parsimonyRandomSeed="+pSeed);
