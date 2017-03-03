@@ -152,13 +152,13 @@ sub collect_best_hmm_hits{
 			$count++;
 		}
 		$L->info("Wrote $count ids for gene $g");
-		if($count < 2){
+		if($count < $self->{'min-proteomes'}){
 			$L->warn("Gene $g only present in $count proteome - removing from further analyses");
 			delete $gene_id_map{$g};
 		}
 		close OUT or $L->logdie("Error closing $out/$g.ids. $!");
 	}
-	# Add the remaining list of genes to the object 
+	# Add the remaining list of genes to the object
 	$self->{genes} = [keys %gene_id_map];
 	$L->logdie("Not a single gene is present in more than one proteome - Exiting") if((keys %gene_id_map) < 1);
 	# Write absence presence list
