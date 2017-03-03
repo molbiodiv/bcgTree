@@ -54,7 +54,7 @@ output directory for the generated output files (default: bcgTree)
 
 $options{'outdir=s'} = \( my $opt_outdir="bcgTree" );
 
-=item [--help] 
+=item [--help]
 
 show help
 
@@ -62,7 +62,7 @@ show help
 
 $options{'help|h|?'} = \( my $opt_help );
 
-=item [--version] 
+=item [--version]
 
 show version number of bcgTree and exit
 
@@ -70,7 +70,7 @@ show version number of bcgTree and exit
 
 $options{'version'} = \( my $opt_version );
 
-=item [--check-external-programs] 
+=item [--check-external-programs]
 
 Check if all of the required external programs can be found and are executable, then exit.
 Report table with program, status (ok or !fail!) and path.
@@ -135,6 +135,30 @@ Number of bootstraps to be used (passed to raxml). Default: 100
 =cut
 
 $options{'bootstraps=i'} = \( my $opt_bootstraps = 100 );
+
+=back
+
+=item [--min-proteomes=<INT>]
+
+Minimum number of proteomes in which a gene must occur in order to be kept. Default: 2
+All genes with less hits are discarded prior to the alignment step.
+This option is ignored if --all-proteomes is set.
+
+=cut
+
+$options{'min-proteomes=i'} = \( my $opt_min_proteomes = 2 );
+
+=back
+
+=item [--all-proteomes]
+
+Sets --min-proteomes to the total number of proteomes supplied. Default: not set
+All genes that do not hit all of the proteomes are discarded prior to the alignment step.
+If set --min-proteomes is ignored.
+
+=cut
+
+$options{'all-proteomes'} = \( my $opt_all_proteomes = 0 );
 
 =back
 
@@ -204,6 +228,7 @@ Log::Log4perl->init(
 );
 
 my $L = Log::Log4perl::get_logger();
+$opt_min_proteomes = 0+(keys %{$opt_proteome}) if($opt_all_proteomes);
 my $bcgTree = bcgTree->new({
 	'proteome' => $opt_proteome,
 	'outdir' => $opt_outdir,
@@ -216,7 +241,8 @@ my $bcgTree = bcgTree->new({
 	'bootstraps' => $opt_bootstraps,
 	'hmmfile' => $opt_hmmfile,
 	'raxml-p' => $opt_raxml_p,
-	'raxml-x' => $opt_raxml_x
+	'raxml-x' => $opt_raxml_x,
+    'min-proteomes' => $opt_min_proteomes
 });
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->rename_fasta_headers();
@@ -239,7 +265,7 @@ sub check_external_programs{
 		my $result = 'ok';
 		if(! -X $path){
 			$result = '!fail!';
-			$fail = 1;	
+			$fail = 1;
 		}
 		printf "%-10s%6s\t%s\n", $p, $result, $path;
 	}
