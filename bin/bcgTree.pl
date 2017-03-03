@@ -158,7 +158,7 @@ If set --min-proteomes is ignored.
 
 =cut
 
-$options{'min-proteomes=i'} = \( my $opt_min_proteomes = 2 );
+$options{'all-proteomes'} = \( my $opt_all_proteomes = 0 );
 
 =back
 
@@ -228,6 +228,7 @@ Log::Log4perl->init(
 );
 
 my $L = Log::Log4perl::get_logger();
+$opt_min_proteomes = 0+(keys %{$opt_proteome}) if($opt_all_proteomes);
 my $bcgTree = bcgTree->new({
 	'proteome' => $opt_proteome,
 	'outdir' => $opt_outdir,
@@ -240,7 +241,8 @@ my $bcgTree = bcgTree->new({
 	'bootstraps' => $opt_bootstraps,
 	'hmmfile' => $opt_hmmfile,
 	'raxml-p' => $opt_raxml_p,
-	'raxml-x' => $opt_raxml_x
+	'raxml-x' => $opt_raxml_x,
+    'min-proteomes' => $opt_min_proteomes
 });
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->rename_fasta_headers();
