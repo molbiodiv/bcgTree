@@ -36,6 +36,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
@@ -107,8 +108,9 @@ public class BcgTree extends JFrame {
 		mainPanel.setLayout(new GridLayout(1, 2));
 		this.add(mainPanel, BorderLayout.CENTER);
 		settingsPanel = new JPanel();
+		JScrollPane settingsScrollPane = new JScrollPane(settingsPanel);
 		settingsPanel.setLayout(new GridBagLayout());
-		mainPanel.add(settingsPanel);
+		mainPanel.add(settingsScrollPane);
 		JPanel logPanel = new JPanel();
 		logPanel.setLayout(new BorderLayout());
 		mainPanel.add(logPanel);
