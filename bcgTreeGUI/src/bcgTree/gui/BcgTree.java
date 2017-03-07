@@ -78,6 +78,7 @@ public class BcgTree extends JFrame {
 	private JTextField hmmfileTextField;
 	private JSpinner minProteomesSpinner;
 	private JCheckBox allProteomesCheckbox;
+	private JTextField raxmlArgsTextField;
 	
 	public BcgTree(){
 		self = this;
@@ -213,7 +214,7 @@ public class BcgTree extends JFrame {
 	}
 	
 	private JPanel getAdvancedSettingsPanel(){
-		JPanel advancedSettingsPanel = new JPanel(new GridLayout(7, 2));
+		JPanel advancedSettingsPanel = new JPanel(new GridLayout(8, 2));
 		advancedSettingsPanel.add(new JLabel("--bootstraps"));
 		bootstrapSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
 		advancedSettingsPanel.add(bootstrapSpinner);
@@ -226,6 +227,9 @@ public class BcgTree extends JFrame {
 		advancedSettingsPanel.add(new JLabel("--raxml-p-parsimonyRandomSeed"));
 		randomSeedPTextField = new JTextField("", DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(randomSeedPTextField);
+		advancedSettingsPanel.add(new JLabel("--raxml-args"));
+		raxmlArgsTextField = new JTextField("", DEFAULT_TEXTFIELD_COLUMNS);
+		advancedSettingsPanel.add(raxmlArgsTextField);
 		advancedSettingsPanel.add(new JLabel("--hmmfile"));
 		hmmfileTextField = new JTextField(System.getProperty("user.dir")+"/../data/essential.hmm", DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(hmmfileTextField);
@@ -284,6 +288,10 @@ public class BcgTree extends JFrame {
 				String xSeed = randomSeedXTextField.getText();
 				if(! xSeed.equals("")){
 					writer.println("--raxml-x-rapidBootstrapRandomNumberSeed="+xSeed);
+				}
+				String raxmlArgs = raxmlArgsTextField.getText();
+				if(! raxmlArgs.equals("")){
+					writer.println("--raxml-args=\""+raxmlArgs+"\"");
 				}
 				for(String p : programPaths.keySet()){
 					String path = programPaths.get(p).getText();
