@@ -276,7 +276,7 @@ sub run_raxml{
 	my $self = shift;
 	my $out = $self->{'outdir'};
 	my $msg = "raxml on $out/full_alignment.concat.fa";
-	my $cmd = $self->{'raxml-bin'}." -f a -m GTRGAMMA -p ".$self->{'raxml-p'}." -q $out/full_alignment.concat.partition -s $out/full_alignment.concat.fa -w ".File::Spec->rel2abs( $out )." -n final -T ".$self->{'threads'}." -x ".$self->{'raxml-x'}." -N ".$self->{'bootstraps'};
+	my $cmd = $self->{'raxml-bin'}." -f a -m GTRGAMMA -p ".$self->{'raxml-p'}." -q $out/full_alignment.concat.partition -s $out/full_alignment.concat.fa -w ".File::Spec->rel2abs( $out )." -n final -T ".$self->{'threads'}." -x ".$self->{'raxml-x'}." -N ".$self->{'bootstraps'}." ".$self->{'raxml-args'};
 	$self->run_command($cmd, $msg);
 	$L->info("Finished bcgTree.");
 }
