@@ -161,6 +161,11 @@ Options:
         file to find out the actual value). Note: you can abbreviate options
         (as long as they stay unique) so --raxml-p=12345 is equivalent to
         --raxml-p-parsimonyRandomSeed=12345
+
+    [--raxml-args "<ARGS>"]
+        Arbitrary options to pass through to RAxML. The ARGS part should be
+        in quotes and is appended to the RAxML command as given.
+
 #+END_SRC
 ** Results
 The results all end up in the directory specified via --outdir (or bcgTree if none is specified).
