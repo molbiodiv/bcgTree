@@ -46,7 +46,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 public class BcgTree extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public static final String VERSION = "1.0.9";
+	public static final String VERSION = "1.0.10";
 	private static final int DEFAULT_TEXTFIELD_COLUMNS = 30;
 
 	public static void main(String[] args) {
