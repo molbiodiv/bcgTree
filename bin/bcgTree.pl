@@ -205,7 +205,7 @@ The ARGS part should be in quotes and is appended to the RAxML command as given.
 
 =cut
 
-$options{'raxml-args=s%'} = \( my $opt_raxml_args = "");
+$options{'raxml-args=s'} = \( my $opt_raxml_args = "");
 
 =back
 
