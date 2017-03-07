@@ -198,16 +198,14 @@ $options{'raxml-p-parsimonyRandomSeed=i'} = \( my $opt_raxml_p = int(rand(100000
 
 =back
 
-=item [--raxml-option <OPTION>[=<VALUE>] [--raxml-option <OPTION>[=<VALUE>] ..]]
+=item [--raxml-args "<ARGS>"]
 
 Arbitrary options to pass through to RAxML.
-The Option part needs to be the long option of RAxML without the two dashes.
-If the option is just a flag and does not need a value just skip the equal sign and value part.
-E.g. --raxml-option outGroupName=Rat will result in a raxml call with --outGroupName Rat
+The ARGS part should be in quotes and is appended to the RAxML command as given.
 
 =cut
 
-$options{'raxml-option=s%'} = \( my $opt_raxml_option );
+$options{'raxml-args=s%'} = \( my $opt_raxml_args = "");
 
 =back
 
@@ -256,7 +254,7 @@ my $bcgTree = bcgTree->new({
 	'raxml-p' => $opt_raxml_p,
 	'raxml-x' => $opt_raxml_x,
     'min-proteomes' => $opt_min_proteomes,
-    'raxml-option' => $opt_raxml_option
+    'raxml-args' => $opt_raxml_args
 });
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->rename_fasta_headers();
