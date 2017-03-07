@@ -207,6 +207,9 @@ The font is from [[fontlibrary.org]]:
  - [[https://fontlibrary.org/en/font/ranchers][Ranchers]] ([[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL][SIL Open Font License]])
 ** Changes
 [[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
+*** v1.0.10 <2017-03-07 Di>
+ - Fix GUI, add scrollbar (#23)
+ - Add parameter --raxml-args (#22)
 *** v1.0.9 <2017-03-03 Fr>
  - Add parameters --min-proteomes and --all-proteomes (#21)
 *** v1.0.8 <2016-09-07 Mi>
