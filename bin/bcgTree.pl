@@ -198,6 +198,17 @@ $options{'raxml-p-parsimonyRandomSeed=i'} = \( my $opt_raxml_p = int(rand(100000
 
 =back
 
+=item [--raxml-args "<ARGS>"]
+
+Arbitrary options to pass through to RAxML.
+The ARGS part should be in quotes and is appended to the RAxML command as given.
+
+=cut
+
+$options{'raxml-args=s'} = \( my $opt_raxml_args = "");
+
+=back
+
 =head1 CODE
 
 =cut
@@ -242,7 +253,8 @@ my $bcgTree = bcgTree->new({
 	'hmmfile' => $opt_hmmfile,
 	'raxml-p' => $opt_raxml_p,
 	'raxml-x' => $opt_raxml_x,
-    'min-proteomes' => $opt_min_proteomes
+    'min-proteomes' => $opt_min_proteomes,
+    'raxml-args' => $opt_raxml_args
 });
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->rename_fasta_headers();

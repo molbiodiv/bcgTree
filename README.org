@@ -161,6 +161,11 @@ Options:
         file to find out the actual value). Note: you can abbreviate options
         (as long as they stay unique) so --raxml-p=12345 is equivalent to
         --raxml-p-parsimonyRandomSeed=12345
+
+    [--raxml-args "<ARGS>"]
+        Arbitrary options to pass through to RAxML. The ARGS part should be
+        in quotes and is appended to the RAxML command as given.
+
 #+END_SRC
 ** Results
 The results all end up in the directory specified via --outdir (or bcgTree if none is specified).
@@ -202,6 +207,9 @@ The font is from [[fontlibrary.org]]:
  - [[https://fontlibrary.org/en/font/ranchers][Ranchers]] ([[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL][SIL Open Font License]])
 ** Changes
 [[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
+*** v1.0.10 <2017-03-07 Di>
+ - Fix GUI, add scrollbar (#23)
+ - Add parameter --raxml-args (#22)
 *** v1.0.9 <2017-03-03 Fr>
  - Add parameters --min-proteomes and --all-proteomes (#21)
 *** v1.0.8 <2016-09-07 Mi>
