@@ -166,6 +166,15 @@ Options:
         (as long as they stay unique) so --raxml-p=12345 is equivalent to
         --raxml-p-parsimonyRandomSeed=12345
 
+    [--raxml-aa-substitiution-model "<MODEL>"]
+        The aminoacid substitution model used for the partitions by RAxML.
+        Valid options for RAxML 8.x are: DAYHOFF, DCMUT, JTT, MTREV, WAG,
+        RTREV, CPREV, VT, BLOSUM62, MTMAM, LG, MTART, MTZOA, PMB, HIVB,
+        HIVW, JTTDCMUT, FLU, STMTREV, DUMMY, DUMMY2, AUTO, LG4M, LG4X,
+        PROT_FILE, GTR_UNLINKED, GTR bcgTree will not check whether the
+        provided option is valid but rather pass it to RAxML literally.
+        Default: AUTO
+
     [--raxml-args "<ARGS>"]
         Arbitrary options to pass through to RAxML. The ARGS part should be
         in quotes and is appended to the RAxML command as given.
