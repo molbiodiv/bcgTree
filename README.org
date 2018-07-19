@@ -221,6 +221,7 @@ The font is from [[fontlibrary.org]]:
 ** Changes
 [[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
 *** v1.1.0 <2018-07-19 Do>
+ - Breaking: the default aa substitution model for RAxML changed from WAG to AUTO
  - Add parameter --raxml-aa-substitution-model (#29)
  - Add HMMs of [[https://www.ezbiocloud.net/tools/ubcg][UBCG]] (#25)
 *** v1.0.10 <2017-03-07 Di>
