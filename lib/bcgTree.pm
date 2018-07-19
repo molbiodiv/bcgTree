@@ -248,7 +248,7 @@ sub complete_and_concat_alignments{
 			$seq{$seq->id} = $seq->seq;
 			$length = length($seq->seq);
 		}
-		print PART "WAG, $gene = ".($totalpos+1)."-";
+		print PART $self->{'raxml-aa-substitution-model'}.", $gene = ".($totalpos+1)."-";
 		$totalpos += $length;
 		print PART $totalpos."\n";
 		open(OUT, ">$out/$gene.aln-gb.comp") or $L->logdie("Error opening $out/$gene.aln-gb.comp. $!");
