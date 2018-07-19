@@ -78,6 +78,7 @@ public class BcgTree extends JFrame {
 	private JTextField hmmfileTextField;
 	private JSpinner minProteomesSpinner;
 	private JCheckBox allProteomesCheckbox;
+	private JTextField raxmlAaSubstitutionModelTextField;
 	private JTextField raxmlArgsTextField;
 	
 	public BcgTree(){
@@ -214,7 +215,7 @@ public class BcgTree extends JFrame {
 	}
 	
 	private JPanel getAdvancedSettingsPanel(){
-		JPanel advancedSettingsPanel = new JPanel(new GridLayout(8, 2));
+		JPanel advancedSettingsPanel = new JPanel(new GridLayout(9, 2));
 		advancedSettingsPanel.add(new JLabel("--bootstraps"));
 		bootstrapSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
 		advancedSettingsPanel.add(bootstrapSpinner);
@@ -227,6 +228,9 @@ public class BcgTree extends JFrame {
 		advancedSettingsPanel.add(new JLabel("--raxml-p-parsimonyRandomSeed"));
 		randomSeedPTextField = new JTextField("", DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(randomSeedPTextField);
+		advancedSettingsPanel.add(new JLabel("--raxml-aa-substitution-model"));
+		raxmlAaSubstitutionModelTextField = new JTextField("AUTO", DEFAULT_TEXTFIELD_COLUMNS);
+		advancedSettingsPanel.add(raxmlAaSubstitutionModelTextField);
 		advancedSettingsPanel.add(new JLabel("--raxml-args"));
 		raxmlArgsTextField = new JTextField("", DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(raxmlArgsTextField);
@@ -288,6 +292,10 @@ public class BcgTree extends JFrame {
 				String xSeed = randomSeedXTextField.getText();
 				if(! xSeed.equals("")){
 					writer.println("--raxml-x-rapidBootstrapRandomNumberSeed="+xSeed);
+				}
+				String raxmlAaSubstitutionModel = raxmlAaSubstitutionModelTextField.getText();
+				if(! raxmlAaSubstitutionModel.equals("")){
+					writer.println("--raxml-aa-substitution-model=\""+raxmlAaSubstitutionModel+"\"");
 				}
 				String raxmlArgs = raxmlArgsTextField.getText();
 				if(! raxmlArgs.equals("")){
