@@ -220,6 +220,9 @@ The font is from [[fontlibrary.org]]:
  - [[https://fontlibrary.org/en/font/ranchers][Ranchers]] ([[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL][SIL Open Font License]])
 ** Changes
 [[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
+*** v1.1.0 <2018-07-19 Do>
+ - Add parameter --raxml-aa-substitution-model (#29)
+ - Add HMMs of [[https://www.ezbiocloud.net/tools/ubcg][UBCG]] (#25)
 *** v1.0.10 <2017-03-07 Di>
  - Fix GUI, add scrollbar (#23)
  - Add parameter --raxml-args (#22)
