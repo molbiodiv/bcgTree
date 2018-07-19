@@ -20,7 +20,7 @@ install:
 script: 
     - perl Makefile.PL
     - make
-    - PERL5OPT=-MDevel::Cover=-coverage,statement,branch,condition,path,subroutine prove -v
+    - PERL5OPT=-MDevel::Cover=-coverage,statement,branch,condition,path,subroutine travis_wait 30 prove -v
     - cover
 #after_success:
 #    - cover -report coveralls
