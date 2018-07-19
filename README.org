@@ -40,6 +40,10 @@ Newer versions should work (otherwise feel free to open an issue).
  - [[http://molevol.cmima.csic.es/castresana/Gblocks.html][Gblocks]] (version 0.91b) - Castresana et al, 2000. Selection of conserved blocks from multiple alignments for their use in phylogenetic analysis. Mol. Biol. Evol. 17, 540–552.
  - [[http://sco.h-its.org/exelixis/web/software/raxml/][RAxML]] (version 8.2.4) - Stamatakis et al, 2014. RAxML version 8: A tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics 30, 1312–1313.
 Additionally [[https://github.com/BioInf-Wuerzburg/SeqFilter][SeqFilter]] (Hackl et al, 2014. proovread: large-scale high-accuracy PacBio correction through iterative short read consensus. Bioinformatics 30, 3004-3011) is needed but it is included in this repo.
+*** Data
+There are two hmm files included in the data directory.
+Both contain HMMs from [[ftp://ftp.tigr.org/pub/data/TIGRFAMs][TIGRFAM]] ([[ftp://ftp.tigr.org/pub/data/TIGRFAMs/COPYRIGHT][LGPL]]) and [[https://pfam.xfam.org/][PFAM]] ([[ftp://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam31.0/relnotes.txt][CC0]]).
+The ubcg.hmm file is reproduced from [[https://www.ezbiocloud.net/tools/ubcg][UBCG]] as described in [[https://doi.org/10.1007/s12275-018-8014-6][Na, SI., Kim, Y.O., Yoon, SH. et al. J Microbiol. (2018) 56: 280.]]
 ** Installation
 You can download the latest release from [[https://github.com/molbiodiv/bcgTree/releases][here]].
 After extraction you can start the graphical interface by double clicking the bcgTree.jar file in the bcgTreeGUI folder.
