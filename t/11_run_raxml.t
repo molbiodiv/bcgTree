@@ -17,7 +17,8 @@ my $script_args = ['bin/bcgTree.pl',
                    '--proteome', 'Filifactor=t/data/NC_016630.faa',
 #                   '--proteome', 'Acholeplasma=t/data/NC_022549.faa',
                    '--outdir', $tmpdir,
-                   '--bootstrap', 10
+                   '--bootstrap', 10,
+                   '--raxml-aa-substitution-model', 'WAG'
                   ];
 
 script_runs($script_args, \%options, "Test if script executes raxml");
