@@ -166,6 +166,15 @@ Options:
         (as long as they stay unique) so --raxml-p=12345 is equivalent to
         --raxml-p-parsimonyRandomSeed=12345
 
+    [--raxml-aa-substitiution-model "<MODEL>"]
+        The aminoacid substitution model used for the partitions by RAxML.
+        Valid options for RAxML 8.x are: DAYHOFF, DCMUT, JTT, MTREV, WAG,
+        RTREV, CPREV, VT, BLOSUM62, MTMAM, LG, MTART, MTZOA, PMB, HIVB,
+        HIVW, JTTDCMUT, FLU, STMTREV, DUMMY, DUMMY2, AUTO, LG4M, LG4X,
+        PROT_FILE, GTR_UNLINKED, GTR bcgTree will not check whether the
+        provided option is valid but rather pass it to RAxML literally.
+        Default: AUTO
+
     [--raxml-args "<ARGS>"]
         Arbitrary options to pass through to RAxML. The ARGS part should be
         in quotes and is appended to the RAxML command as given.
@@ -211,6 +220,12 @@ The font is from [[fontlibrary.org]]:
  - [[https://fontlibrary.org/en/font/ranchers][Ranchers]] ([[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL][SIL Open Font License]])
 ** Changes
 [[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
+*** v1.1.0 <2018-07-19 Do>
+ - Breaking: the default aa substitution model for RAxML changed from WAG to AUTO.
+   This has an impact on performance (it is faster to set this parameter to a fixed value).
+   To get the same behaviour as in earlier versions pass ~--raxml-aa-substitution-model=WAG~
+ - Add parameter ~--raxml-aa-substitution-model~ (#29)
+ - Add HMMs of [[https://www.ezbiocloud.net/tools/ubcg][UBCG]] (#25)
 *** v1.0.10 <2017-03-07 Di>
  - Fix GUI, add scrollbar (#23)
  - Add parameter --raxml-args (#22)

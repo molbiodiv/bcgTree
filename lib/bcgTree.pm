@@ -11,7 +11,7 @@ use File::Path qw(make_path);
 use File::Spec;
 use Fasta::Parser;
 
-our $VERSION = '1.0.10';
+our $VERSION = '1.1.0';
 
 my $L = Log::Log4perl::get_logger();
 
@@ -248,7 +248,7 @@ sub complete_and_concat_alignments{
 			$seq{$seq->id} = $seq->seq;
 			$length = length($seq->seq);
 		}
-		print PART "WAG, $gene = ".($totalpos+1)."-";
+		print PART $self->{'raxml-aa-substitution-model'}.", $gene = ".($totalpos+1)."-";
 		$totalpos += $length;
 		print PART $totalpos."\n";
 		open(OUT, ">$out/$gene.aln-gb.comp") or $L->logdie("Error opening $out/$gene.aln-gb.comp. $!");

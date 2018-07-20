@@ -198,6 +198,23 @@ $options{'raxml-p-parsimonyRandomSeed=i'} = \( my $opt_raxml_p = int(rand(100000
 
 =back
 
+=item [--raxml-aa-substitiution-model "<MODEL>"]
+
+The aminoacid substitution model used for the partitions by RAxML.
+Valid options for RAxML 8.x are:
+DAYHOFF, DCMUT, JTT, MTREV, WAG, RTREV, CPREV, VT, BLOSUM62, MTMAM, LG,
+MTART, MTZOA, PMB, HIVB, HIVW, JTTDCMUT, FLU, STMTREV, DUMMY, DUMMY2, AUTO,
+LG4M, LG4X, PROT_FILE, GTR_UNLINKED, GTR
+bcgTree will not check whether the provided option is valid but rather pass
+it to RAxML literally.
+Default: AUTO
+
+=cut
+
+$options{'raxml-aa-substitution-model=s'} = \( my $opt_raxml_aa_subst = "AUTO");
+
+=back
+
 =item [--raxml-args "<ARGS>"]
 
 Arbitrary options to pass through to RAxML.
@@ -254,6 +271,7 @@ my $bcgTree = bcgTree->new({
 	'raxml-p' => $opt_raxml_p,
 	'raxml-x' => $opt_raxml_x,
     'min-proteomes' => $opt_min_proteomes,
+	'raxml-aa-substitution-model' => $opt_raxml_aa_subst,
     'raxml-args' => $opt_raxml_args
 });
 $bcgTree->check_existence_of_fasta_files();
