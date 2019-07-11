@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This is an example script for using the pipeline
+
 ##### Settings if submitted on a SLURM workload manager by 'sbatch InferringCorePhylogenies.sh' 
 #SBATCH -J bcgTree
 #SBATCH -n 1
