@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# This is an example script for using the pipeline
+# This is an example script for a full pipeline of assembly, annotation and core phylogeny
+# In order to use it you need prokka, spades.py, hmmsearch, muscle, Gblocks, and raxmlHPC in your PATH or adjust the location below
 
-##### Settings if submitted on a SLURM workload manager by 'sbatch InferringCorePhylogenies.sh' 
+##### Settings if submitted on a SLURM workload manager by 'sbatch exampleAnalysis.sh' 
 #SBATCH -J bcgTree
 #SBATCH -n 1
 #SBATCH -c 32
@@ -55,21 +56,23 @@ do
 done
 
 ##### Config file creation
+
+# basic parameters
+echo "--threads=$THREADS" >  testdata_config.txt
+echo "--bootstraps=1000" >>  testdata_config.txt
+echo "--outdir=testdata_phylogeny" >>  testdata_config.txt
+
+# proteome files
 for proteome in $(ls *.faa); 
 do 
 	echo '--proteome "'$proteome'"="'$proteome'"' >>  testdata_config.txt
 done
 
-# additional parameters
-echo "--threads=$THREADS" >>  testdata_config.txt
-echo "--bootstraps=1000" >>  testdata_config.txt
-echo "--outdir=testdata_phylogeny" >>  testdata_config.txt
-
-# optional binary locations, need to be changed for the user if they are necessary
-echo "--hmmsearch-bin=/PATH/TO/BINARY" >>  testdata_config.txt
-echo "--muscle-bin=/PATH/TO/BINARY" >>  testdata_config.txt
-echo "--gblocks-bin=/PATH/TO/BINARY" >>  testdata_config.txt
-echo "--raxml-bin=/PATH/TO/BINARY" >>  testdata_config.txt
+## optional binary locations, need to be changed for the user if they are necessary (and # removed)
+#echo "--hmmsearch-bin=/PATH/TO/BINARY" >>  testdata_config.txt
+#echo "--muscle-bin=/PATH/TO/BINARY" >>  testdata_config.txt
+#echo "--gblocks-bin=/PATH/TO/BINARY" >>  testdata_config.txt
+#echo "--raxml-bin=/PATH/TO/BINARY" >>  testdata_config.txt
 
 ##### Phylogenetic calculation
 bcgTree.pl @testdata_config.txt 
