@@ -40,11 +40,19 @@ Spreading over multiple lines is supported.
 
 =item --proteome <ORGANISM>=<FASTA> [--proteome <ORGANISM>=<FASTA> ..]
 
-Multiple pairs of organism and proteomes as fasta file paths
+Multiple pairs of organism and proteomes as peptide fasta file paths
 
 =cut
 
 $options{'proteome|p=s%'} = \( my $opt_proteome );
+
+=item --genome <ORGANISM>=<FASTA> [--genome <ORGANISM>=<FASTA> ..]
+
+Multiple pairs of organism and genomes as nucleotide fasta file paths
+
+=cut
+
+$options{'genome|g=s%'} = \( my $opt_genome );
 
 =item [--outdir <STRING>]
 
@@ -113,6 +121,16 @@ Path to the raxml binary file. Default tries if raxmlHPC is in PATH;
 =cut
 
 $options{'raxml-bin=s'} = \( my $opt_raxml_bin = `which raxmlHPC 2>/dev/null` );
+
+=back
+
+=item [--prodigal-bin=<FILE>]
+
+Path to the prodigal binary file. Default tries if prodigal is in PATH;
+
+=cut
+
+$options{'prodigal-bin=s'} = \( my $opt_prodigal_bin = `which prodigal 2>/dev/null` );
 
 =back
 
@@ -238,11 +256,15 @@ if($opt_version){
 pod2usage(1) if ($opt_help);
 chomp($opt_hmmsearch_bin, $opt_muscle_bin, $opt_gblocks_bin, $opt_raxml_bin);
 check_external_programs() if($opt_check_external_programs);
-pod2usage( -msg => "No proteome specified. Use --proteome name=file.fa", -verbose => 0, -exitval => 1 )  unless ( $opt_proteome );
+pod2usage( -msg => "No proteome specified. Use --proteome name=file.fa", -verbose => 0, -exitval => 1 )  unless ( $opt_proteome || $opt_genome );
 pod2usage( -msg => 'hmmsearch not in $PATH and binary not specified use --hmmsearch-bin', -verbose => 0, -exitval => 1 ) unless ($opt_hmmsearch_bin);
 pod2usage( -msg => 'muscle not in $PATH and binary not specified use --muscle-bin', -verbose => 0, -exitval => 1 ) unless ($opt_muscle_bin);
 pod2usage( -msg => 'Gblocks not in $PATH and binary not specified use --gblocks-bin', -verbose => 0, -exitval => 1 ) unless ($opt_gblocks_bin);
 pod2usage( -msg => 'raxmlHPC not in $PATH and binary not specified use --raxml-bin', -verbose => 0, -exitval => 1 ) unless ($opt_raxml_bin);
+pod2usage( -msg => 'prodigal not in $PATH and binary not specified use --prodigal-bin but --genome specified', -verbose => 0, -exitval => 1 ) unless ($opt_prodigal_bin || !$opt_genome);
+# Initialize as references to empty hashes if not defined
+$opt_proteome = {} unless ( $opt_proteome );
+$opt_genome = {} unless ( $opt_genome );
 
 # init a root logger in exec mode
 Log::Log4perl->init(
@@ -259,11 +281,13 @@ my $L = Log::Log4perl::get_logger();
 $opt_min_proteomes = 0+(keys %{$opt_proteome}) if($opt_all_proteomes);
 my $bcgTree = bcgTree->new({
 	'proteome' => $opt_proteome,
+	'genome' => $opt_genome,
 	'outdir' => $opt_outdir,
 	'hmmsearch-bin' => $opt_hmmsearch_bin,
 	'muscle-bin' => $opt_muscle_bin,
 	'gblocks-bin' => $opt_gblocks_bin,
 	'raxml-bin' => $opt_raxml_bin,
+	'prodigal-bin' => $opt_prodigal_bin,
 	'separator' => '_-_',
 	'threads' => $opt_threads,
 	'bootstraps' => $opt_bootstraps,

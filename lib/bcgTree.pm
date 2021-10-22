@@ -43,6 +43,10 @@ sub check_existence_of_fasta_files{
 	foreach(keys %proteome){
 	    $L->logdie("File not found: ".$proteome{$_}) unless(-f $proteome{$_});
 	}
+	my %genome = %{$self->{genome}};
+	foreach(keys %genome){
+	    $L->logdie("File not found: ".$genome{$_}) unless(-f $genome{$_});
+	}
 }
 
 sub create_outdir_if_not_exists{
