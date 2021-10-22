@@ -270,9 +270,9 @@ my $bcgTree = bcgTree->new({
 	'hmmfile' => $opt_hmmfile,
 	'raxml-p' => $opt_raxml_p,
 	'raxml-x' => $opt_raxml_x,
-    'min-proteomes' => $opt_min_proteomes,
+	'min-proteomes' => $opt_min_proteomes,
 	'raxml-aa-substitution-model' => $opt_raxml_aa_subst,
-    'raxml-args' => $opt_raxml_args
+	'raxml-args' => $opt_raxml_args
 });
 $bcgTree->check_existence_of_fasta_files();
 $bcgTree->rename_fasta_headers();

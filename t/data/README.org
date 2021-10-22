@@ -45,3 +45,6 @@ Only contains
  - gi|50086622|ref|YP_048132.1|
 from NC_005966.faa
 the sequences that hit the HMMs PF00276.15, PF00281.14, PF00297.17 and TIGR01030
+** .fna files
+Downloaded from https://www.ncbi.nlm.nih.gov/nuccore/NC_XXXXXX on 2021-10-22.
+The sequence in NC_022549.fna is manually separated into multiple parts to verify that multi-sequence fasta works as well.
