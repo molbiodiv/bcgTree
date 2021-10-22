@@ -18,6 +18,7 @@ my $script_args = ['bin/bcgTree.pl',
                    '--genome', 'Acholeplasma=t/data/NC_022549.fna',
                    '--outdir', $tmpdir,
                    '--bootstrap', 10,
+                   '--raxml-aa-substitution-model', 'WAG'
                   ];
 
 script_runs($script_args, \%options, "Test if script creates a tree given mixed peptide and nucleotide input");

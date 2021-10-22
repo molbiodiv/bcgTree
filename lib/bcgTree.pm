@@ -110,6 +110,25 @@ sub rename_fasta_headers{
 	$L->info("Finished: Writing of proteome_id map.");
 }
 
+=head2 translate_genomes_to_proteomes
+
+This function calls prodigal on every genome to translate it into proteome (adding the file to the proteome list afterwards)
+
+=cut
+
+sub translate_genomes_to_proteomes{
+	my $self = shift;
+	my %genome = %{$self->{genome}};
+	my $out = $self->{outdir};
+	$L->info("Translating genome fasta files ...");
+	foreach my $g (sort keys %genome){
+		my $cmd = $self->{'prodigal-bin'}." -i ".$genome{$g}." -o $out/$g.prodigal.genes -a $out/$g.prodigal.faa";
+		$self->run_command($cmd, "translating $g");
+		$self->{proteome}{$g} = "$out/$g.prodigal.faa"
+	}
+	$L->info("All genome fasta files translated.");
+}
+
 sub run_hmmsearch{
 	my $self = shift;
 	my %proteome = %{$self->{proteome}};

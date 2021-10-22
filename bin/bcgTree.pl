@@ -41,6 +41,8 @@ Spreading over multiple lines is supported.
 =item --proteome <ORGANISM>=<FASTA> [--proteome <ORGANISM>=<FASTA> ..]
 
 Multiple pairs of organism and proteomes as peptide fasta file paths
+Attention: If you provide a proteome and genome with the same name,
+only the genome will be used.
 
 =cut
 
@@ -48,7 +50,9 @@ $options{'proteome|p=s%'} = \( my $opt_proteome );
 
 =item --genome <ORGANISM>=<FASTA> [--genome <ORGANISM>=<FASTA> ..]
 
-Multiple pairs of organism and genomes as nucleotide fasta file paths
+Multiple pairs of organism and genomes as nucleotide fasta file paths.
+Attention: If you provide a proteome and genome with the same name,
+only the genome will be used.
 
 =cut
 
@@ -254,7 +258,7 @@ if($opt_version){
     exit 0;
 }
 pod2usage(1) if ($opt_help);
-chomp($opt_hmmsearch_bin, $opt_muscle_bin, $opt_gblocks_bin, $opt_raxml_bin);
+chomp($opt_hmmsearch_bin, $opt_muscle_bin, $opt_gblocks_bin, $opt_raxml_bin, $opt_prodigal_bin);
 check_external_programs() if($opt_check_external_programs);
 pod2usage( -msg => "No proteome specified. Use --proteome name=file.fa", -verbose => 0, -exitval => 1 )  unless ( $opt_proteome || $opt_genome );
 pod2usage( -msg => 'hmmsearch not in $PATH and binary not specified use --hmmsearch-bin', -verbose => 0, -exitval => 1 ) unless ($opt_hmmsearch_bin);
@@ -299,6 +303,7 @@ my $bcgTree = bcgTree->new({
 	'raxml-args' => $opt_raxml_args
 });
 $bcgTree->check_existence_of_fasta_files();
+$bcgTree->translate_genomes_to_proteomes();
 $bcgTree->rename_fasta_headers();
 $bcgTree->run_hmmsearch();
 $bcgTree->collect_best_hmm_hits();
