@@ -317,7 +317,7 @@ sub logfile{
 }
 
 sub check_external_programs{
-	my %programs = ("hmmsearch" => $opt_hmmsearch_bin, "muscle" => $opt_muscle_bin, "Gblocks" => $opt_gblocks_bin, "RAxML" => $opt_raxml_bin);
+	my %programs = ("hmmsearch" => $opt_hmmsearch_bin, "muscle" => $opt_muscle_bin, "Gblocks" => $opt_gblocks_bin, "RAxML" => $opt_raxml_bin, "prodigal (only needed for --genome)" => $opt_prodigal_bin);
 	my $fail = 0;
 	foreach my $p (sort keys %programs){
 		my $path = $programs{$p};
