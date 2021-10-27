@@ -218,11 +218,19 @@ Cliparts from [[openclipart.org]] have been used:
  - [[https://openclipart.org/detail/125869/diagramme-de-venn-venn-diagram][Venn Diagram]] ([[https://openclipart.org/share][CC-0/public domain]])
 The font is from [[fontlibrary.org]]:
  - [[https://fontlibrary.org/en/font/ranchers][Ranchers]] ([[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL][SIL Open Font License]])
+
+** Related Tools
+
+These are some tools with similar goals and approaches. If you know another one, please open a pull request to add it to the list.
+
+ - [[https://github.com/jvollme/PO_2_MLSA][PO_2_MLSA]] - by [[https://github.com/jvollme][@jvollme]] - Enables the calculation of phylogenies based on single copy core genome gene products, based on bidirectional BLAST results obtained with proteinortho.
+ - [[https://www.ezbiocloud.net/tools/ubcg][UBCG]] - by Na, S. I., Kim, Y. O., Yoon, S. H., Ha, S. M., Baek, I. & Chun, J. (2018). UBCG: Up-to-date bacterial core gene set and pipeline for phylogenomic tree reconstruction. J Microbiol 56. [[https://doi.org/10.1007/s12275-018-8014-6][Paper]]
+
 ** Changes
 [[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
 *** v1.2.0 <TBD>
  - Add parameter ~--genome~ with translation via ~prodigal~ (#15)
- - Update and improve documentation (#38)
+ - Update and improve documentation (#19, #38)
 *** v1.1.0 <2018-07-19 Do>
  - Breaking: the default aa substitution model for RAxML changed from WAG to AUTO.
    This has an impact on performance (it is faster to set this parameter to a fixed value).
