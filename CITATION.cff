@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: If you use this software, please cite both the software and the paper (see preferred-citation).
+authors:
+  - family-names: Ankenbrand
+    given-names: "Markus J"
+    orcid: 0000-0002-6620-807X
+    affiliation: "Center for Computational and Theoretical Biology, University of Würzburg, Germany"
+    email: markus.ankenbrand@uni-wuerzburg.de
+  - family-names: Keller
+    given-names: Alexander
+    orcid: 0000-0001-5716-3634
+    affiliation: "Center for Computational and Theoretical Biology, University of Würzburg, Germany"
+title: bcgTree
+version: 1.1.0
+doi: 10.5281/zenodo.597913
+date-released: 2018-07-20
+repository-code: https://github.com/molbiodiv/bcgTree
+keywords:
+  - Phylogeny
+  - Alignment
+  - Evolution
+license: MIT
+url: https://github.com/molbiodiv/bcgTree
+preferred-citation:
+  type: article
+  scope: Cite this paper if you used bcgTree in your research
+  authors:
+    - family-names: Ankenbrand
+      given-names: Markus J
+    - family-names: Keller
+      given-names: Alexander
+  title: "bcgTree: automatized phylogenetic tree building from bacterial core genomes"
+  year: 2016
+  journal: Genome
+  volume: 59
+  issue: 10
+  doi: 10.1139/gen-2015-0175
+  url: https://doi.org/10.1139/gen-2015-0175
