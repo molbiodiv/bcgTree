@@ -241,47 +241,47 @@ These are some tools with similar goals and approaches. If you know another one,
 
 ** Changes
 [[https://github.com/molbiodiv/bcgTree/actions/workflows/test_perl.yml][https://github.com/molbiodiv/bcgTree/actions/workflows/test_perl.yml/badge.svg?branch=master]]
-*** v1.2.0 <TBD>
+*** v1.2.0 <2021-10-27>
  - Add parameter ~--genome~ with translation via ~prodigal~ (#15)
  - Update and improve documentation (#19, #35, #38, #44)
  - Make GUI independent of working directory (#33)
  - Switch CI from Travis to GitHub Actions (#45)
-*** v1.1.0 <2018-07-19 Do>
+*** v1.1.0 <2018-07-19>
  - Breaking: the default aa substitution model for RAxML changed from WAG to AUTO.
    This has an impact on performance (it is faster to set this parameter to a fixed value).
    To get the same behaviour as in earlier versions pass ~--raxml-aa-substitution-model=WAG~
  - Add parameter ~--raxml-aa-substitution-model~ (#29)
  - Add HMMs of [[https://www.ezbiocloud.net/tools/ubcg][UBCG]] (#25)
-*** v1.0.10 <2017-03-07 Di>
+*** v1.0.10 <2017-03-07>
  - Fix GUI, add scrollbar (#23)
  - Add parameter --raxml-args (#22)
-*** v1.0.9 <2017-03-03 Fr>
+*** v1.0.9 <2017-03-03>
  - Add parameters --min-proteomes and --all-proteomes (#21)
-*** v1.0.8 <2016-09-07 Mi>
+*** v1.0.8 <2016-09-07>
  - Set default bootstraps to 100
  - Add description for reproduction of results in paper
-*** v1.0.7 <2016-06-16 Do>
+*** v1.0.7 <2016-06-16>
  - Add logo to GUI
-*** v1.0.6 <2016-03-17 Do>
+*** v1.0.6 <2016-03-17>
  - Improve layout (avoid errors with large text fields)
  - Update jar file
-*** v1.0.5 <2016-03-17 Do>
+*** v1.0.5 <2016-03-17>
  - Add advanced settings and external programs to GUI
  - Add GUI screenshots to README
  - Finish GUI layout
  - Fix outdir bug (manually entered text was ignored)
  - Update documentation in README
  - Improve layout of GUI (proteomes panel)
-*** v1.0.4 <2016-02-23 Di>
+*** v1.0.4 <2016-02-23>
  - Add parameter to check external programs
  - Fix SeqFilter dependencies
  - Add swingx and own accordion element for GUI
  - Improve GUI design (GridBagLayout)
-*** v1.0.3 <2016-02-23 Di>
+*** v1.0.3 <2016-02-23>
  - Add log4perl and Getopt::ArgvFile to package (simplify installation)
-*** v1.0.2 <2016-02-22 Mo>
+*** v1.0.2 <2016-02-22>
  - Remove Bioperl dependency
  - Add submodules directly (SeqFilter)
  - Update documentation
-*** v1.0.1 <2016-02-22 Mo>
+*** v1.0.1 <2016-02-22>
  - Add java GUI
