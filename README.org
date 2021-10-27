@@ -64,7 +64,7 @@ java -jar bcgTree.jar
 The graphical user interface is just a convenient way to call bcgTree.
 Usage is meant to be self-explanatory, any suggestions for improvement are welcome (please open an [[https://github.com/molbiodiv/bcgTree/issues][issue]]).
 In fact it adds no extra functionality it just collects the parameters and calls the perl script on the command line.
-The output is written to a text field as well as a log file.
+The output is written to a text field as well as a log file (bcgTree.log in the output folder).
 In order to preserve replicability all parameters are written in a file called options.txt in the output folder.
 The internal call of bcgTree is then just:
 #+BEGIN_SRC sh
@@ -189,7 +189,7 @@ If the run was successful the most interesting files will be the RAxML files:
  - <outdir>/RAxML_bipartitions.final
  - <outdir>/RAxML_bootstrap.final
  - <outdir>/RAxML_info.final
-Further the log file (<outdir>/log) contains all executed commands and their output.
+Further the log file (<outdir>/bcgTree.log) contains all executed commands and their output.
 This is useful as a reference, for re-executing steps manually and for debugging in case something went wrong.
 All other files are the outputs of different steps of the pipeline.
 Their names should be self-explanatory.
@@ -230,7 +230,7 @@ These are some tools with similar goals and approaches. If you know another one,
 [[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
 *** v1.2.0 <TBD>
  - Add parameter ~--genome~ with translation via ~prodigal~ (#15)
- - Update and improve documentation (#19, #38)
+ - Update and improve documentation (#19, #35, #38)
 *** v1.1.0 <2018-07-19 Do>
  - Breaking: the default aa substitution model for RAxML changed from WAG to AUTO.
    This has an impact on performance (it is faster to set this parameter to a fixed value).
