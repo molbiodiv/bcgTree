@@ -79,8 +79,6 @@ Nevertheless here are some screenshots of the GUI:
 [[doc/screenshot1.png]]
 #+ATTR_HTML: :width 640
 [[doc/screenshot2.png]]
-#+ATTR_HTML: :width 640
-[[doc/screenshot3.png]]
 *** Command line
 #+BEGIN_SRC sh
 Usage:
