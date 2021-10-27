@@ -232,6 +232,27 @@ public class BcgTree extends JFrame {
 		SwingUtilities.updateComponentTreeUI(this);
 		this.pack();
 	}
+	
+	private String getBaseBcgTreeDir() {
+		String dir = System.getProperty("user.dir") + File.separator + "..";
+		// check existence of bin/bcgTree.pl
+		// otherwise assume being called from .jar with incorrect working directory
+		if(! new File(dir + File.separator + "bin" + File.separator + "bcgTree.pl").isFile()) {
+			// adjusted from https://gist.github.com/wayoda/3d83ded3642e9531f731
+			try {
+	            File jarDir=new File(BcgTree.class
+	                                    .getProtectionDomain()
+	                                    .getCodeSource()
+	                                    .getLocation()
+	                                    .toURI().getPath());
+	            File codeDir=jarDir.getParentFile();
+				dir = codeDir.getParent();
+	        } catch (Exception e) {
+				System.err.println(e.getMessage());
+	        }
+		}
+		return dir;
+	}
 
 	private JPanel getAdvancedSettingsPanel() {
 		JPanel advancedSettingsPanel = new JPanel(new GridLayout(9, 2));
@@ -254,7 +275,7 @@ public class BcgTree extends JFrame {
 		raxmlArgsTextField = new JTextField("", DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(raxmlArgsTextField);
 		advancedSettingsPanel.add(new JLabel("--hmmfile"));
-		hmmfileTextField = new JTextField(System.getProperty("user.dir") + "/../data/essential.hmm",
+		hmmfileTextField = new JTextField(getBaseBcgTreeDir() + File.separator + "data" + File.separator + "essential.hmm",
 				DEFAULT_TEXTFIELD_COLUMNS);
 		advancedSettingsPanel.add(hmmfileTextField);
 		advancedSettingsPanel.add(new JLabel("--min-proteomes"));
@@ -341,8 +362,8 @@ public class BcgTree extends JFrame {
 				e2.printStackTrace();
 			}
 			try {
-				Process proc = Runtime.getRuntime().exec("perl " + System.getProperty("user.dir")
-						+ "/../bin/bcgTree.pl @" + outdir + "/options.txt");
+				Process proc = Runtime.getRuntime().exec("perl " + getBaseBcgTreeDir()
+						+ File.separator + "bin" + File.separator + "bcgTree.pl @" + outdir + File.separator + "options.txt");
 				// collect stderr
 				StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
 				// collect stdout
@@ -369,8 +390,8 @@ public class BcgTree extends JFrame {
 					"WARNING: It is only checked whether the paths of each program point to an executable file.\nIt is not checked whether it is the correct program.\n\n");
 			logTextArea.setForeground(Color.BLACK);
 			try {
-				String callBcgTree = "perl " + System.getProperty("user.dir")
-						+ "/../bin/bcgTree.pl --check-external-programs";
+				String callBcgTree = "perl " + getBaseBcgTreeDir()
+						+ File.separator + "bin" + File.separator + "bcgTree.pl --check-external-programs";
 				for (String p : programPaths.keySet()) {
 					String path = programPaths.get(p).getText();
 					if (!path.equals("")) {

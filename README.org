@@ -231,6 +231,7 @@ These are some tools with similar goals and approaches. If you know another one,
 *** v1.2.0 <TBD>
  - Add parameter ~--genome~ with translation via ~prodigal~ (#15)
  - Update and improve documentation (#19, #35, #38)
+ - Make GUI independent of working directory (#33)
 *** v1.1.0 <2018-07-19 Do>
  - Breaking: the default aa substitution model for RAxML changed from WAG to AUTO.
    This has an impact on performance (it is faster to set this parameter to a fixed value).
