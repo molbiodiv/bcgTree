@@ -11,7 +11,7 @@ use File::Path qw(make_path);
 use File::Spec;
 use Fasta::Parser;
 
-our $VERSION = '1.1.0';
+our $VERSION = '1.2.0';
 
 my $L = Log::Log4perl::get_logger();
 
@@ -42,6 +42,10 @@ sub check_existence_of_fasta_files{
 	my %proteome = %{$self->{proteome}};
 	foreach(keys %proteome){
 	    $L->logdie("File not found: ".$proteome{$_}) unless(-f $proteome{$_});
+	}
+	my %genome = %{$self->{genome}};
+	foreach(keys %genome){
+	    $L->logdie("File not found: ".$genome{$_}) unless(-f $genome{$_});
 	}
 }
 
@@ -104,6 +108,25 @@ sub rename_fasta_headers{
 	print OUT "$_\t".$self->{proteome_map}{$_}."\n" foreach(keys %{$self->{proteome_map}});
 	close OUT or $L->logdie("Error closing $out/proteome_id_map. $!");
 	$L->info("Finished: Writing of proteome_id map.");
+}
+
+=head2 translate_genomes_to_proteomes
+
+This function calls prodigal on every genome to translate it into proteome (adding the file to the proteome list afterwards)
+
+=cut
+
+sub translate_genomes_to_proteomes{
+	my $self = shift;
+	my %genome = %{$self->{genome}};
+	my $out = $self->{outdir};
+	$L->info("Translating genome fasta files ...");
+	foreach my $g (sort keys %genome){
+		my $cmd = $self->{'prodigal-bin'}." -i ".$genome{$g}." -o $out/$g.prodigal.genes -a $out/$g.prodigal.faa";
+		$self->run_command($cmd, "translating $g");
+		$self->{proteome}{$g} = "$out/$g.prodigal.faa"
+	}
+	$L->info("All genome fasta files translated.");
 }
 
 sub run_hmmsearch{
