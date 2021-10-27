@@ -220,6 +220,8 @@ The font is from [[fontlibrary.org]]:
  - [[https://fontlibrary.org/en/font/ranchers][Ranchers]] ([[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL][SIL Open Font License]])
 ** Changes
 [[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
+*** v1.2.0 <TBD>
+ - Add parameter ~--genome~ with translation via ~prodigal~ (#15)
 *** v1.1.0 <2018-07-19 Do>
  - Breaking: the default aa substitution model for RAxML changed from WAG to AUTO.
    This has an impact on performance (it is faster to set this parameter to a fixed value).
