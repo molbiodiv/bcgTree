@@ -232,6 +232,7 @@ These are some tools with similar goals and approaches. If you know another one,
  - Add parameter ~--genome~ with translation via ~prodigal~ (#15)
  - Update and improve documentation (#19, #35, #38, #44)
  - Make GUI independent of working directory (#33)
+ - Switch CI from Travis to GitHub Actions (#45)
 *** v1.1.0 <2018-07-19 Do>
  - Breaking: the default aa substitution model for RAxML changed from WAG to AUTO.
    This has an impact on performance (it is faster to set this parameter to a fixed value).
