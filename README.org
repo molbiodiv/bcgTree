@@ -227,7 +227,7 @@ These are some tools with similar goals and approaches. If you know another one,
  - [[https://www.ezbiocloud.net/tools/ubcg][UBCG]] - by Na, S. I., Kim, Y. O., Yoon, S. H., Ha, S. M., Baek, I. & Chun, J. (2018). UBCG: Up-to-date bacterial core gene set and pipeline for phylogenomic tree reconstruction. J Microbiol 56. [[https://doi.org/10.1007/s12275-018-8014-6][Paper]]
 
 ** Changes
-[[https://travis-ci.org/molbiodiv/bcgTree][https://travis-ci.org/molbiodiv/bcgTree.svg?branch=master]]
+[[https://github.com/molbiodiv/bcgTree/actions/workflows/test_perl.yml][https://github.com/molbiodiv/bcgTree/actions/workflows/test_perl.yml/badge.svg?branch=master]]
 *** v1.2.0 <TBD>
  - Add parameter ~--genome~ with translation via ~prodigal~ (#15)
  - Update and improve documentation (#19, #35, #38, #44)
