@@ -95,7 +95,15 @@ Options:
 
     --proteome <ORGANISM>=<FASTA> [--proteome <ORGANISM>=<FASTA> ..]
                              Multiple pairs of organism and proteomes as
-                             fasta file paths
+                             peptide fasta file paths Attention: If you
+                             provide a proteome and genome with the same
+                             name, only the genome will be used.
+
+    --genome <ORGANISM>=<FASTA> [--genome <ORGANISM>=<FASTA> ..]
+                             Multiple pairs of organism and genomes as
+                             nucleotide fasta file paths. Attention: If you
+                             provide a proteome and genome with the same
+                             name, only the genome will be used.
 
     [--outdir <STRING>]      output directory for the generated output files
                              (default: bcgTree)
@@ -125,6 +133,10 @@ Options:
 
     [--raxml-bin=<FILE>]     Path to the raxml binary file. Default tries if
                              raxmlHPC is in PATH;
+
+    [--prodigal-bin=<FILE>]
+        Path to the prodigal binary file. Default tries if prodigal is in
+        PATH;
 
     [--threads=<INT>]
         Number of threads to be used (currently only relevant for raxml).
