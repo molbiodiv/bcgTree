@@ -11,7 +11,7 @@ authors:
     orcid: 0000-0001-5716-3634
     affiliation: "Center for Computational and Theoretical Biology, University of Würzburg, Germany"
 title: bcgTree
-version: 1.2.0
+version: 1.2.1
 doi: 10.5281/zenodo.597913
 date-released: 2021-10-27
 repository-code: https://github.com/molbiodiv/bcgTree
