@@ -239,6 +239,8 @@ These are some tools with similar goals and approaches. If you know another one,
 
 ** Changes
 [[https://github.com/molbiodiv/bcgTree/actions/workflows/test_perl.yml][https://github.com/molbiodiv/bcgTree/actions/workflows/test_perl.yml/badge.svg?branch=master]]
+*** v1.2.1 <2024-01-03>
+ - Fix issue in GUI if no proteome is provided (#50)
 *** v1.2.0 <2021-10-27>
  - Add parameter ~--genome~ with translation via ~prodigal~ (#15)
  - Update and improve documentation (#19, #35, #38, #44)
