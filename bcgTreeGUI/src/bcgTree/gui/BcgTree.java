@@ -65,7 +65,8 @@ public class BcgTree extends JFrame {
 	private String prodigal_bin = "";
 	private TextArea logTextArea;
 	private JPanel proteomesPanel;
-	private Map<JTextField, String> proteomeTextFields;
+	private HashMap<JTextField, String> proteomeTextFields = new HashMap<JTextField, String>();
+	private HashMap<JTextField, String> genomeTextFields = new HashMap<JTextField, String>();
 	private JTextField outdirTextField;
 	private JProgressBar progressBar;
 	private BcgTree self;
@@ -309,8 +310,9 @@ public class BcgTree extends JFrame {
 			// Clear Textfield
 			logTextArea.setText("");
 			logTextArea.setForeground(Color.BLACK);
-			// Apply changes to proteome names
+			// Apply changes to proteome and genome names
 			renameProteomes();
+			renameGenomes();
 			// create outdir and write options file there:
 			outdir = outdirTextField.getText();
 			new File(outdir).mkdirs();
@@ -428,7 +430,6 @@ public class BcgTree extends JFrame {
 			genomeAddAction();
 		}
 	};
-	private HashMap<JTextField, String> genomeTextFields;
 
 	public void proteomeAddAction() {
 		JFileChooser chooser = new JFileChooser();
