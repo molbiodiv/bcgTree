@@ -8,3 +8,4 @@ tmp/
 cover_db/
 .pydevproject
 *~
+.vscode
