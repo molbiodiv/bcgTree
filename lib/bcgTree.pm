@@ -221,7 +221,7 @@ sub run_muscle_and_gblocks{
 	$L->info("Running muscle and Gblocks on gene sets.");
 	foreach my $gene (@genes){
 		# muscle
-		my $cmd = $self->{'muscle-bin'}." -in $out/$gene.fa -out $out/$gene.aln";
+		my $cmd = $self->{'muscle-bin'}." -align $out/$gene.fa -output $out/$gene.aln";
 		$self->run_command($cmd, "muscle on $gene");
 		# Gblocks
 		$cmd = $self->{'gblocks-bin'}." $out/$gene.aln -t=p -b4=4 -b5=h";
