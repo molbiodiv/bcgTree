@@ -11,7 +11,7 @@ use File::Path qw(make_path);
 use File::Spec;
 use Fasta::Parser;
 
-our $VERSION = '1.2.1';
+our $VERSION = '1.3.0';
 
 my $L = Log::Log4perl::get_logger();
 
