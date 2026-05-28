@@ -5,13 +5,23 @@
     <!--define folder properties-->
     <property name="dir.buildfile" value="."/>
     <property name="dir.jarfile" value="${dir.buildfile}"/>
-    <target name="create_run_jar">
+    <!-- Compile: javac -cp lib/swingx-all-1.6.5-1.jar -d bin $(find src -name "*.java") -->
+    <!-- Run:     java -cp bin:res:lib/swingx-all-1.6.5-1.jar bcgTree.gui.BcgTree -->
+    <target name="compile">
+        <mkdir dir="${dir.jarfile}/bin"/>
+        <javac srcdir="${dir.jarfile}/src" destdir="${dir.jarfile}/bin"
+               classpath="${dir.jarfile}/lib/swingx-all-1.6.5-1.jar"
+               includeantruntime="false"/>
+    </target>
+
+    <target name="create_run_jar" depends="compile">
         <jar destfile="${dir.jarfile}/bcgTree.jar" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Main-Class" value="bcgTree.gui.BcgTree"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
             <fileset dir="${dir.jarfile}/bin"/>
+            <fileset dir="${dir.jarfile}/res"/>
             <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/lib/swingx-all-1.6.5-1.jar"/>
         </jar>
     </target>
