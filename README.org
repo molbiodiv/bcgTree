@@ -238,7 +238,7 @@ These are some tools with similar goals and approaches. If you know another one,
  - [[https://www.ezbiocloud.net/tools/ubcg][UBCG]] - by Na, S. I., Kim, Y. O., Yoon, S. H., Ha, S. M., Baek, I. & Chun, J. (2018). UBCG: Up-to-date bacterial core gene set and pipeline for phylogenomic tree reconstruction. J Microbiol 56. [[https://doi.org/10.1007/s12275-018-8014-6][Paper]]
 
 ** Development
-
+*** Test perl code
 #+BEGIN_SRC sh
 # Make sure you have all the external tools installed (see above)
 # Install perl dependencies
@@ -246,6 +246,9 @@ cpanm .
 # Run tests
 prove
 #+END_SRC
+
+*** Build java code and jar
+Run src_sh{ant} in the bcgTreeGUI folder to compile src to bin and build the bcgTree.jar file.
 
 ** Changes
 [[https://github.com/molbiodiv/bcgTree/actions/workflows/test_perl.yml][https://github.com/molbiodiv/bcgTree/actions/workflows/test_perl.yml/badge.svg?branch=master]]
