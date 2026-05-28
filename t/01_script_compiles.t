@@ -4,6 +4,7 @@ use warnings;
 use Test::More tests=>3;
 use Test::Script;
 use FindBin;
+use lib "$FindBin::RealBin/../lib";
 
 # Test for use of cpgTree module and existence of script
 BEGIN { use_ok('bcgTree') };
