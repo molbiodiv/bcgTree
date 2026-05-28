@@ -228,9 +228,14 @@ sub run_muscle_and_gblocks{
 		# Ignore exit code for Gblocks as this is always 1, rather test for error string manually.
 		my $r = $self->run_command($cmd, "Gblocks on $gene", 1);
 		$L->logdie("ERROR: Gblocks on $gene failed") if($r=~/Execution terminated/);
+		# Remove .fa suffix if present (created by Gblocks 1.0)
+		# because we create the fa file from it without spaces
+		my $gbout = "$out/$gene.aln-gb";
+		my $faout = "$out/$gene.aln-gb.fa";
+		rename($faout, $gbout) if -f $faout;
 		# Removel of unnecessary spaces
-		my $seqIn = Fasta::Parser->new(file => "$out/$gene.aln-gb", mode => "<");
-		my $seqOut = Fasta::Parser->new(file => "$out/$gene.aln-gb.fa", mode => ">");
+		my $seqIn = Fasta::Parser->new(file => $gbout, mode => "<");
+		my $seqOut = Fasta::Parser->new(file => $faout, mode => ">");
 		while(my $seq = $seqIn->next_seq){
 			$seq->id($proteome_id_map{$seq->id()});
 			my $s = $seq->seq;
