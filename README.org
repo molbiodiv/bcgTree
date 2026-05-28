@@ -240,7 +240,8 @@ These are some tools with similar goals and approaches. If you know another one,
 ** Development
 
 #+BEGIN_SRC sh
-# Install dependencies
+# Make sure you have all the external tools installed (see above)
+# Install perl dependencies
 cpanm .
 # Run tests
 prove
